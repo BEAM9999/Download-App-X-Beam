@@ -1,0 +1,16 @@
+# FAN OpenRouter Import Example
+# 1 block = 1 model entry
+# เว้นบรรทัดว่างระหว่างแต่ละ block
+# name ไม่บังคับ แต่ model กับ key ควรมีเพื่อให้ใช้งานได้จริง
+
+name=GPT OSS Free Demo
+model=openai/gpt-oss-20b:free
+key=sk-or-v1-FAKE-DEMO-KEY-0000000000000001
+
+name=DeepSeek Free Demo
+model=deepseek/deepseek-chat-v3-0324:free
+key=sk-or-v1-FAKE-DEMO-KEY-0000000000000002
+
+name=Qwen Demo
+model=qwen/qwen3-32b:free
+key=sk-or-v1-FAKE-DEMO-KEY-0000000000000003

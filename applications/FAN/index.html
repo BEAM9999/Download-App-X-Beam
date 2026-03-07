@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#ff6b9d">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="FAN">
+  <meta name="description" content="FAN – คำนวณอายุและวันครบรอบ บีม ❤️ เนย">
+  <title>FAN – บีม ❤️ เนย</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/favicon.ico">
+  <link rel="apple-touch-icon" href="icons/favicon-touch.png">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="theme-customizer.css">
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <div class="fan-theme-backdrop" id="fanThemeBackdrop" aria-hidden="true"></div>
+
+  <!-- ═══ หน้าจอ 1: เลือกโปรไฟล์ ═══ -->
+  <div class="screen active" id="screenLanding">
+    <header class="topbar">
+      <img src="icons/favicon.ico" alt="FAN" width="36" height="36" class="topbar-icon">
+      <h1 class="topbar-title">FAN</h1>
+      <div class="topbar-actions">
+        <button class="topbar-icon-btn js-open-theme-settings" type="button" title="ตั้งค่าธีม">⚙️</button>
+      </div>
+    </header>
+    <div class="status-bar" id="statusBar"></div>
+
+    <div class="landing">
+      <div class="landing-hero">
+        <div class="emoji-spin-slow">❤️</div>
+        <h2 class="landing-title">บีม & เนย</h2>
+        <p class="landing-sub">เลือกโปรไฟล์เพื่อดูข้อมูล</p>
+      </div>
+
+      <div class="profile-cards">
+        <button class="profile-card beam" id="pickBeam">
+          <div class="profile-avatar">👦</div>
+          <div class="profile-name">บีม</div>
+          <div class="profile-role">ผู้ชาย</div>
+          <div class="profile-arrow">→</div>
+        </button>
+        <button class="profile-card noey" id="pickNoey">
+          <div class="profile-avatar">👧</div>
+          <div class="profile-name">เนย</div>
+          <div class="profile-role">ผู้หญิง</div>
+          <div class="profile-arrow">→</div>
+        </button>
+      </div>
+
+      <button class="anniversary-btn" id="pickAnniv">
+        <span class="emoji-spin">💘</span>
+        <span>ดูวันครบรอบของเรา</span>
+        <span class="profile-arrow">→</span>
+      </button>
+
+      <div class="landing-clock">
+        <div class="rt-clock" id="landingClock">--:--:--</div>
+        <div class="rt-date" id="landingDate"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ หน้าจอ 2: แสดงข้อมูล ═══ -->
+  <div class="screen" id="screenStats">
+    <header class="topbar">
+      <button class="back-btn" id="btnBack">← กลับ</button>
+      <h1 class="topbar-title" id="statsTitle">...</h1>
+      <div class="topbar-actions">
+        <button class="topbar-icon-btn js-open-theme-settings" type="button" title="ตั้งค่าธีม">⚙️</button>
+      </div>
+    </header>
+    <div class="status-bar" id="statusBar2"></div>
+
+    <div class="stats-wrap" id="statsWrap">
+      <!-- ถูกแทรกจาก JS -->
+    </div>
+
+    <section class="realtime-section">
+      <div class="rt-clock" id="rtClock">--:--:--</div>
+      <div class="rt-date" id="rtDate"></div>
+    </section>
+
+    <footer class="footer">
+      สร้างด้วย ❤️ โดย <a href="#">BEAM</a> · FAN v2.0
+    </footer>
+  </div>
+
+  <!-- FAB: เปิดแชทแฟนจำลอง (ต้องอยู่นอก .screen เพื่อ position:fixed ทำงานบนมือถือ) -->
+  <button class="chat-fab hidden" id="chatFab" title="แชทแฟนจำลอง">
+    <span class="fab-icon">💬</span>
+    <span class="fab-pulse"></span>
+  </button>
+
+  <!-- ═══ PWA Install Banner ═══ -->
+  <div class="pwa-banner" id="pwaBanner" style="display:none">
+    <img src="icons/favicon.ico" class="pwa-banner-icon" alt="">
+    <div class="pwa-banner-text">
+      <strong>ติดตั้ง FAN เป็นแอป</strong>
+      <span id="pwaBannerSub">ใช้งานได้ offline · เร็วกว่าเบราว์เซอร์</span>
+    </div>
+    <button class="pwa-install-btn" id="pwaInstallBtn" onclick="installPWA()">ติดตั้ง</button>
+    <button class="pwa-dismiss-btn" id="pwaDismissBtn">✕</button>
+  </div>
+
+  <!-- ป้ายแจ้งอัปเดต -->
+  <div class="update-toast" id="updateToast">🔄 มีเวอร์ชันใหม่ กดเพื่ออัปเดต</div>
+
+  <!-- Modal อวยพรวันสำคัญ -->
+  <div class="greet-overlay" id="greetOverlay">
+    <div class="greet-card">
+      <div class="greet-emoji" id="greetEmoji"></div>
+      <div class="greet-title" id="greetTitle"></div>
+      <div class="greet-text" id="greetText"></div>
+      <button class="greet-btn" id="greetClose">รับทราบแล้ว 💕</button>
+    </div>
+  </div>
+
+  <div class="fan-settings-overlay" id="fanThemeOverlay">
+    <div class="fan-settings-panel" role="dialog" aria-modal="true" aria-labelledby="fanThemePanelTitle">
+      <div class="fan-settings-head">
+        <div>
+          <div class="fan-settings-kicker">Theme Studio</div>
+          <h2 class="fan-settings-title" id="fanThemePanelTitle">แต่งหน้า FAN</h2>
+          <p class="fan-settings-sub">ปรับ preset, สี custom และพื้นหลัง emoji ให้หน้าแรกกับแชทใช้ชุดเดียวกัน</p>
+        </div>
+        <button class="fan-settings-close" id="btnCloseThemeSettings" type="button" aria-label="ปิด">✕</button>
+      </div>
+      <div class="fan-settings-scroll">
+        <div id="fanThemeCustomizer"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="theme-customizer.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

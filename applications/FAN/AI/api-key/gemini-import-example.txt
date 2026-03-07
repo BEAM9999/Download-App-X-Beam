@@ -1,0 +1,9 @@
+# FAN Gemini Import Example
+# ใส่ได้หลาย block คั่นด้วยบรรทัดว่าง
+# ระบบจะอ่าน key= หรือบรรทัดที่เป็นคีย์ตรงๆ ก็ได้
+
+key=AIzaSyFAKE_DEMO_KEY_0000000000000001
+
+key=AIzaSyFAKE_DEMO_KEY_0000000000000002
+
+key=AIzaSyFAKE_DEMO_KEY_0000000000000003

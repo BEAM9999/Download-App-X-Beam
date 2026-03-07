@@ -1,0 +1,71 @@
+{
+  "lastUpdated": "2026-03-06T22:04:06.735Z",
+  "generatedBy": "scan.js",
+  "apps": [
+    {
+      "id": "FAN",
+      "name": "FAN – บีม ❤️ เนย",
+      "description": "FAN – คำนวณอายุและวันครบรอบ บีม ❤️ เนย",
+      "category": "applications",
+      "icon": "applications/FAN/icons/favicon.ico",
+      "url": "applications/FAN/index.html",
+      "version": "2.2",
+      "author": "BEAM"
+    },
+    {
+      "id": "web_C2-Sub",
+      "name": "C2 Sub – Download &amp; Edit Subtitles",
+      "description": "เว็บไซต์ภายนอก",
+      "category": "websites",
+      "icon": "https://beam9999.github.io/C2-Sub/favicon-96x96.png?v=2",
+      "url": "https://beam9999.github.io/C2-Sub/",
+      "version": "",
+      "author": "BEAM",
+      "external": true
+    },
+    {
+      "id": "web_C2-Remover-PNG",
+      "name": "ลบพื้นหลังรูปภาพ | AI Background Remover ฟรี",
+      "description": "เว็บไซต์ภายนอก",
+      "category": "websites",
+      "icon": "https://beam9999.github.io/C2-Remover-PNG/Remover.png?v=2",
+      "url": "https://beam9999.github.io/C2-Remover-PNG/",
+      "version": "",
+      "author": "BEAM",
+      "external": true
+    },
+    {
+      "id": "web_C2X-Temporary-SMS-",
+      "name": "💬 C2Xเบอร์โทรชั่วคราว - Temp SMS",
+      "description": "เว็บไซต์ภายนอก",
+      "category": "websites",
+      "icon": "https://beam9999.github.io/C2X-Temporary-SMS-/favicon-96x96.png?v=2",
+      "url": "https://beam9999.github.io/C2X-Temporary-SMS-/",
+      "version": "",
+      "author": "BEAM",
+      "external": true
+    },
+    {
+      "id": "web_Temporary-Email-Addresses",
+      "name": "� C2X อีเมลชั่วคราว - Temp Email",
+      "description": "เว็บไซต์ภายนอก",
+      "category": "websites",
+      "icon": "https://beam9999.github.io/Temporary-Email-Addresses/favicon-96x96.png?v=2",
+      "url": "https://beam9999.github.io/Temporary-Email-Addresses/",
+      "version": "",
+      "author": "BEAM",
+      "external": true
+    },
+    {
+      "id": "web_Add-on-Minecraft-BEAM",
+      "name": "ดาวน์โหลด Add-on Minecraft",
+      "description": "เว็บไซต์ภายนอก",
+      "category": "websites",
+      "icon": "https://beam9999.github.io/Add-on-Minecraft-BEAM/favicon-96x96.png",
+      "url": "https://beam9999.github.io/Add-on-Minecraft-BEAM/",
+      "version": "",
+      "author": "BEAM",
+      "external": true
+    }
+  ]
+}

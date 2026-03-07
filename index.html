@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#4facfe">
+  <meta name="description" content="Download App X Beam — ศูนย์รวมแอปและเกมโดย BEAM">
+  <title>Download App X Beam</title>
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- iOS / Apple -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="App X Beam">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+
+  <!-- Android / Chrome (legacy) -->
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <!-- Windows Tiles -->
+  <meta name="msapplication-TileColor" content="#0d0d1a">
+  <meta name="msapplication-TileImage" content="icons/icon-192.png">
+
+  <link rel="icon" href="icons/icon-192.png" type="image/png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ═══ Particles ═══ -->
+  <div class="particles" id="particles"></div>
+
+  <!-- ═══ Header ═══ -->
+  <header class="header" id="header">
+    <div class="header-inner">
+      <div class="header-brand">
+          <img src="icons/icon-192.png" class="brand-icon" alt="Download App X Beam icon">
+        <div>
+          <h1 class="brand-name">Download App X Beam</h1>
+          <p class="brand-sub">แอปและเกมโดย BEAM</p>
+        </div>
+      </div>
+    </div>
+    <div class="search-wrap">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" class="search-input" placeholder="ค้นหาแอปหรือเกม...">
+        <button class="search-clear" id="searchClear" style="display:none">✕</button>
+      </div>
+    </div>
+    <div class="tabs-wrap">
+      <nav class="tabs">
+        <button class="tab active" data-cat="all">ทั้งหมด</button>
+        <button class="tab" data-cat="applications">📱 แอปพลิเคชัน</button>
+        <button class="tab" data-cat="games">🎮 เกม</button>
+        <button class="tab" data-cat="websites">🌐 เว็บภายนอก</button>
+        <button class="tab" data-cat="local-websites">🏠 เว็บภายใน</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ═══ Featured Banner ═══ -->
+  <section class="featured" id="featured">
+    <!-- ถูกแทรกจาก JS -->
+  </section>
+
+  <!-- ═══ App Grid ═══ -->
+  <section class="section" id="appsSection">
+    <h2 class="section-title" id="sectionTitle">📱 แอปพลิเคชัน</h2>
+    <div class="app-grid" id="appGrid">
+      <!-- ถูกแทรกจาก JS -->
+    </div>
+  </section>
+
+  <section class="section" id="gamesSection">
+    <h2 class="section-title" id="gamesTitle">🎮 เกม</h2>
+    <div class="app-grid" id="gameGrid">
+      <!-- ถูกแทรกจาก JS -->
+    </div>
+  </section>
+
+  <section class="section" id="websSection">
+    <h2 class="section-title" id="websTitle">🌐 เว็บไซต์ภายนอก</h2>
+    <div class="app-grid" id="webGrid">
+      <!-- ถูกแทรกจาก JS -->
+    </div>
+  </section>
+
+  <section class="section" id="localWebsSection">
+    <h2 class="section-title" id="localWebsTitle">🏠 เว็บไซต์ภายใน</h2>
+    <div class="app-grid" id="localWebGrid">
+      <!-- ถูกแทรกจาก JS -->
+    </div>
+  </section>
+
+  <!-- ═══ Empty state ═══ -->
+  <div class="empty-state" id="emptyState" style="display:none">
+    <div style="font-size:3rem;margin-bottom:12px">📭</div>
+    <div style="font-weight:600;margin-bottom:4px">ไม่พบแอปพลิเคชัน</div>
+    <div style="font-size:.85rem;color:var(--text2)">ลองค้นหาด้วยคำอื่นหรือเปลี่ยนหมวดหมู่</div>
+  </div>
+
+  <!-- ═══ App Detail Modal ═══ -->
+  <div class="modal-overlay" id="modal" style="display:none">
+    <div class="modal-card" id="modalCard">
+      <button class="modal-close" id="modalClose">✕</button>
+      <div class="modal-header" id="modalHeader"></div>
+      <div class="modal-preview" id="modalPreview"></div>
+      <div class="modal-info" id="modalInfo"></div>
+    </div>
+  </div>
+
+  <!-- ═══ Footer ═══ -->
+  <footer class="footer">
+    <p>Download App X Beam · สร้างโดย <span style="color:var(--pink)">BEAM</span></p>
+    <p style="font-size:.7rem;margin-top:4px;color:var(--text2)">โฮสต์บน GitHub Pages · ฟรี</p>
+  </footer>
+
+  <!-- ═══ PWA Install Banner ═══ -->
+  <div class="pwa-banner" id="pwaBanner" style="display:none">
+    <img src="icons/icon-192.png" class="pwa-banner-icon" alt="">
+    <div class="pwa-banner-text">
+      <strong>ติดตั้ง Download App X Beam</strong>
+      <span id="pwaBannerSub">ใช้งานได้ offline · เร็วกว่าเบราว์เซอร์</span>
+    </div>
+    <button class="pwa-install-btn" id="pwaInstallBtn" onclick="installPWA()">ติดตั้ง</button>
+    <button class="pwa-dismiss-btn" onclick="document.getElementById('pwaBanner').style.display='none'">✕</button>
+  </div>
+
+  <script src="store.js"></script>
+  <script>
+    // ─── Service Worker registration ───────────────────
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>

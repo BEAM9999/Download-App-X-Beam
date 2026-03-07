@@ -1,0 +1,169 @@
+/* ══════════════════════════════════════════════════════════════
+   Download App X Beam — style.css
+   ══════════════════════════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;600;700;800&display=swap');
+
+:root {
+  --bg1:#0d0d1a; --bg2:#1a1a2e; --bg3:#16213e;
+  --pink:#ff6b9d; --pink2:#ff8ec4; --gold:#ffd700; --blue:#4facfe; --green:#3ddc84;
+  --card:rgba(255,255,255,.05); --border:rgba(255,255,255,.08);
+  --text:#eee8ff; --text2:#9a8cbf;
+  --radius:18px;
+  --font:'Noto Sans Thai','Segoe UI',system-ui,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px}
+body{font-family:var(--font);background:linear-gradient(160deg,var(--bg1),var(--bg2),var(--bg3));color:var(--text);min-height:100dvh;-webkit-tap-highlight-color:transparent}
+
+/* ── Particles ── */
+.particles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.particle{position:absolute;border-radius:50%;opacity:.08;animation:pFloat linear infinite}
+@keyframes pFloat{0%{transform:translateY(100vh) scale(0);opacity:0}10%{opacity:.08}90%{opacity:.08}100%{transform:translateY(-10vh) scale(1);opacity:0}}
+
+/* ── Header ── */
+.header{position:sticky;top:0;z-index:100;background:rgba(13,13,26,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding-bottom:0}
+.header-inner{display:flex;align-items:center;padding:16px 18px 10px}
+.header-brand{display:flex;align-items:center;gap:10px}
+.brand-icon{width:42px;height:42px;border-radius:12px;display:block;object-fit:cover;flex-shrink:0;box-shadow:0 6px 18px rgba(0,0,0,.18)}
+.brand-name{font-size:1.15rem;font-weight:800;background:linear-gradient(90deg,var(--blue),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.brand-sub{font-size:.7rem;color:var(--text2)}
+
+/* ── Search ── */
+.search-wrap{padding:0 18px 10px}
+.search-box{display:flex;align-items:center;gap:8px;padding:10px 14px;background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:14px;transition:border-color .3s}
+.search-box:focus-within{border-color:var(--blue)}
+.search-icon{font-size:1rem;flex-shrink:0}
+.search-input{flex:1;background:none;border:none;color:var(--text);font-family:var(--font);font-size:.9rem;outline:none}
+.search-input::placeholder{color:var(--text2)}
+.search-clear{background:none;border:none;color:var(--text2);font-size:1rem;cursor:pointer;padding:0 4px}
+
+/* ── Tabs ── */
+.tabs-wrap{
+  position:relative;
+  /* fade gradient on right — บอกว่ายังมี tab ให้เลื่อน */
+  -webkit-mask-image:linear-gradient(to right,black 85%,transparent 100%);
+  mask-image:linear-gradient(to right,black 85%,transparent 100%);
+}
+/* หยุด fade เมื่อเลื่อนถึงสุด */
+.tabs-wrap.scrolled-end{
+  -webkit-mask-image:none;
+  mask-image:none;
+}
+.tabs{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;padding:0 18px 0 18px;
+  -webkit-overflow-scrolling:touch;
+  scroll-behavior:smooth;
+}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:10px 18px;background:none;border:none;border-bottom:2px solid transparent;color:var(--text2);font-family:var(--font);font-size:.85rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .3s}
+.tab.active{color:var(--blue);border-bottom-color:var(--blue)}
+.tab:hover{color:var(--text)}
+
+/* ── Featured banner ── */
+.featured{padding:18px;max-width:640px;margin:0 auto}
+.feat-banner{position:relative;border-radius:var(--radius);overflow:hidden;background:linear-gradient(135deg,rgba(79,172,254,.15),rgba(255,107,157,.12));border:1px solid rgba(79,172,254,.2);padding:24px 20px;display:flex;align-items:center;gap:16px;cursor:pointer;transition:transform .3s,box-shadow .3s}
+.feat-banner:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,0,0,.3)}
+.feat-banner:active{transform:scale(.98)}
+.feat-icon{width:72px;height:72px;border-radius:18px;flex-shrink:0;background:var(--card);display:flex;align-items:center;justify-content:center;font-size:2.5rem;overflow:hidden}
+.feat-icon img{width:100%;height:100%;object-fit:cover;border-radius:18px}
+.feat-info{flex:1}
+.feat-badge{display:inline-block;background:var(--gold);color:#000;font-size:.6rem;font-weight:700;padding:2px 8px;border-radius:8px;margin-bottom:6px}
+.feat-name{font-size:1.15rem;font-weight:700}
+.feat-desc{font-size:.78rem;color:var(--text2);margin-top:2px}
+.feat-install{padding:8px 20px;background:var(--blue);color:#fff;border:none;border-radius:50px;font-family:var(--font);font-size:.8rem;font-weight:600;cursor:pointer;transition:transform .2s;flex-shrink:0}
+.feat-install:active{transform:scale(.92)}
+
+/* ── Section ── */
+.section{padding:8px 18px 12px;max-width:640px;margin:0 auto}
+.section-title{font-size:1.05rem;font-weight:700;margin-bottom:12px}
+
+/* ── App grid ── */
+.app-grid{display:grid;grid-template-columns:1fr;gap:12px}
+/* ≥ 480px: 2 columns เสมอ — ใช้ minmax เพื่อไม่ให้ card แคบเกินไป */
+@media(min-width:480px){.app-grid{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}}
+
+/* ── App card ── */
+.app-card{display:flex;align-items:center;gap:12px;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:16px;cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden}
+.app-card:hover{border-color:rgba(79,172,254,.3);box-shadow:0 6px 24px rgba(0,0,0,.25);transform:translateY(-2px)}
+.app-card:active{transform:scale(.97)}
+.app-icon{width:56px;height:56px;border-radius:14px;flex-shrink:0;background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;font-size:1.8rem;overflow:hidden}
+.app-icon img{width:100%;height:100%;object-fit:cover;border-radius:14px}
+.app-info{flex:1;min-width:0}
+.app-name{font-size:.9rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.app-desc{font-size:.72rem;color:var(--text2);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.app-meta{display:flex;align-items:center;gap:6px;margin-top:4px}
+.app-cat-badge{font-size:.6rem;padding:2px 7px;border-radius:6px;font-weight:600}
+.app-cat-badge.applications{background:rgba(79,172,254,.15);color:var(--blue)}
+.app-cat-badge.games{background:rgba(61,220,132,.15);color:var(--green)}
+.app-cat-badge.websites{background:rgba(255,165,0,.15);color:#ffa500}
+.app-cat-badge.local-websites{background:rgba(61,220,132,.15);color:#3ddc84}
+.app-version{font-size:.6rem;color:var(--text2)}
+.app-get{padding:6px 16px;background:rgba(79,172,254,.15);color:var(--blue);border:none;border-radius:50px;font-family:var(--font);font-size:.75rem;font-weight:600;cursor:pointer;flex-shrink:0;transition:all .2s}
+.app-get:hover{background:var(--blue);color:#fff}
+.app-get:active{transform:scale(.9)}
+
+/* ── Web card + ext badge ── */
+.ext-badge{display:inline-block;font-size:.55rem;padding:1px 5px;border-radius:4px;background:rgba(255,165,0,.15);color:#ffa500;margin-left:4px;vertical-align:middle;font-weight:600}
+.web-card .app-get{background:rgba(255,165,0,.15);color:#ffa500}
+.web-card .app-get:hover{background:#ffa500;color:#fff}
+.web-notice{background:rgba(255,165,0,.1);border:1px solid rgba(255,165,0,.2);border-radius:10px;padding:10px 14px;font-size:.78rem;color:#ffa500;margin-bottom:12px}
+
+/* ── Local-web card + local badge ── */
+.local-badge{display:inline-block;font-size:.55rem;padding:1px 5px;border-radius:4px;background:rgba(61,220,132,.15);color:#3ddc84;margin-left:4px;vertical-align:middle;font-weight:600}
+.local-web-card .app-get{background:rgba(61,220,132,.15);color:#3ddc84}
+.local-web-card .app-get:hover{background:#3ddc84;color:#000}
+
+/* ── Modal ── */
+.modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);display:flex;align-items:flex-end;justify-content:center;padding:0}
+@media(min-width:600px){.modal-overlay{align-items:center;padding:20px}}
+.modal-card{background:#14142a;border:1px solid var(--border);border-radius:var(--radius) var(--radius) 0 0;max-width:560px;width:100%;max-height:92vh;overflow-y:auto;animation:modalIn .35s ease;position:relative}
+@media(min-width:600px){.modal-card{border-radius:var(--radius)}}
+@keyframes modalIn{from{opacity:0;transform:translateY(60px)}to{opacity:1;transform:none}}
+.modal-close{position:absolute;top:12px;right:14px;background:rgba(255,255,255,.08);border:none;color:var(--text);font-size:1.1rem;width:32px;height:32px;border-radius:50%;cursor:pointer;z-index:1;transition:background .2s}
+.modal-close:hover{background:rgba(255,255,255,.15)}
+.modal-header{display:flex;align-items:center;gap:14px;padding:24px 20px 16px}
+.modal-header .m-icon{width:72px;height:72px;border-radius:18px;flex-shrink:0;background:var(--card);display:flex;align-items:center;justify-content:center;font-size:2.5rem;overflow:hidden}
+.modal-header .m-icon img{width:100%;height:100%;object-fit:cover;border-radius:18px}
+.modal-header .m-info{flex:1}
+.modal-header .m-name{font-size:1.2rem;font-weight:700}
+.modal-header .m-author{font-size:.78rem;color:var(--text2)}
+.modal-header .m-install{display:block;width:100%;margin-top:10px;padding:11px;background:var(--blue);color:#fff;border:none;border-radius:14px;font-family:var(--font);font-size:.95rem;font-weight:600;cursor:pointer;transition:transform .2s}
+.modal-header .m-install:active{transform:scale(.96)}
+
+.modal-preview{padding:0 20px;margin-bottom:16px}
+.modal-preview iframe{width:100%;height:420px;border:none;border-radius:14px;background:#000}
+
+.modal-info{padding:0 20px 24px}
+.modal-info h3{font-size:.95rem;font-weight:600;margin-bottom:8px}
+.modal-info p{font-size:.82rem;color:var(--text2);line-height:1.6;margin-bottom:12px}
+.modal-info .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.modal-info .info-item{background:var(--card);border-radius:10px;padding:10px;text-align:center}
+.modal-info .info-label{font-size:.65rem;color:var(--text2)}
+.modal-info .info-val{font-size:.85rem;font-weight:600;margin-top:2px}
+
+/* ── Empty state ── */
+.empty-state{text-align:center;padding:60px 20px;max-width:400px;margin:0 auto}
+
+/* ── Footer ── */
+.footer{text-align:center;padding:30px 20px 50px;font-size:.78rem;color:var(--text2)}
+
+/* ── Ripple ── */
+.ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.18);transform:scale(0);animation:ripAnim .5s ease-out;pointer-events:none}
+@keyframes ripAnim{to{transform:scale(3.5);opacity:0}}
+
+/* ── How-to install banner ── */
+.install-guide{margin:8px 18px 0;padding:14px 16px;background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.2);border-radius:14px;max-width:604px;margin-left:auto;margin-right:auto}
+.install-guide summary{font-size:.85rem;font-weight:600;cursor:pointer;color:var(--gold)}
+.install-guide .ig-body{margin-top:10px;font-size:.8rem;color:var(--text2);line-height:1.7}
+.install-guide .ig-body b{color:var(--text)}
+
+/* ── PWA Install Banner (bottom slide-up) ── */
+.pwa-banner{position:fixed;bottom:0;left:0;right:0;z-index:300;display:flex;align-items:center;gap:12px;padding:14px 16px;background:rgba(14,14,30,.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-top:1px solid rgba(79,172,254,.25);animation:pwaBannerIn .35s cubic-bezier(.4,0,.2,1);max-width:100%}
+@keyframes pwaBannerIn{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.pwa-banner-icon{width:44px;height:44px;border-radius:10px;flex-shrink:0}
+.pwa-banner-text{flex:1;min-width:0}
+.pwa-banner-text strong{display:block;font-size:.85rem;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pwa-banner-text span{display:block;font-size:.7rem;color:var(--text2);margin-top:1px}
+.pwa-install-btn{flex-shrink:0;padding:8px 18px;background:linear-gradient(135deg,var(--blue),var(--pink));color:#fff;border:none;border-radius:50px;font-family:var(--font);font-size:.82rem;font-weight:700;cursor:pointer;transition:opacity .2s}
+.pwa-install-btn:active{opacity:.8}
+.pwa-dismiss-btn{flex-shrink:0;background:none;border:none;color:var(--text2);font-size:1.1rem;padding:4px 8px;cursor:pointer;line-height:1}
+.pwa-dismiss-btn:hover{color:var(--text)}
