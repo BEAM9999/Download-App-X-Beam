@@ -440,6 +440,34 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);height:100%;
 .yt-link-label{font-size:.88rem;color:var(--text2);text-align:center;word-break:break-word;max-width:260px}
 .yt-open-btn{text-decoration:none}
 
+/* ── Universal App-link Widget ── */
+.fan-widget-applink{border-top:3px solid var(--app-color,#555)}
+.fan-widget-applink .widget-header{
+  background:var(--app-color,#555)22;
+  border-bottom:1px solid var(--app-color,#555)44;
+}
+.applink-body{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 16px 8px;
+}
+.applink-logo{
+  width:52px;height:52px;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.7rem;flex-shrink:0;
+  box-shadow:0 2px 8px rgba(0,0,0,.25);
+}
+.applink-info{display:flex;flex-direction:column;gap:3px;min-width:0}
+.applink-name{font-size:.95rem;font-weight:700;color:var(--text1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.applink-query{font-size:.8rem;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.applink-open-btn{
+  display:block;text-align:center;text-decoration:none;
+  margin:10px 12px 12px;padding:10px 0;border-radius:10px;
+  font-size:.88rem;font-weight:600;color:#fff;letter-spacing:.3px;
+  opacity:.95;transition:opacity .2s,transform .15s;
+}
+.applink-open-btn:hover{opacity:1;transform:scale(1.02)}
+.applink-open-btn:active{transform:scale(0.97)}
+
 /* ── Widget active/inactive states ── */
 .fan-widget.widget-active{border-color:rgba(61,220,132,.3)}
 .fan-widget.widget-inactive{opacity:.7}

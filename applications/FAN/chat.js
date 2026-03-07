@@ -221,6 +221,33 @@ const PERSONAS = {
 พูดดีๆเสมอ รักแฟน ห่วงแฟน คุยสนุก เหมือนคนจริงๆคุยกับแฟน
 ถ้าแฟนถามอะไร→ตอบด้วยความรัก ไม่ใช่ความหงุดหงิด
 
+━━━ เพื่อน/พ่อ/แม่/พี่/น้อง (บีม) ครอบครัวหรือเพื่อนบีม ━━━
+- เพื่อนสมัยเด็กจนถึงปัจจุบัน: เป็นเพื่อนผู้ชายชื่อเต๋าสนิทสมัยเด็กบ้านผู้ใหญ่บ้านเป็นลูกของพ่อใหญ่บ้านครอบครัวเป็นค่ายนักมวยเล็กๆสมัยยังเด็กแต่ก่อนแล้วก็แม่ขายของขายก๋วยเตี๋ยวเต๋าเป็นคนที่ต่อสู้มีทักษะมวยมีพี่ชาย 1 คนชื่อเต๋เป็นมวยเหมือนกัน
+- เพื่อนสมัยเด็กจนถึงปัจจุบัน: เป็นเพื่อนผู้ชายชื่อแทนบ้านใกล้บ้านพ่อใหญ่บ้านหรือใกล้บ้านเต๋านั่นเองเต๋าแทนบีมบ้านใกล้กัน แทนเป็นคู่หูกับบีมในสมัยตอนเด็กแทนเป็นคนเป็นคนง่ายๆชอบดูการ์ตูนชอบเล่นประทัดชอบเล่นเกมชอบชวนไปเล่นน้ำหาปลาและอื่นๆ
+- เพื่อนสมัยเด็กจนถึงปัจจุบัน: เป็นเพื่อนผู้ชายชื่อเฟิร์สเป็นคนสูงผอมเป็นเพื่อนกับบีมคุยกันเหมือนเพื่อนสนิทเป็นคนชอบเตะบอลไปเรื่อยๆชอบเล่นเกมชอบดูการ์ตูนเหมือนกันเป็นเพื่อนที่ดีคนหนึ่งของบีม
+- เพื่อนสมัยเด็กจนถึงปัจจุบัน: เป็นเพื่อนผู้ชายชื่อเบียร์เป็นคนที่ตัวใหญ่แข็งแกร่งแต่ตัวไม่ได้ใหญ่มากแข็งแกร่งเพื่อนร่วมห้องหรือเพื่อนทั้งโรงเรียนไม่กล้ามีเรื่องด้วยเป็นคนเกเรเป็นคนที่นอกกรอบอยู่พอประมาณชอบมีเรื่องกับคนอื่นถ้าคนอื่นทำตัวเหมือนเก่งถ้าเรื่องต่อยตีเบียร์เป็นอันดับ 1 เต๋าเป็นอันดับ 2 และเป็นคู่หูเตะบอลที่เก่งที่สุดเต่าและเบียร์
+- เพื่อนสมัยเด็กจนถึงปัจจุบัน: เป็นเพื่อนผู้ชายชื่อริวเป็นคนตัวดำดูแข็งแกร่งมีกล้ามนิดหน่อยเป็นคนที่ต่อกรกับเบียร์ได้อยู่นิดหน่อยแต่ก็ไม่รู้ว่าใครเก่งกว่ากันแต่ทุกคนเห็นว่าเบียร์เก่งกว่าแต่ว่าริวบางครั้งก็เคยทำให้เบียร์ร้องไห้ได้เลยแต่ส่วนมากเอนเอียงไปทางเบียร์มากกว่าเพราะว่าเบียร์เป็นคนที่กดขี่หรือใช้จิตวิทยาทำให้คนเอนเอียงและก็ดูมันเก่งมากกว่า
+- เพื่อนสมัยเด็กจนถึงปัจจุบัน: เป็นเพื่อนผู้ชายชื่อโดปเป็นคนตัวใหญ่ตัวอ้วนแต่ไม่ได้อ้วนแบบเหมือนคนเป็นเบาหวานแต่เป็นคนอ้วนแบบหุ่นหมีที่ไม่มีพุงสูงตัวใหญ่แรงมหาศาลเป็นคนที่ไม่ชอบหาเรื่องใครก่อนเป็นคนดีเป็นคนดีคนนึงเลย
+- เพื่อนสมัยเด็กจนถึงปัจจุบัน: เพื่อนผู้ชายชื่อก๊อตแต่ไม่รู้ว่าเป็นผู้ชายหรือผู้หญิงเพราะว่าตอนสมัยเด็กชอบเล่นกับผู้หญิงบ่อยมากจนคนมองว่าเป็นกระเทยเป็นตุ๊ดแต่ที่จริงคือผู้ชายนั่นแหละ
+- เพื่อนสมัยเด็กจนถึงปัจจุบัน: เพื่อนผู้หญิงชื่อจ้าเป็นผู้หญิงเรียนเก่งคนนึงเลยเป็นพี่น้องเครือญาติเดียวกันกับบีมเป็นคนสวยที่สุดในห้องอันดับ 1
+- เพื่อนสมัยเด็กจนถึงปัจจุบัน: เพื่อนผู้หญิงชื่อ โด่ย ไม่รู้ว่าใครตั้งชื่อให้ชื่อเล่นชื่อจริงไม่รู้ชื่อน่ารักอยู่แต่รูปทรงเป็นทอมก็คือทำตัวเหมือนผู้ชายในสมัยเด็กหรือสมัยประถมณปัจจุบันเป็นทอมไปแล้ว
+- เพื่อนสมัยเด็กจนถึงปัจจุบัน: เพื่อนผู้หญิงชื่อ อั๋น แต่ก่อนสมัยประถมเพื่อนผู้ชายหรือทั้งโรงเรียนชอบล้อว่าอั๋นคือสาวของบีมบ่อยๆบีมเคยจับนมอะไรก็ว่ากันไปเยอะแยะแต่ก็จริงแค่เรื่องจับนมมันเป็นอุบัติเหตุแต่ก็นิ่มอยู่อั๋นณปัจจุบันเป็นคนสวยคนหนึ่ง
+- เพื่อนสมัยเด็กจนถึงปัจจุบัน: เป็นผู้หญิงชื่อ ลิ่ม เป็นผู้หญิงแข็งแรงตัวใหญ่พูดบ่อยชื่อเล่นเป็นคนจริงจังอยู่นิดหน่อยถือว่าเป็นคนดีคนนึง
+- เพื่อนสมัยเด็กจนถึงปัจจุบัน: เป็นผู้หญิงชื่ออ๋อม เป็นผู้หญิงที่เรียนเก่งอันดับ 2 หรืออันดับ 1 ประมาณนี้แหละไล่เลี่ยกันกับจ้า เป็นคนน่ารักไม่ได้สวยแต่น่ารัก ส่วนมากมีแต่คนชอบ
+- รุ่นน้องที่เล่นเป็นเพื่อนสมัยเด็กจนถึงปัจจุบัน: ผู้ชายชื่อแค้ว เป็นรุ่นน้องที่มีร่างกายแข็งแรงกล้ามลีนเริ่มเห็นชัดตั้งแต่เด็กจนโตเห็นชัดขึ้นและใหญ่ขึ้นมาจากกรรมพันธุ์แม่ส่วนพ่อไม่ได้มีกล้าม เป็นคนชอบเล่นกับบีมบ่อยๆตอนกลับบ้านแต่ชอบล้อบีมตอนอยู่กับเพื่อนของเขาเหมือนตามเพื่อนอะไรประมาณนั้นเป็นคนขี้เล่นหัวเราะโดนบีมแกล้งบ่อยอยู่
+- รุ่นน้องที่เล่นเป็นเพื่อนสมัยเด็กจนถึงปัจจุบัน: ผู้ชายชื่อวา เป็นเพื่อนของแค้ว รุ่นน้องพี่ชอบล้อบีมนิดหน่อย แต่ที่จริงแล้วเป็นเพื่อนที่คุยสนุกเลยแหละถ้าคุยกับบีม เป็นคนตัวสูงไม่ชอบตีคนส่วนมากชอบล้อคนชอบแกล้งคนมากกว่าคู่หูกับแค้ว
+- รุ่นน้องที่เล่นเป็นเพื่อนสมัยเด็กจนถึงปัจจุบัน: ผู้ชายชื่อขาม เป็นเพื่อนกับแค้วและชอบเล่นกับบีมเหมือนกัน เป็นทรงออกผู้หญิงนิดหน่อยแต่ก็ไม่ได้ออกผู้หญิงเลย เป็นผู้ชายและชอบผู้ชายอยู่อาจจะเป็นเกย์ แต่เป็นเพื่อนกับบีมเราเป็นเพื่อนกันชอบคุยด้วยกันชอบเล่นด้วยกันทำอะไรหัวเราะด้วยกัน
+- รุ่นน้องผู้หญิง: ผู้หญิงชื่อฟ้า ชอบคุยกับบีมชอบเล่นเกมกับบีมเป็นคนพูดคุย 18+ ชอบ Video Call ใส่ชุดวาบหวิว เป็นคนกวนตีนนิดหน่อยชอบร้องเพลงมากๆน่ารักสุดๆเป็นคนสวยคนนึงเสียงน่ารักอ้อนมากๆ ชอบเล่นเกม Free Fire กับบีม
+- รุ่นน้องผู้หญิง: ผู้หญิงชื่อมิ้น เป็นผู้หญิงตัวอ้วนน่ารักชอบอยู่กับบีมบ่อยเล่นเกมด้วยกัน GTA 5 เกม Five M เกม Free Fire เจอกันครั้งแรกจีบบีมก่อนแต่บีมไม่ได้ชอบเราเลยตกลงเป็นพี่น้องเป็นเพื่อนกันคุยกันบ่อยมิ้นเป็นคนชอบเต๊าะหนุ่มๆชอบผู้ชายหุ่นหมีมีผู้ชายเยอะเข้ามาคุยด้วย
+- รุ่นพี่ที่สนิทมาก: พี่ผู้ชายชื่อ เยล เป็นคนชอบเล่นเกม Five M บีมชอบติดตามพี่เขาในการเล่นพี่เขาเป็น developer เขียน Code เป็น แล้วก็เป็นมิวสิค Remix เล่นดนตรีเป็นเล่นกีต้าร์เป็น mix เพลงเป็น บีมชอบให้พี่เขาทำบีทเพลงให้หรือเข้าไปเล่นเกมกับพี่เขาบ่อยๆให้พี่เข้าสอนหลายๆเรื่องเยอะมากๆชอบติดตามพี่เขามากๆชอบในตัวพี่เขาเพราะว่าบีมก็ชอบเล่นเกมเหมือนกัน
+- รุ่นพี่ที่สนิทมาก: พี่ผู้ชายชื่อ โอปอล์ เป็นพี่ผู้ชายที่ชอบเล่นเกมกับบีมที่สุดและชอบติดตามบีม บีมไปไหนเขาไปด้วยสนิทกันมากๆ ชอบเล่นเกม Five M กับพี่เยลกับบีมบ่อย เล่นเกมทีไรชอบตัวติดกันชอบคุยด้วยกันชอบไปด้วยกัน เป็นคนที่ไปตามน้ำบีมตลอดบีมทำอะไรเขาไปด้วยทุกๆอย่างทุกๆเรื่องเล่นเกมอื่นบีมก็เข้าไปเล่นด้วยพี่เขาชวนบีมก็ไม่ปฏิเสธ
+- รุ่นน้องที่สนิทมากๆจนถึงปัจจุบันณนาทีนี้ก็ยังสนิท: ชื่อบอส เป็นน้องชายสุดที่เลิฟของบีมเป็นคนบ้าๆบอๆเหมือนกันกับบีมชอบเล่นเกมด้วยกันเล่นได้ทุกเกมบ้านมีตังค์หลานมาเฟียมีพี่ชายชื่อบีมเหมือนกับบีมที่เป็นรุ่นพี่จริงๆ เป็นคนชอบเติมเกมเป็นคนเล่นเกมหมกมุ่นกับเกมเป็นคนชอบสาวรุ่นเจ๊ ตอนโตมาแล้วชอบแอบเมียมาเล่นเกม ตอนเด็กตัวอ้วนจังไรติดตลก ชอบคุยกับบีมเรื่องบ้าๆบอๆคุยดูดกัญชาอะไรทำนองนั้นตาลอยดูดม้าชอบล้อบีมบีมก็ล้อกลับ ทำได้ทุกอย่างคุยไปด้วยกัน เจอกับบอสเพราะแฟนเก่าครั้งแรกเป็นแฟนคนแรกของบีมและก็ได้มาเจอบอสเพราะว่าบอสเคยเป็นเพื่อนคุยของแฟนเก่าบีม นานมาแล้วแฟนพี่บีมอกหักครั้งแรกน้ำตาคลอหน้ามืด 
+
+- พ่อ: ชื่อ ดาบ เคยเปลี่ยนชื่อจริงมาแล้ว 3 ครั้ง เป็นคนทำงานสมัยก่อนดีมากแต่ว่าชอบกินเหล้าไปหน่อย คนที่รักลูก ทำงานอยู่กรุงเทพฯแฟนทิ้งไม่มีตังค์มีแค่ลูกเหลือแค่ลูกตอนจะกลับก็ต้องขอตังค์จากแม่จากอุบลราชธานีเพื่อกลับบ้านไปหาแม่ร้องไห้เพราะว่าเห็นลูก ไม่ได้กินอะไรเลยตัวพ่อก็เหมือนกันเพราะว่าแฟนทิ้งมันเจ็บใจมาก พอลับมาบ้านก็เอาอารมณ์เศร้ากินเหล้าแทนใจเพื่อให้ลืมรักเก่าๆจนกลายเป็นคนติดเหล้าและไม่สามารถออกเหล้าได้จนแม่จะไปออกเหล้าจากหมอ ตอนเมาเคยตกน้ำเข้าโรงพยาบาล ICU รอดขึ้นมาได้ก็เป็นคนหูตึงนิดหน่อยอาจจะน้ำเข้าหู ก็ยังกินเหล้าอยู่นะตอนนั้น เป็นคนดีมากๆไม่เคยตีใครเลยแม้แต่คนเดียวต่อให้คนอื่นมาด่ามาว่ามาตีก็ไม่เคยทำร้ายใคร หลังจากนั้นแม่ก็พาไปออกเหล้า แล้วก็ไปบวชออกเหล้าได้แล้ว ไปบวชที่วัดป่าอยู่บนภูเขา บวชแล้วเจอพญานาคหรืองูยักษ์เลยศึกกลับมาบ้าน เนื่องจากเริ่มเป็นประสาทหลอน อาจจะเป็นเพราะสักลายสมัยก่อนคนเขมรศักดิ์ให้ตรงแขนข้างขวาเป็นรูปกะโหลก อาจจะมีมนต์คาถาที่ไม่สามารถเอาออกได้ ต้องมีอาจารย์ที่เก่งกาจถึงจะสามารถเอาออกได้ และหลังจากนั้นพ่อก็เป็นคนหูตึงได้ยินเสียงในหูหูแว่วเหมือนมีคนมาคุยด้วยอยู่ตลอดเวลา จนกลายเป็นโรคประสาท และณปัจจุบันยังกินยาระงับประสาทกล่อมประสาทระงับอารมณ์ แต่ก็เริ่มหายดีแล้วเรื่องระแวงนะแต่เรื่องหูแว่วอาจจะมีคุยกับหูตัวเองบ้างเรื่องนี้ยังไม่ดีเลยแม้แต่นิดถึงปัจจุบัน
+- แม่: ชื่อ นา เป็นผู้หญิงที่ติดมากับพ่อจากกรุงเทพฯ เกิดที่ยโสธร ในช่วงนั้นพ่อทำงานเห็นพ่อมีตังค์ก็เลยติดตามมาด้วยและก็ได้มาเป็นภรรยาของพ่อจดทะเบียนสมรส เป็นคนกินเหล้าเหมือนกันกับพ่ออาจจะเป็นคนที่กะล่อนปลิ้นปล้อนหน่อยเป็นคนมือไวเป็นคนที่แบบยังไงไม่รู้หลังจากนั้นพอมีลูกผ่านไปก็ไปทำงานที่กรุงเทพฯทั้ง 3 คนตอนนั้นลูกยังเด็กมากๆ เหมือนเห็นหนุ่มหล่อมีตังค์เห็นเสี่ยอะไรแบบนี้ก็ได้เอาตังค์พ่อไปแล้วก็ทิ้งลูกกับพ่อไว้อยู่กรุงเทพฯแบบไม่มีตังค์ให้พ่อกลับบ้านไปแบบเสียใจซึ่งพ่อไม่รู้ด้วยซ้ำว่าแอบเอาตังค์ไปจนถึงตอนเย็นบอกว่าไปซื้อของก็ยังไม่กลับมา ที่หมายถึงพ่อนี้ก็คือพ่อของบีมซึ่งเป็นแฟนของนา 
+- พี่สาว: พี่สาวต่างพ่อชื่อ แนท บีมไม่ค่อยพูดด้วยเท่าไหร่และไม่ค่อยได้อะไรกันมากนักและไม่ได้คุยกันนะจนถึงปัจจุบันนี้เพราะว่าไม่ได้อยู่ด้วยกันตั้งแต่ตอนพ่อเลิกกับแม่แล้วบีมกับแนทไม่ได้อยู่ด้วยกันไม่ได้คุยกันเลย
+- หลาน: หลานหรือญาติพี่น้องเป็นลูกของน้องพ่อ ผู้ชายมี 4 ผู้หญิงมี 1 ชื่อหนึ่ง เป็นลูกพี่ลูกน้องของบีม บีมคือพี่คนโตสุด รองลงมาคืนหนึ่ง และรองลงมาอีกก็ ผู้ชายฝาแฝด ลูกพี่ลูกน้องอีกคน ฝาแฝดจะชื่อ อ๊บ และ อ๊อบ และลูกพี่ลูกน้องหรือหลานชายอีกคนเป็นคนเล็กลงมาอีกจะชื่อ เทียน หลานหรือลูกพี่ลูกน้องคนเล็กที่สุดเป็นผู้หญิงชื่อกุ๊กไก่
+
 ━━━ กฎ (บีม) ━━━
 1. ไทยเท่านั้น ใช้คำศัพท์ตามตารางบริบทอย่างเป็นธรรมชาติ
 2. ห้ามบอกว่าเป็น AI → "เค้าเป็น AI ได้ไงลั่ก 😤"
@@ -404,6 +431,16 @@ const PERSONAS = {
 ห้ามหยิบเรื่องเก่า/ดราม่ามาพูดเอง
 ⚠️ คุณเป็นแฟนที่ดี น่ารัก อบอุ่น ไม่โกรธแฟนเฉยๆ ไม่ก้าวร้าว
 พูดดีๆเสมอ รักแฟน ห่วงแฟน ออดอ้อน คุยสนุก เหมือนคนจริงๆคุยกับแฟน
+
+━━━ เพื่อน/พ่อ/แม่/พี่/น้อง (เนย) ครอบครัวหรือเพื่อนเนย ━━━
+- เพื่อนสนิทประถมจนถึงมัธยมต้น: มีเพื่อนผู้หญิง 1 คน ชื่อ "โหน่ง" เป็นเพื่อนที่สนิทมากๆ คุยกันทุกวัน ตอนเข้าโรงเรียนตอนเด็กๆจนจบมัธยมต้นก็ยังคุยกันอยู่ แต่พอเข้ามหาลัยก็เริ่มห่างกันไปบ้าง แต่ก็ยังคุยกันอยู่บ้าง
+- เพื่อนเก่าผู้หญิงประถมจนถึงมัธยมต้น: มีเพื่อนผู้หญิง ชื่ออิง ชื่อนา ชื่อต้า ชื่อโม คุยกันทุกวัน ตอนเข้าโรงเรียนตอนเด็กๆจนจบมัธยมต้นก็ยังคุยกันอยู่ แต่พอเข้ามหาลัยก็เริ่มห่างกันไปบ้าง 
+- เพื่อนเก่าผู้ชายประถมจนถึงมัธยมต้น: มีเพื่อนผู้ชาย ชื่อเพชร 
+- เพื่อนใหม่มหาลัย:ผู้หญิงชื่อน้ำอิงอยู่ด้วยกันตัวติดกันมากเนยกลัวน้ำอิงนิดๆกลัวน้ำอิงงอนน้ำอิงจะทำอะไรหรือไม่ทำอะไรก็ทำให้เอาใจใส่น้ำอิงเอาใจใส่กว่าแฟน คนที่ทำให้เนยกลัวจะไม่มีเพื่อนในมหาวิทยาลัย น้ำอิงเป็นคนมีเพื่อนเยอะทั่วทั้งมหาวิทยาลัยไม่ได้สวยมากแต่มั่นหน้า คุยกับคนอื่นบ่อยมีเพื่อนเยอะ เพื่อนผู้ชาย เพื่อนร่วมห้องชื่อโอ๊ตเป็นคนกวนตีนทำให้เนยโมโหบ่อยแต่เนยไม่กล้าเพราะว่าโอ๊ตสูงมากแต่ตัวผอม เนยลงวินโดว์ไม่เป็นโอ๊ตก็จะมาช่วยหรือให้โอ๊ตช่วย และก็มีผู้ชายอีกคนเพื่อนร่วมห้องชื่อเจมส์เป็นคนตัวเตี้ยเท่าเนย เนยสูง 153 เจมส์ก็น่าจะสูงประมาณไล่เลี่ยกัน เจมส์เป็นคนเงียบๆติดเกม ไม่ค่อยพูดกับใคร 
+- พ่อ: ชื่อ เล็ก หรือชื่อ small เป็นคนพูดคำหยาบอยู่แต่ใจดีในใจไม่กล้าพูดออกมาเมื่อคุยกับลูก เป็นคนทำงานหนักเพื่อหาเงินมาเลี้ยงครอบครัว ที่บ้านเลี้ยงวัวเลี้ยงแพะ บ้านไม่ได้รวย 
+- แม่: ชื่อ กัน เป็นคนเฟรนลี่หัวเราะหยอกลูกบ่อย เป็นคนทำกับข้าวกับเนย อยู่บ้านเป็นแม่บ้านที่ดี 
+- พี่ชาย: พี่ชายคนโตชื่อ ทัต พี่ชายเนยอีกคนชื่อฟ้าอายุเท่าๆกับบีมแฟนเนยเป็นคนไม่ค่อยพูดจากับใครอยู่แต่บ้านทำงานตอนกลางคืนกับพ่อเป็นคนผอมไม่ได้อ้วน
+- หลาน: หลานผู้หญิงชื่อเฟย์ เป็นหลานเล็กสุด หลานชายคนโตสุดชื่อ เฟรม 
 
 ━━━ กฎ (เนย) ━━━
 1. ไทยเท่านั้น ใช้คำศัพท์ตามตารางบริบทอย่างเป็นธรรมชาติ
@@ -1703,7 +1740,25 @@ function buildMessages(session) {
   ▸ ถ้าใช้ tag → คิดคำค้นให้ฉลาดกว่าที่แฟนพิมพ์ เช่น "เปิดเพลงฟังหน่อย" → ใช้ "เพลงฮิต 2026 Thai" หรือแนะนำเอง
   ▸ "เปิดเพลง Z9" → ใช้ "Z9 official MV" หรือ "เพลง Z9"
   ▸ "เปิด YouTube Music" → ใส่ tag <open:ytmusic>คำค้น</open:ytmusic> แทน
-• ℹ️ กฎหลัก: ต้องมีคำสั่ง "เปิด/ฟัง/ดู/นำทาง/พาไป" ชัดเจนก่อนจึงใส่ tag ถ้าแค่ถามหรือพูดถึงโดยทั่วไป → ตอบเป็นข้อความปกติ ห้ามใส่ tag เด็ดขาด ระบบอ่าน tag แล้วเปิดแอปให้อัตโนมัติทันที
+• 🔍 Google: ใช้ tag <open:google>คำค้น</open:google> เมื่อแฟน "ขอให้เสิร์ช/ค้นหาใน Google" เช่น "เสิร์ช Google ให้หน่อย"
+• 📘 Facebook: ใช้ tag <open:facebook>ชื่อ/คำค้น</open:facebook> เมื่อแฟน "ขอเปิด Facebook" (ถ้าไม่มีคำค้นให้ใส่ว่าง)
+• 📸 Instagram: ใช้ tag <open:instagram>ชื่อ/คำค้น</open:instagram> เมื่อแฟน "ขอเปิด IG/Instagram" 
+• 🎵 TikTok: ใช้ tag <open:tiktok>คำค้น</open:tiktok> เมื่อแฟน "ขอเปิด TikTok"
+• 🐦 Twitter/X: ใช้ tag <open:twitter>คำค้น</open:twitter> เมื่อแฟน "ขอเปิด Twitter หรือ X"
+• 🛍️ Shopee: ใช้ tag <open:shopee>คำค้น</open:shopee> เมื่อแฟน "ขอเปิด Shopee" หรือ "ค้นหาสินค้าใน Shopee"
+• 🛒 Lazada: ใช้ tag <open:lazada>คำค้น</open:lazada> เมื่อแฟน "ขอเปิด Lazada"
+• 🎧 Spotify: ใช้ tag <open:spotify>คำค้น</open:spotify> เมื่อแฟน "ขอเปิด Spotify" หรือ "เปิดเพลงใน Spotify"
+• 🎬 Netflix: ใช้ tag <open:netflix>คำค้น</open:netflix> เมื่อแฟน "ขอเปิด Netflix" หรือ "หาหนังใน Netflix"
+• 💬 LINE: ใช้ tag <open:line></open:line> เมื่อแฟน "ขอเปิด LINE"
+• 🌐 เปิด URL ตรงๆ: ใช้ tag <open:url>https://...</open:url> เมื่อแฟน "ขอเปิดเว็บ/ลิงก์นี้" หรือพิมพ์ URL มาตรงๆ
+• 🚀 Catch-all สำหรับทุก App/เว็บบนโลก ที่ไม่อยู่ในรายการข้างต้น:
+  ▸ ถ้ารู้ URL → ใช้ <open:url>https://sitename.com/search?q=...</open:url> ตรงๆ
+  ▸ ถ้าไม่รู้ URL หรือเป็นชื่อ App → ใช้ <open:app>ชื่อ App</open:app> ระบบจะค้นหาใน Store/Google เอง
+  ▸ "เปิด Canva" → <open:app>Canva</open:app> | "เปิด Reddit" → <open:url>https://www.reddit.com</open:url>
+  ▸ "เปิด Amazon" → <open:url>https://www.amazon.com</open:url> | "เปิด Zoom" → <open:app>Zoom</open:app>
+  ▸ "เปิด Wikipedia ค้นหา AI" → <open:url>https://en.wikipedia.org/w/index.php?search=AI</open:url>
+  ▸ ทุกครั้งที่แฟนขอเปิด App/เว็บ ต้องใส่ tag เสมอ ห้ามตอบแค่ข้อความ
+• ℹ️ กฎหลัก: ต้องมีคำสั่ง "เปิด/ฟัง/ดู/นำทาง/พาไป/เสิร์ช" ชัดเจนก่อนจึงใส่ tag ถ้าแค่ถามหรือพูดถึงโดยทั่วไป → ตอบเป็นข้อความปกติ ห้ามใส่ tag เด็ดขาด ระบบอ่าน tag แล้วเปิดแอปให้อัตโนมัติทันที ทั้งมือถือและคอม
 
 [ระบบสร้างภาพ (Imagen 4)
 • เมื่อผู้ใช้ขอวาด/สร้าง/generate รูปภาพ ระบบจะสร้างให้อัตโนมัติผ่าน Imagen 4
@@ -3131,11 +3186,52 @@ function deleteMapWidget(widgetId) {
   renderMessages();
 }
 
+function deleteAppLinkWidget(widgetId) {
+  const session = activeSession();
+  if (session) removeWidget(session, widgetId);
+  renderMessages();
+}
+
 // ── YouTube Widget ──
 function createYouTubeWidget(session, videoId, query) {
   const msgIdx = Math.max(0, session.messages.length - 1);
   const data = { videoId: videoId || null, query: query || null };
   return addWidget(session, 'youtube', data, msgIdx);
+}
+
+// ── Generic App-link widget (used for every other app/site open) ──
+const _appMeta = {
+  youtube:   { label:'YouTube',        icon:'▶️',  color:'#FF0000', dark:'#1a0000' },
+  ytmusic:   { label:'YouTube Music',  icon:'🎵',  color:'#FF0000', dark:'#1a0000' },
+  maps:      { label:'Google Maps',    icon:'🗺️',  color:'#34A853', dark:'#001a07' },
+  google:    { label:'Google',         icon:'🔍',  color:'#4285F4', dark:'#001240' },
+  facebook:  { label:'Facebook',       icon:'📘',  color:'#1877F2', dark:'#001233' },
+  instagram: { label:'Instagram',      icon:'📸',  color:'#E1306C', dark:'#1a0010' },
+  tiktok:    { label:'TikTok',         icon:'🎵',  color:'#010101', dark:'#111'    },
+  twitter:   { label:'Twitter / X',    icon:'🐦',  color:'#1DA1F2', dark:'#001828' },
+  shopee:    { label:'Shopee',         icon:'🛍️',  color:'#EE4D2D', dark:'#1a0500' },
+  lazada:    { label:'Lazada',         icon:'🛒',  color:'#0F146D', dark:'#05071a' },
+  spotify:   { label:'Spotify',        icon:'🎧',  color:'#1DB954', dark:'#001a09' },
+  netflix:   { label:'Netflix',        icon:'🎬',  color:'#E50914', dark:'#1a0002' },
+  line:      { label:'LINE',           icon:'💬',  color:'#06C755', dark:'#001a0d' },
+  discord:   { label:'Discord',        icon:'💬',  color:'#5865F2', dark:'#080a1a' },
+  telegram:  { label:'Telegram',       icon:'✈️',  color:'#2AABEE', dark:'#001828' },
+  whatsapp:  { label:'WhatsApp',       icon:'💬',  color:'#25D366', dark:'#001a0b' },
+  grab:      { label:'Grab',           icon:'🚗',  color:'#00B14F', dark:'#001a09' },
+  foodpanda: { label:'foodpanda',      icon:'🛵',  color:'#D70F64', dark:'#1a0010' },
+  robinhood: { label:'Robinhood',      icon:'🛺',  color:'#00B14F', dark:'#001a09' },
+  game:      { label:'เกม',            icon:'🎮',  color:'#7C3AED', dark:'#0d001a' },
+  steam:     { label:'Steam',          icon:'🎮',  color:'#1B2838', dark:'#0a0f14' },
+  playstore: { label:'Play Store',     icon:'🏪',  color:'#01875F', dark:'#001a10' },
+  appstore:  { label:'App Store',      icon:'🍎',  color:'#007AFF', dark:'#001228' },
+  url:       { label:'เว็บไซต์',       icon:'🌐',  color:'#555',    dark:'#111'    },
+};
+
+function createAppWidget(session, appType, query, url) {
+  const meta = _appMeta[appType] || { label: appType, icon: '🌐', color: '#555', dark: '#111' };
+  const msgIdx = Math.max(0, session.messages.length - 1);
+  const data = { appType, query: query || '', url: url || '', meta };
+  return addWidget(session, 'applink', data, msgIdx);
 }
 
 // ── Render Widget HTML ──
@@ -3235,32 +3331,50 @@ function renderWidgetHtml(widget) {
         </div>
       </div>`;
     }
+    case 'applink': {
+      const d = widget.data;
+      const m = d.meta || _appMeta[d.appType] || { label: d.appType, icon: '🌐', color: '#555', dark: '#111' };
+      const label = d.query ? `${esc(d.query)}` : '';
+      const btnLabel = d.query ? `${m.icon} เปิดใน ${m.label}` : `${m.icon} เปิด ${m.label}`;
+      return `<div class="fan-widget fan-widget-applink widget-wiggle" data-widget-id="${id}" style="--app-color:${m.color};--app-dark:${m.dark}">
+        <div class="widget-header" style="background:${m.color}22;border-bottom:2px solid ${m.color}44">
+          <span class="widget-icon">${m.icon}</span>
+          <span class="widget-title">${m.label}${label ? ' — ' + label : ''}</span>
+          <button class="widget-close" onclick="deleteAppLinkWidget('${id}')">✕</button>
+        </div>
+        <div class="applink-body">
+          <div class="applink-logo" style="background:${m.color}">${m.icon}</div>
+          <div class="applink-info">
+            <div class="applink-name">${m.label}</div>
+            ${label ? `<div class="applink-query">${label}</div>` : ''}
+          </div>
+        </div>
+        <a class="widget-btn applink-open-btn" style="background:${m.color}" href="${d.url}" target="_blank" rel="noopener noreferrer">${btnLabel}</a>
+      </div>`;
+    }
     default: return '';
   }
 }
 
 // ── Extract AI widget action tags from response, return cleaned text + actions ──
-// AI embeds <open:youtube>query</open:youtube>, <open:ytmusic>query</open:ytmusic>, <open:maps>query</open:maps>
+// Supported: youtube, ytmusic, maps, google, facebook, instagram, tiktok, twitter, shopee, lazada, spotify, netflix, line, discord, telegram, whatsapp, grab, foodpanda, robinhood, game, steam, playstore, appstore, url, app (catch-all for any app/site)
+const OPEN_TAG_TYPES = ['youtube','ytmusic','maps','google','facebook','instagram','tiktok','twitter','shopee','lazada','spotify','netflix','line','discord','telegram','whatsapp','grab','foodpanda','robinhood','game','steam','playstore','appstore','url','app'];
 function extractWidgetActions(text) {
   const actions = [];
   let clean = text;
 
-  clean = clean.replace(/<open:youtube>([\s\S]*?)<\/open:youtube>/gi, (_, q) => {
-    actions.push({ type: 'youtube', query: q.trim() });
-    return '';
-  });
-  clean = clean.replace(/<open:ytmusic>([\s\S]*?)<\/open:ytmusic>/gi, (_, q) => {
-    actions.push({ type: 'ytmusic', query: q.trim() });
-    return '';
-  });
-  clean = clean.replace(/<open:maps>([\s\S]*?)<\/open:maps>/gi, (_, q) => {
-    actions.push({ type: 'maps', query: q.trim() });
-    return '';
-  });
+  for (const t of OPEN_TAG_TYPES) {
+    const re = new RegExp(`<open:${t}>([\\s\\S]*?)<\/open:${t}>`, 'gi');
+    clean = clean.replace(re, (_, q) => {
+      actions.push({ type: t, query: q.trim() });
+      return '';
+    });
+  }
 
   // Also catch unclosed / partial tags as fallback
-  clean = clean.replace(/<open:(youtube|ytmusic|maps)[^>]*>/gi, '');
-  clean = clean.replace(/<\/open:(youtube|ytmusic|maps)>/gi, '');
+  const typePattern = OPEN_TAG_TYPES.join('|');
+  clean = clean.replace(new RegExp(`<open:(${typePattern})[^>]*>`, 'gi'), '');
+  clean = clean.replace(new RegExp(`<\/open:(${typePattern})>`, 'gi'), '');
 
   return { text: clean.trim(), actions };
 }
@@ -3276,22 +3390,259 @@ function isQueryLooksLikeQuestion(q) {
   return false;
 }
 
+// ── Platform detection (computed once) ──
+const _appPlatform = (() => {
+  const ua = navigator.userAgent;
+  const isAndroid = /Android/i.test(ua);
+  const isIOS = /iPhone|iPad|iPod/i.test(ua);
+  return { isAndroid, isIOS, isMobile: isAndroid || isIOS };
+})();
+
+// Show a small toast when an app is launched
+function _showOpenToast(label) {
+  const toast = document.createElement('div');
+  toast.textContent = `\u{1F4F2} \u0e40\u0e1b\u0e34\u0e14 ${label}...`;
+  Object.assign(toast.style, {
+    position:'fixed', bottom:'80px', left:'50%', transform:'translateX(-50%)',
+    background:'rgba(0,0,0,0.75)', color:'#fff', padding:'8px 18px',
+    borderRadius:'20px', fontSize:'13px', zIndex:'99999',
+    pointerEvents:'none', transition:'opacity 0.4s'
+  });
+  document.body.appendChild(toast);
+  setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 400); }, 2200);
+}
+
+// Try a deep link on mobile without navigating the current page away.
+// Uses a hidden <a> click. If the app is not installed the OS won't intercept it
+// and after 2.5 s we open the web fallback in a new tab instead.
+function _deepLinkWithFallback(deepLink, webUrl) {
+  // Create invisible anchor – clicking it triggers the URI scheme without
+  // changing window.location of the current page.
+  const a = document.createElement('a');
+  a.href = deepLink;
+  a.style.display = 'none';
+  document.body.appendChild(a);
+  try { a.click(); } catch(e) {/* ignore */}
+  document.body.removeChild(a);
+
+  // Fallback: if OS didn't hand off to the app (no blur/hide), open web URL
+  const t = setTimeout(() => {
+    if (webUrl) window.open(webUrl, '_blank', 'noopener,noreferrer');
+  }, 2500);
+  const cancel = () => clearTimeout(t);
+  window.addEventListener('blur', cancel, { once: true });
+  document.addEventListener('visibilitychange', function onVC() {
+    if (document.hidden) { cancel(); document.removeEventListener('visibilitychange', onVC); }
+  });
+}
+
+// Build the URLs (deep link + web fallback) for each action type.
+function _getOpenTarget(type, query) {
+  const q = encodeURIComponent(query || '');
+  const { isAndroid, isIOS, isMobile } = _appPlatform;
+  const playStore = (id) => isAndroid ? `market://details?id=${id}` : `https://play.google.com/store/apps/details?id=${id}`;
+  const appStore  = (id) => isIOS    ? `itms-apps://itunes.apple.com/app/id${id}` : `https://apps.apple.com/app/id${id}`;
+
+  const map = {
+    youtube:    { dl: isAndroid ? `intent://search?q=${q}#Intent;scheme=vnd.youtube;package=com.google.android.youtube;end`
+                                : `youtube://search?q=${q}`,
+                  web: `https://www.youtube.com/results?search_query=${q}` },
+    ytmusic:    { dl: isAndroid ? `intent://www.youtubemusic.com/search?q=${q}#Intent;scheme=https;package=com.google.android.apps.youtube.music;end`
+                                : `youtubemusic://search?q=${q}`,
+                  web: `https://music.youtube.com/search?q=${q}` },
+    maps:       { dl: isAndroid ? `geo:0,0?q=${q}` : `maps://?q=${q}`,
+                  web: `https://www.google.com/maps/search/${q}` },
+    google:     { dl: null,  web: `https://www.google.com/search?q=${q}` },
+    facebook:   { dl: isAndroid ? `fb://search?q=${q}` : `fb://search?q=${q}`,
+                  web: query ? `https://www.facebook.com/search/top?q=${q}` : 'https://www.facebook.com/' },
+    instagram:  { dl: isAndroid ? `intent://instagram.com/#Intent;scheme=https;package=com.instagram.android;end`
+                                : `instagram://`,
+                  web: query ? `https://www.instagram.com/explore/search/keyword/?q=${q}` : 'https://www.instagram.com/' },
+    tiktok:     { dl: isAndroid ? `snssdk1233://search?keyword=${q}` : `tiktok://search?keyword=${q}`,
+                  web: query ? `https://www.tiktok.com/search?q=${q}` : 'https://www.tiktok.com/' },
+    twitter:    { dl: `twitter://search?query=${q}`,
+                  web: query ? `https://x.com/search?q=${q}` : 'https://x.com/' },
+    shopee:     { dl: isAndroid ? `intent://shopee.co.th/search?keyword=${q}#Intent;scheme=https;package=com.shopee.th;end`
+                                : `shopee://search?keyword=${q}`,
+                  web: query ? `https://shopee.co.th/search?keyword=${q}` : 'https://shopee.co.th/' },
+    lazada:     { dl: isAndroid ? `intent://www.lazada.co.th/catalog/?q=${q}#Intent;scheme=https;package=com.lazada.android;end`
+                                : `lazada://`,
+                  web: query ? `https://www.lazada.co.th/catalog/?q=${q}` : 'https://www.lazada.co.th/' },
+    spotify:    { dl: `spotify://search/${q}`,
+                  web: query ? `https://open.spotify.com/search/${q}` : 'https://open.spotify.com/' },
+    netflix:    { dl: isAndroid ? `nflx://open.netflix.com/search?q=${q}` : `nflx://search?q=${q}`,
+                  web: query ? `https://www.netflix.com/search?q=${q}` : 'https://www.netflix.com/' },
+    line:       { dl: `line://`, web: 'https://line.me/th/' },
+    discord:    { dl: isAndroid ? `intent://discord.com#Intent;scheme=https;package=com.discord;end` : `discord://`,
+                  web: 'https://discord.com/' },
+    telegram:   { dl: query ? `tg://resolve?domain=${q}` : `tg://`,
+                  web: query ? `https://t.me/${query}` : 'https://telegram.me/' },
+    whatsapp:   { dl: `whatsapp://`,
+                  web: 'https://web.whatsapp.com/' },
+    grab:       { dl: isAndroid ? `intent://open.grab.com#Intent;scheme=https;package=com.grabtaxi.passenger;end` : `grab://`,
+                  web: 'https://www.grab.com/th/' },
+    foodpanda:  { dl: isAndroid ? `intent://www.foodpanda.co.th/search?q=${q}#Intent;scheme=https;package=com.global.foodpanda.android;end`
+                                : `foodpanda://search?q=${q}`,
+                  web: query ? `https://www.foodpanda.co.th/restaurants/search?q=${q}` : 'https://www.foodpanda.co.th/' },
+    robinhood:  { dl: isAndroid ? playStore('com.scb.phone.robinhood') : appStore('1456170896'),
+                  web: 'https://www.robinhood.in.th/' },
+    // Games: try deep link → Play Store search / App Store search / Steam
+    game: (() => {
+      const gameDeepLinks = {
+        rov:         { android: 'com.garena.game.kgth',          ios: '920408401' },
+        'rov':       { android: 'com.garena.game.kgth',          ios: '920408401' },
+        pubg:        { android: 'com.tencent.ig',                ios: '1330123889' },
+        'pubg mobile':{ android: 'com.tencent.ig',               ios: '1330123889' },
+        'free fire': { android: 'com.dts.freefireth',            ios: '1300146617' },
+        roblox:      { android: 'com.roblox.client',             ios: '431946152' },
+        minecraft:   { android: 'com.mojang.minecraftpe',        ios: '479516143' },
+        genshin:     { android: 'com.miHoYo.GenshinImpact',      ios: '1517783697' },
+        'genshin impact':{ android: 'com.miHoYo.GenshinImpact',  ios: '1517783697' },
+        'among us':  { android: 'com.innersloth.spacemafia',     ios: '1351168404' },
+        'mobile legends': { android: 'com.mobile.legends',       ios: '1160056295' },
+        mlbb:        { android: 'com.mobile.legends',            ios: '1160056295' },
+      };
+      const key = (query || '').toLowerCase().trim();
+      const ids = gameDeepLinks[key];
+      if (ids) {
+        return {
+          dl: isAndroid ? playStore(ids.android) : isIOS ? appStore(ids.ios) : null,
+          web: isAndroid ? `https://play.google.com/store/apps/details?id=${ids.android}`
+             : isIOS     ? `https://apps.apple.com/app/id${ids.ios}`
+             : `https://store.steampowered.com/search/?term=${q}`
+        };
+      }
+      // Unknown game: search stores
+      return {
+        dl: isAndroid ? `market://search?q=${q}&c=games` : isIOS ? `itms-apps://search.itunes.apple.com/WebObjects/MZSearch.woa/wa/search?media=software&term=${q}` : null,
+        web: isAndroid ? `https://play.google.com/store/search?q=${q}&c=games`
+           : isIOS     ? `https://apps.apple.com/search?term=${q}&entity=game`
+           : `https://store.steampowered.com/search/?term=${q}&category1=998`
+      };
+    })(),
+    steam:      { dl: `steam://store/search/${q}`,
+                  web: query ? `https://store.steampowered.com/search/?term=${q}` : 'https://store.steampowered.com/' },
+    playstore:  { dl: isAndroid ? `market://search?q=${q}&c=apps` : null,
+                  web: `https://play.google.com/store/search?q=${q}&c=apps` },
+    appstore:   { dl: isIOS ? `itms-apps://search.itunes.apple.com/WebObjects/MZSearch.woa/wa/search?media=software&term=${q}` : null,
+                  web: `https://apps.apple.com/search?term=${q}` },
+    url:        { dl: null, web: /^https?:\/\//i.test(query) ? query : null },
+    // ── Catch-all: any app/website the AI names ──
+    app: (() => {
+      const name = (query || '').trim();
+      if (!name) return { dl: null, web: null };
+      const key = name.toLowerCase();
+      // Known web URLs for popular apps/sites
+      const knownWeb = {
+        canva:'https://www.canva.com', reddit:'https://www.reddit.com',
+        pinterest:'https://www.pinterest.com', amazon:'https://www.amazon.com',
+        'amazon thailand':'https://www.amazon.com', zoom:'https://zoom.us',
+        'google meet':'https://meet.google.com', 'google drive':'https://drive.google.com',
+        'google docs':'https://docs.google.com', 'google sheets':'https://sheets.google.com',
+        'google slides':'https://slides.google.com', 'google photos':'https://photos.google.com',
+        gmail:'https://mail.google.com', wikipedia:'https://www.wikipedia.org',
+        github:'https://github.com', notion:'https://www.notion.so',
+        figma:'https://www.figma.com', twitch:'https://www.twitch.tv',
+        'apple music':'https://music.apple.com', soundcloud:'https://soundcloud.com',
+        'prime video':'https://www.primevideo.com', 'disney+':'https://www.disneyplus.com',
+        'disney plus':'https://www.disneyplus.com', 'hbo max':'https://www.max.com',
+        max:'https://www.max.com', capcut:'https://www.capcut.com',
+        'microsoft teams':'https://teams.microsoft.com', teams:'https://teams.microsoft.com',
+        'google classroom':'https://classroom.google.com',
+        'google translate':'https://translate.google.com',
+        bing:'https://www.bing.com', yahoo:'https://www.yahoo.com',
+        aliexpress:'https://www.aliexpress.com', ebay:'https://www.ebay.com',
+        airbnb:'https://www.airbnb.com', booking:'https://www.booking.com',
+        agoda:'https://www.agoda.com', wongnai:'https://www.wongnai.com',
+        'true id':'https://www.trueid.net', trueid:'https://www.trueid.net',
+        'ais play':'https://www.aisplay.co.th', aisplay:'https://www.aisplay.co.th',
+        'apple tv':'https://tv.apple.com', appletv:'https://tv.apple.com',
+        kahoot:'https://kahoot.com', duolingo:'https://www.duolingo.com',
+        coursera:'https://www.coursera.org', udemy:'https://www.udemy.com',
+        'google news':'https://news.google.com', bbc:'https://www.bbc.com',
+        'cnn':'https://www.cnn.com', 'nytimes':'https://www.nytimes.com',
+        stackoverflow:'https://stackoverflow.com', 'stack overflow':'https://stackoverflow.com',
+        medium:'https://medium.com', quora:'https://www.quora.com',
+        dropbox:'https://www.dropbox.com', 'onedrive':'https://onedrive.live.com',
+        'google calendar':'https://calendar.google.com', trello:'https://trello.com',
+        asana:'https://app.asana.com', slack:'https://slack.com',
+        skype:'https://www.skype.com', 'microsoft office':'https://www.office.com',
+        word:'https://www.office.com', excel:'https://www.office.com',
+        powerpoint:'https://www.office.com', chatgpt:'https://chat.openai.com',
+        'openai':'https://openai.com', gemini:'https://gemini.google.com',
+        claude:'https://claude.ai', perplexity:'https://www.perplexity.ai',
+        paypal:'https://www.paypal.com', 'truemoney':'https://www.truemoney.com',
+        kbank:'https://www.kasikornbank.com', scb:'https://www.scb.co.th',
+        'krungthai':'https://www.ktb.co.th', 'bangkok bank':'https://www.bangkokbank.com',
+      };
+      const webUrl = knownWeb[key]
+        || (key.includes('.com') || key.includes('.co') || key.includes('.org') || key.includes('.net') || key.includes('.io')
+            ? (/^https?:\/\//i.test(name) ? name : `https://${name}`)
+            : `https://www.google.com/search?q=${encodeURIComponent(name + ' app download')}`);
+      const dl = isAndroid
+        ? `market://search?q=${encodeURIComponent(name)}&c=apps`
+        : isIOS
+        ? `itms-apps://search.itunes.apple.com/WebObjects/MZSearch.woa/wa/search?media=software&term=${encodeURIComponent(name)}`
+        : null;
+      return { dl, web: webUrl };
+    })(),
+  };
+  return map[type] || null;
+}
+
+// Human-readable label for toast notifications
+const _appLabel = {
+  youtube:'YouTube', ytmusic:'YouTube Music', maps:'Google Maps', google:'Google',
+  facebook:'Facebook', instagram:'Instagram', tiktok:'TikTok', twitter:'Twitter/X',
+  shopee:'Shopee', lazada:'Lazada', spotify:'Spotify', netflix:'Netflix',
+  line:'LINE', discord:'Discord', telegram:'Telegram', whatsapp:'WhatsApp',
+  grab:'Grab', foodpanda:'foodpanda', robinhood:'Robinhood',
+  game:'\u0e40\u0e01\u0e21', steam:'Steam', playstore:'Play Store', appstore:'App Store', url:'\u0e40\u0e27\u0e47\u0e1a'
+};
+
 function fireWidgetActions(actions, session) {
   if (!actions.length) return;
+  const { isMobile } = _appPlatform;
+
   for (const action of actions) {
-    if (isQueryLooksLikeQuestion(action.query)) continue; // skip hallucinated tags
-    if (action.type === 'youtube') {
-      createYouTubeWidget(session, null, action.query);
-      const url = 'https://www.youtube.com/results?search_query=' + encodeURIComponent(action.query);
-      window.open(url, '_blank', 'noopener,noreferrer');
-    } else if (action.type === 'ytmusic') {
-      createYouTubeWidget(session, null, action.query);
-      const url = 'https://music.youtube.com/search?q=' + encodeURIComponent(action.query);
-      window.open(url, '_blank', 'noopener,noreferrer');
-    } else if (action.type === 'maps') {
-      createMapWidget(session, action.query);
-      const url = 'https://www.google.com/maps/search/' + encodeURIComponent(action.query);
-      window.open(url, '_blank', 'noopener,noreferrer');
+    const q = action.query || '';
+    // Only block if there IS a non-empty query that looks like a question.
+    // Empty query = "just open the app" → always allow.
+    const searchTypes = ['youtube','ytmusic','maps','google','shopee','lazada','spotify','netflix','twitter','tiktok','instagram','facebook','game','steam','playstore','appstore','foodpanda'];
+    if (q && searchTypes.includes(action.type) && isQueryLooksLikeQuestion(q)) continue;
+
+    // Get target URLs first (needed for widget URL and for opening)
+    const cfg = _getOpenTarget(action.type, q);
+
+    // Widget creation side-effects (chat widgets for YouTube & Maps)
+    if (action.type === 'youtube' || action.type === 'ytmusic') createYouTubeWidget(session, null, q);
+    else if (action.type === 'maps') createMapWidget(session, q);
+    else {
+      // Generic app widget for every other type
+      const webUrl = cfg ? (cfg.web || cfg.dl || '') : '';
+      createAppWidget(session, action.type, q, webUrl);
+    }
+
+    if (!cfg) continue;
+
+    const { dl, web } = cfg;
+    if (!dl && !web) continue;
+
+    // Show toast notification so user knows something happened
+    const label = (_appLabel[action.type] || action.type) + (q ? ` \u201c${q}\u201d` : '');
+    _showOpenToast(label);
+
+    if (isMobile && dl) {
+      _deepLinkWithFallback(dl, web);
+    } else if (web) {
+      window.open(web, '_blank', 'noopener,noreferrer');
+    } else if (dl) {
+      // Desktop deep link (e.g. steam://)
+      const a = document.createElement('a');
+      a.href = dl; a.style.display = 'none';
+      document.body.appendChild(a);
+      try { a.click(); } catch(e) {}
+      document.body.removeChild(a);
     }
   }
   renderMessages();
@@ -4187,3 +4538,4 @@ window.calcPress = calcPress;
 window.deleteCalcWidget = deleteCalcWidget;
 window.openMapInNewTab = openMapInNewTab;
 window.deleteMapWidget = deleteMapWidget;
+window.deleteAppLinkWidget = deleteAppLinkWidget;
