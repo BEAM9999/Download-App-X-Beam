@@ -27,6 +27,9 @@ body{font-family:var(--font);background:linear-gradient(135deg,var(--bg1),var(--
 .screen{position:fixed;inset:0;overflow-y:auto;overflow-x:hidden;opacity:0;transform:translateX(60px);transition:opacity .45s cubic-bezier(.4,0,.2,1),transform .45s cubic-bezier(.4,0,.2,1);pointer-events:none;z-index:2}
 .screen.active{opacity:1;transform:translateX(0);pointer-events:auto}
 .screen.exit{opacity:0;transform:translateX(-60px)}
+/* ป้องกัน flash ของหน้าหลักเมื่อกลับจากหน้าแชท — ซ่อนหน้าหลัก+แสดงหน้า stats ทันทีก่อน JS โหลดเสร็จ */
+html[data-init-persona] #screenLanding{opacity:0!important;pointer-events:none!important;transition:none!important}
+html[data-init-persona] #screenStats{opacity:1!important;transform:translateX(0)!important;pointer-events:auto!important;transition:none!important}
 
 /* ══ Topbar ══ */
 .topbar{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:10px;padding:14px 16px;background:var(--fan-topbar-bg,rgba(15,12,41,.88));backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}

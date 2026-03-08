@@ -18,6 +18,37 @@ const GEMINI_BASE_URL = typeof GEMINI_API_BASE_URL !== 'undefined'
 const GEMINI_KEY_HELP_URL = 'https://aistudio.google.com/api-keys';
 const OPENROUTER_HELP_URL = 'https://openrouter.ai/models?q=free';
 
+// Random icon picked once per page load for each platform
+const _platformIconFiles = {
+  gemini: [
+    'icon App and website/Gemini.webp',
+    'icon App and website/Gemini 1.webp',
+    'icon App and website/Gemini 2.webp',
+    'icon App and website/Gemini 3.webp',
+  ],
+  openrouter: [
+    'icon App and website/open-router.webp',
+    'icon App and website/open-router 1.png',
+  ],
+};
+const _platformIconPicked = {};
+function _getPlatformIconSrc(platformId) {
+  if (!_platformIconPicked[platformId]) {
+    const files = _platformIconFiles[platformId];
+    if (!files || !files.length) return null;
+    _platformIconPicked[platformId] = files[Math.floor(Math.random() * files.length)];
+  }
+  return _platformIconPicked[platformId];
+}
+function _platformIconHtml(platformId, size) {
+  const src = _getPlatformIconSrc(platformId);
+  const s = size || 22;
+  return src
+    ? `<img src="${src}" width="${s}" height="${s}" style="border-radius:5px;object-fit:cover;vertical-align:middle" alt="" onerror="this.replaceWith(document.createTextNode(this.dataset.fallback||''))"
+         data-fallback="${platformId === 'gemini' ? '✨' : '🧠'}">`
+    : (platformId === 'gemini' ? '✨' : '🧠');
+}
+
 const PLATFORM_DEFS = {
   openrouter: {
     id: 'openrouter',
@@ -1002,7 +1033,7 @@ function updatePlatformUI() {
   const openrouterModelCount = getOpenRouterModels().length;
 
   if (btnPlatform) {
-    btnPlatform.textContent = platform.icon;
+    btnPlatform.innerHTML = _platformIconHtml(platform.id, 22);
     btnPlatform.title = `แพลตฟอร์มปัจจุบัน: ${platform.name}`;
   }
   if (btnModel) btnModel.title = `เลือกโมเดล (${platform.name})`;
@@ -1047,7 +1078,7 @@ function renderPlatformList() {
       : `${modelCount} รายการ • ${platform.note}`;
     return `
       <div class="platform-item ${active}" onclick="selectPlatform('${platformId}')">
-        <div class="platform-icon">${platform.icon}</div>
+        <div class="platform-icon">${_platformIconHtml(platformId, 36)}</div>
         <div class="platform-body">
           <div class="platform-name">${platform.name}</div>
           <div class="platform-sub">${sub}</div>
@@ -3337,10 +3368,10 @@ function _androidIntent(pkg, fallbackUrl) {
   return `intent://#Intent;package=${pkg};action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;S.browser_fallback_url=${encodeURIComponent(fb)};end`;
 }
 
-function createAppWidget(session, appType, query, url) {
+function createAppWidget(session, appType, query, url, extraData) {
   const meta = _appMeta[appType] || { label: appType, icon: '🌐', color: '#555', dark: '#111' };
   const msgIdx = Math.max(0, session.messages.length - 1);
-  const data = { appType, query: query || '', url: url || '', meta };
+  const data = { appType, query: query || '', url: url || '', meta, ...(extraData || {}) };
   return addWidget(session, 'applink', data, msgIdx);
 }
 
@@ -3455,21 +3486,31 @@ function renderWidgetHtml(widget) {
       const m = d.meta || _appMeta[d.appType] || { label: d.appType, icon: '🌐', color: '#555', dark: '#111' };
       const label = d.query ? `${esc(d.query)}` : '';
       const btnLabel = d.query ? `${m.icon} เปิดใน ${m.label}` : `${m.icon} เปิด ${m.label}`;
-      // Pick 2 random icons from local folder; fallback to favicon
-      const icons = _pickIcons(d.appType, d.query, 2);
-      const favicon = !icons ? _getFaviconUrl(d.url) : null;
-      const icon1Html = icons
-        ? `<img class="applink-icon-img" src="${esc(icons[0])}" alt="" loading="lazy" onerror="this.replaceWith(document.createTextNode('${m.icon}'))">`
-        : favicon
-        ? `<img class="applink-icon-img" src="${esc(favicon)}" alt="" loading="lazy" onerror="this.replaceWith(document.createTextNode('${m.icon}'))">`
+      // Pick icons:
+      // - Known game: icon1 = real game icon from Play Store (via icon.horse), icon2 = Play Store badge
+      // - Other apps: 2 random icons from local folder, or favicon fallback
+      let icon1Src = null, icon2Src = null;
+      if (d.gameIconUrl) {
+        icon1Src = d.gameIconUrl;
+        icon2Src = d.playStoreIcon || 'icon App and website/Google Play Store.png';
+      } else {
+        const localIcons = _pickIcons(d.appType, d.query, 2);
+        if (localIcons) {
+          icon1Src = localIcons[0];
+          icon2Src = localIcons[1] || null;
+        } else {
+          icon1Src = _getFaviconUrl(d.url);
+          icon2Src = null;
+        }
+      }
+      const icon1Html = icon1Src
+        ? `<img class="applink-icon-img" src="${esc(icon1Src)}" alt="" loading="lazy" onerror="this.replaceWith(document.createTextNode('${m.icon}'))">`
         : m.icon;
-      const icon2Html = icons && icons[1]
-        ? `<img class="applink-icon-img-sm" src="${esc(icons[1])}" alt="" loading="lazy" onerror="this.style.display='none'">`
+      const icon2Html = icon2Src
+        ? `<img class="applink-icon-img-sm" src="${esc(icon2Src)}" alt="" loading="lazy" onerror="this.style.display='none'">`
         : '';
-      const headerIconHtml = icons
-        ? `<img class="widget-header-icon" src="${esc(icons[0])}" alt="">`
-        : favicon
-        ? `<img class="widget-header-icon" src="${esc(favicon)}" alt="">`
+      const headerIconHtml = icon1Src
+        ? `<img class="widget-header-icon" src="${esc(icon1Src)}" alt="">`
         : m.icon;
       return `<div class="fan-widget fan-widget-applink widget-wiggle" data-widget-id="${id}" style="--app-color:${m.color};--app-dark:${m.dark}">
         <div class="widget-header" style="background:${m.color}22;border-bottom:2px solid ${m.color}44">
@@ -3658,12 +3699,14 @@ function _getOpenTarget(type, query) {
         // If the game is installed → Play Store shows the OPEN button.
         // If not installed → Play Store shows INSTALL button.
         // This is more reliable than intent:// launcher which Chrome 83+ blocks.
+        // gameIconUrl: icon.horse fetches the real app icon from the Play Store page.
         return {
           dl: isAndroid ? `market://details?id=${ids.android}`
                         : isIOS ? `itms-apps://apps.apple.com/app/id${ids.ios}` : null,
           web: isAndroid ? `https://play.google.com/store/apps/details?id=${ids.android}`
              : isIOS     ? `https://apps.apple.com/app/id${ids.ios}`
-             : `https://store.steampowered.com/search/?term=${q}`
+             : `https://store.steampowered.com/search/?term=${q}`,
+          gameIconUrl: `https://icon.horse/icon?uri=${encodeURIComponent('https://play.google.com/store/apps/details?id=' + ids.android)}`,
         };
       }
       // Unknown game: search stores
@@ -3789,7 +3832,11 @@ function fireWidgetActions(actions, session) {
     else {
       // Generic app widget for every other type
       const webUrl = cfg ? (cfg.web || cfg.dl || '') : '';
-      createAppWidget(session, action.type, q, webUrl);
+      // For known games, pass the real game icon URL (fetched from Play Store via icon.horse)
+      const extraData = (action.type === 'game' && cfg && cfg.gameIconUrl)
+        ? { gameIconUrl: cfg.gameIconUrl, playStoreIcon: 'icon App and website/Google Play Store.png' }
+        : null;
+      createAppWidget(session, action.type, q, webUrl, extraData);
     }
 
     if (!cfg) continue;
@@ -4481,6 +4528,13 @@ function init() {
   persona = params.get('persona') || 'noey';
   if (!PERSONAS[persona]) persona = 'noey';
 
+  // Push a history entry so hardware back button fires popstate instead of leaving chat
+  history.pushState({ fanChat: true, persona }, '', location.href);
+  window.addEventListener('popstate', () => {
+    // Hardware/browser back → go to persona page on index.html
+    window.location.replace('index.html?persona=' + persona);
+  });
+
   // Load state
   load();
   initThemeController();
@@ -4547,7 +4601,13 @@ function init() {
   // Input — with mobile typing support
   var _inputSoundPlayed = false;
   $('msgInput').addEventListener('keydown', e => {
-    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); return; }
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      // If mic is recording, stop it first so the text stays; then send
+      if (isRecording) stopListening();
+      handleSend();
+      return;
+    }
     _inputSoundPlayed = false;
     if (e.key === 'Backspace' || e.key === 'Delete') { sfxDelete(); _inputSoundPlayed = true; }
     else if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) { sfxKey(); _inputSoundPlayed = true; }
@@ -4567,7 +4627,12 @@ function init() {
   $('btnVoice').addEventListener('click', toggleVoice);
 
   // Header buttons
-  $('btnBack').addEventListener('click', () => { sfxBtn(); window.location.href = 'index.html'; });
+  $('btnBack').addEventListener('click', () => {
+    sfxBtn();
+    // Return to the correct persona section on index.html
+    const target = persona ? `index.html?persona=${persona}` : 'index.html';
+    window.location.href = target;
+  });
   $('btnPlatform').addEventListener('click', () => {
     sfxBtn();
     renderPlatformConfig();

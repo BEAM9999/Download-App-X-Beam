@@ -729,4 +729,20 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!_isInStandaloneMode()) {
     setTimeout(() => _showPWABanner(), 2000);
   }
+
+  // ถ้าเปิดมาจากหน้าแชทด้วย ?persona=beam|noey ให้นำทางไปหน้าข้อมูลนั้นเลย
+  const _initParams = new URLSearchParams(window.location.search);
+  const _initPersona = _initParams.get('persona');
+  if (_initPersona === 'beam' || _initPersona === 'noey') {
+    goTo(_initPersona);
+    // ลบ attribute ออกหลังจาก goTo เพื่อให้ animation ทำงานปกติต่อไป
+    delete document.documentElement.dataset.initPersona;
+  }
+
+  // Handle browser/hardware back button on index.html (push state for each screen change handled by goTo/goBack)
+  window.addEventListener('popstate', () => {
+    if (document.getElementById('screenStats').classList.contains('active')) {
+      goBack();
+    }
+  });
 });
