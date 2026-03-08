@@ -3553,31 +3553,31 @@ function _showOpenToast(label) {
 // iOS/other URI schemes use an iframe fallback approach.
 // If the app isn't installed, falls back to webUrl after a timeout.
 function _deepLinkWithFallback(deepLink, webUrl) {
-  let launched = false;
-  const cancel = () => { launched = true; };
+  // intent:// and market:// are handled entirely by Android/Chrome natively.
+  // intent://: Chrome follows browser_fallback_url if app can't open (no JS needed).
+  // market://: Chrome opens Play Store app directly (no JS needed).
+  // Adding a JS timer here would open a SECOND tab alongside Chrome's own handling,
+  // causing the user to see TWO things (download page + web page).
+  if (deepLink.startsWith('intent://') || deepLink.startsWith('market://')) {
+    window.location.href = deepLink;
+    return;
+  }
+
+  // Custom URI schemes (youtube://, spotify://, fb-messenger://, mailto:, etc.)
+  // Navigate to trigger OS app opening.
+  // Fallback timer: if the app didn't open (no blur/visibilitychange), open webUrl in new tab.
+  window.location.href = deepLink;
+  if (!webUrl) return;
+
+  let opened = false;
+  const cancel = () => { opened = true; };
   window.addEventListener('blur', cancel, { once: true });
   document.addEventListener('visibilitychange', function onVC() {
     if (document.hidden) { cancel(); document.removeEventListener('visibilitychange', onVC); }
   });
-
-  const isIntent = deepLink.startsWith('intent://');
-
-  if (isIntent) {
-    // Android intent:// URIs – must use window.location for the OS to intercept
-    window.location.href = deepLink;
-  } else {
-    // iOS / custom URI schemes – use iframe to avoid navigating away
-    const iframe = document.createElement('iframe');
-    iframe.style.cssText = 'display:none;width:0;height:0;border:none';
-    iframe.src = deepLink;
-    document.body.appendChild(iframe);
-    setTimeout(() => iframe.remove(), 3000);
-  }
-
-  // Fallback: if OS didn't hand off to the app, open web URL
   setTimeout(() => {
-    if (!launched && webUrl) window.open(webUrl, '_blank', 'noopener,noreferrer');
-  }, isIntent ? 1500 : 2500);
+    if (!opened) window.open(webUrl, '_blank', 'noopener,noreferrer');
+  }, 2500);
 }
 
 // Build the URLs (deep link + web fallback) for each action type.
@@ -3588,23 +3588,23 @@ function _getOpenTarget(type, query) {
   const appStore  = (id) => isIOS    ? `itms-apps://itunes.apple.com/app/id${id}` : `https://apps.apple.com/app/id${id}`;
 
   const map = {
-    youtube:    { dl: isAndroid ? `intent://www.youtube.com/results?search_query=${q}#Intent;scheme=https;package=com.google.android.youtube;S.browser_fallback_url=${encodeURIComponent('https://www.youtube.com/results?search_query=' + q)};end`
-                                : `youtube://search?q=${q}`,
+    // Use URI schemes (youtube://, spotify://, etc.) instead of intent:// app links.
+    // URI schemes: if app is installed → opens app, current page stays.
+    //              if not installed → Chrome does nothing, our 2.5s timer opens web.
+    // intent:// app links: if app not installed → Chrome navigates CURRENT TAB to
+    //              browser_fallback_url, causing FAN chat to disappear. Avoid this.
+    youtube:    { dl: `youtube://search?q=${q}`,
                   web: `https://www.youtube.com/results?search_query=${q}` },
-    ytmusic:    { dl: isAndroid ? `intent://music.youtube.com/search?q=${q}#Intent;scheme=https;package=com.google.android.apps.youtube.music;S.browser_fallback_url=${encodeURIComponent('https://music.youtube.com/search?q=' + q)};end`
-                                : `youtubemusic://search?q=${q}`,
+    ytmusic:    { dl: `youtubemusic://search?q=${q}`,
                   web: `https://music.youtube.com/search?q=${q}` },
     maps:       { dl: isAndroid ? `geo:0,0?q=${q}` : `maps://?q=${q}`,
                   web: `https://www.google.com/maps/search/${q}` },
     google:     { dl: null,  web: `https://www.google.com/search?q=${q}` },
-    facebook:   { dl: isAndroid ? `intent://facebook.com/#Intent;scheme=https;package=com.facebook.katana;S.browser_fallback_url=${encodeURIComponent('https://www.facebook.com/')};end`
-                                : `fb://search?q=${q}`,
+    facebook:   { dl: `fb://`,
                   web: query ? `https://www.facebook.com/search/top?q=${q}` : 'https://www.facebook.com/' },
-    instagram:  { dl: isAndroid ? `intent://instagram.com/#Intent;scheme=https;package=com.instagram.android;S.browser_fallback_url=${encodeURIComponent('https://www.instagram.com/')};end`
-                                : `instagram://`,
+    instagram:  { dl: `instagram://`,
                   web: query ? `https://www.instagram.com/explore/search/keyword/?q=${q}` : 'https://www.instagram.com/' },
-    tiktok:     { dl: isAndroid ? `intent://www.tiktok.com/#Intent;scheme=https;package=com.zhiliaoapp.musically;S.browser_fallback_url=${encodeURIComponent('https://www.tiktok.com/')};end`
-                                : `tiktok://`,
+    tiktok:     { dl: `tiktok://`,
                   web: query ? `https://www.tiktok.com/search?q=${q}` : 'https://www.tiktok.com/' },
     twitter:    { dl: `twitter://search?query=${q}`,
                   web: query ? `https://x.com/search?q=${q}` : 'https://x.com/' },
@@ -3614,24 +3614,18 @@ function _getOpenTarget(type, query) {
     lazada:     { dl: isAndroid ? `intent://www.lazada.co.th/catalog/?q=${q}#Intent;scheme=https;package=com.lazada.android;S.browser_fallback_url=${encodeURIComponent('https://www.lazada.co.th/')};end`
                                 : `lazada://`,
                   web: query ? `https://www.lazada.co.th/catalog/?q=${q}` : 'https://www.lazada.co.th/' },
-    spotify:    { dl: isAndroid ? `intent://open.spotify.com/search/${q}#Intent;scheme=https;package=com.spotify.music;S.browser_fallback_url=${encodeURIComponent('https://open.spotify.com/')};end`
-                                : `spotify://search/${q}`,
+    spotify:    { dl: `spotify://search/${q}`,
                   web: query ? `https://open.spotify.com/search/${q}` : 'https://open.spotify.com/' },
-    netflix:    { dl: isAndroid ? `intent://www.netflix.com/#Intent;scheme=https;package=com.netflix.mediaclient;S.browser_fallback_url=${encodeURIComponent('https://www.netflix.com/')};end`
-                                : `nflx://search?q=${q}`,
+    netflix:    { dl: `nflx://`,
                   web: query ? `https://www.netflix.com/search?q=${q}` : 'https://www.netflix.com/' },
-    line:       { dl: isAndroid ? _androidIntent('jp.naver.line.android') : `line://`, web: 'https://line.me/th/' },
-    messenger:  { dl: isAndroid ? _androidIntent('com.facebook.orca') : `fb-messenger://`, web: 'https://www.messenger.com/' },
-    discord:    { dl: isAndroid ? _androidIntent('com.discord') : `discord://`,
-                  web: 'https://discord.com/' },
+    line:       { dl: `line://`, web: 'https://line.me/th/' },
+    messenger:  { dl: `fb-messenger://`, web: 'https://www.messenger.com/' },
+    discord:    { dl: `discord://`, web: 'https://discord.com/' },
     telegram:   { dl: query ? `tg://resolve?domain=${q}` : `tg://`,
                   web: query ? `https://t.me/${query}` : 'https://telegram.me/' },
-    whatsapp:   { dl: `whatsapp://`,
-                  web: 'https://web.whatsapp.com/' },
-    grab:       { dl: isAndroid ? _androidIntent('com.grabtaxi.passenger') : `grab://`,
-                  web: 'https://www.grab.com/th/' },
-    foodpanda:  { dl: isAndroid ? _androidIntent('com.global.foodpanda.android')
-                                : `foodpanda://search?q=${q}`,
+    whatsapp:   { dl: `whatsapp://`, web: 'https://web.whatsapp.com/' },
+    grab:       { dl: `grab://`, web: 'https://www.grab.com/th/' },
+    foodpanda:  { dl: `foodpanda://`,
                   web: query ? `https://www.foodpanda.co.th/restaurants/search?q=${q}` : 'https://www.foodpanda.co.th/' },
     robinhood:  { dl: isAndroid ? playStore('com.scb.phone.robinhood') : appStore('1456170896'),
                   web: 'https://www.robinhood.in.th/' },
@@ -3660,9 +3654,12 @@ function _getOpenTarget(type, query) {
       const key = (query || '').toLowerCase().trim();
       const ids = gameDeepLinks[key];
       if (ids) {
-        // Use intent to launch installed app directly, fallback to store
+        // market:// opens the Play Store APP to the game page.
+        // If the game is installed → Play Store shows the OPEN button.
+        // If not installed → Play Store shows INSTALL button.
+        // This is more reliable than intent:// launcher which Chrome 83+ blocks.
         return {
-          dl: isAndroid ? _androidIntent(ids.android, `https://play.google.com/store/apps/details?id=${ids.android}`)
+          dl: isAndroid ? `market://details?id=${ids.android}`
                         : isIOS ? `itms-apps://apps.apple.com/app/id${ids.ios}` : null,
           web: isAndroid ? `https://play.google.com/store/apps/details?id=${ids.android}`
              : isIOS     ? `https://apps.apple.com/app/id${ids.ios}`
@@ -3690,6 +3687,20 @@ function _getOpenTarget(type, query) {
       const name = (query || '').trim();
       if (!name) return { dl: null, web: null };
       const key = name.toLowerCase();
+
+      // System/communication apps: open directly via URI scheme.
+      // These work on all platforms without needing a Play Store redirect.
+      const systemUri = {
+        email:    { dl: 'mailto:', web: 'https://mail.google.com' },
+        mail:     { dl: 'mailto:', web: 'https://mail.google.com' },
+        gmail:    { dl: 'mailto:', web: 'https://mail.google.com' },
+        phone:    { dl: 'tel:', web: null },
+        call:     { dl: 'tel:', web: null },
+        sms:      { dl: 'sms:', web: 'https://messages.google.com' },
+        messages: { dl: 'sms:', web: 'https://messages.google.com' },
+      };
+      if (systemUri[key]) return systemUri[key];
+
       // Known web URLs for popular apps/sites
       const knownWeb = {
         canva:'https://www.canva.com', reddit:'https://www.reddit.com',
