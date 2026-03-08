@@ -382,6 +382,12 @@ function goTo(view) {
     renderAnniversary(now);
   }
   showScreen('screenStats');
+  // Update URL so page refresh stays on this screen
+  if (new URLSearchParams(location.search).get('persona')) {
+    history.replaceState({ fanView: view }, '', '?persona=' + view);
+  } else {
+    history.pushState({ fanView: view }, '', '?persona=' + view);
+  }
   // Show/hide FAB chat button
   const fab = document.getElementById('chatFab');
   if (view === 'beam' || view === 'noey') {
@@ -397,6 +403,8 @@ function goBack() {
   prevValues = {};
   showScreen('screenLanding');
   document.getElementById('chatFab').classList.add('hidden');
+  // Clear URL so refresh shows landing screen
+  history.replaceState({}, '', location.pathname);
 }
 
 // ═══════ PWA Install Banner (robust) ═══════
@@ -733,7 +741,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ถ้าเปิดมาจากหน้าแชทด้วย ?persona=beam|noey ให้นำทางไปหน้าข้อมูลนั้นเลย
   const _initParams = new URLSearchParams(window.location.search);
   const _initPersona = _initParams.get('persona');
-  if (_initPersona === 'beam' || _initPersona === 'noey') {
+  if (_initPersona === 'beam' || _initPersona === 'noey' || _initPersona === 'anniv') {
     goTo(_initPersona);
     // ลบ attribute ออกหลังจาก goTo เพื่อให้ animation ทำงานปกติต่อไป
     delete document.documentElement.dataset.initPersona;

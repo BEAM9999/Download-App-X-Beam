@@ -18,7 +18,7 @@
     /* ย้ายไปหน้าข้อมูลโดยตรงถ้าเปิดมาจากหน้าแชท — ป้องกัน flash ของหน้าหลัก */
     (function() {
       var p = new URLSearchParams(location.search).get('persona');
-      if (p === 'beam' || p === 'noey') document.documentElement.dataset.initPersona = p;
+      if (p === 'beam' || p === 'noey' || p === 'anniv') document.documentElement.dataset.initPersona = p;
     })();
   </script>
 </head>
