@@ -128,12 +128,44 @@
     <button class="pwa-dismiss-btn" onclick="document.getElementById('pwaBanner').style.display='none'">✕</button>
   </div>
 
+  <!-- ═══ Update Toast ═══ -->
+  <div class="update-toast" id="updateToast" style="display:none;position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#4facfe,#00f2fe);color:#fff;padding:12px 24px;border-radius:50px;font-size:.9rem;font-weight:600;z-index:99999;box-shadow:0 4px 20px rgba(79,172,254,.4);transition:opacity .3s,transform .3s">🔄 กำลังอัพเดทอัตโนมัติ...</div>
+
   <script src="store.js"></script>
   <script>
-    // ─── Service Worker registration ───────────────────
+    // ─── Service Worker registration — Auto-Update ───
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js').catch(() => {});
+        navigator.serviceWorker.register('./sw.js').then(reg => {
+          // เช็คอัพเดททุก 30 วินาที
+          setInterval(() => reg.update(), 30000);
+
+          reg.addEventListener('updatefound', () => {
+            const sw = reg.installing;
+            sw.addEventListener('statechange', () => {
+              if (sw.state === 'installed' && navigator.serviceWorker.controller) {
+                const t = document.getElementById('updateToast');
+                if (t) { t.style.display = ''; t.textContent = '🔄 กำลังอัพเดทอัตโนมัติ...'; }
+                sw.postMessage('skipWaiting');
+              }
+            });
+          });
+        });
+
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+          location.reload();
+        });
+
+        navigator.serviceWorker.addEventListener('message', e => {
+          if (e.data && e.data.type === 'SW_UPDATED') {
+            const t = document.getElementById('updateToast');
+            if (t) {
+              t.textContent = '✅ อัพเดทเรียบร้อย!';
+              t.style.display = '';
+              setTimeout(() => { t.style.display = 'none'; }, 3000);
+            }
+          }
+        });
       });
     }
   </script>

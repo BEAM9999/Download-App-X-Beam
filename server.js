@@ -332,7 +332,12 @@ function scanApps() {
       // 5) Smart version scan ถ้ายังไม่ได้ version จาก manifest/package
       if (!version) version = smartVersionFromDir(appDir);
 
-      apps.push({ id: entry.name, name, description, category, icon, url: appUrl, version, author });
+      // 6) ตรวจว่าเป็น PWA ติดตั้งได้ไหม (มี manifest.json + sw.js)
+      const hasManifest = fs.existsSync(path.join(appDir, 'manifest.json'));
+      const hasSW = fs.existsSync(path.join(appDir, 'sw.js'));
+      const installable = hasManifest && hasSW;
+
+      apps.push({ id: entry.name, name, description, category, icon, url: appUrl, version, author, installable });
     }
   }
   return apps;
@@ -556,6 +561,33 @@ const server = http.createServer((req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   if (req.method === 'OPTIONS') { res.writeHead(204); res.end(); return; }
+
+  // ─── API: version hash สำหรับตรวจอัพเดท ───────────────────────
+  if (pathname === '/api/version') {
+    const crypto = require('crypto');
+    const hash = crypto.createHash('md5');
+    const scanDir = (dir) => {
+      if (!fs.existsSync(dir)) return;
+      try {
+        const entries = fs.readdirSync(dir, { withFileTypes: true });
+        for (const e of entries) {
+          if (e.name.startsWith('.') || e.name === 'node_modules') continue;
+          const full = path.join(dir, e.name);
+          if (e.isFile()) {
+            try { const s = fs.statSync(full); hash.update(full + s.mtimeMs); } catch (_) {}
+          } else if (e.isDirectory()) {
+            scanDir(full);
+          }
+        }
+      } catch (_) {}
+    };
+    scanDir(ROOT);
+    const versionHash = hash.digest('hex').substring(0, 12);
+    res.setHeader('Content-Type', 'application/json; charset=utf-8');
+    res.setHeader('Cache-Control', 'no-store, no-cache');
+    res.end(JSON.stringify({ hash: versionHash, timestamp: Date.now() }));
+    return;
+  }
 
   // ─── API endpoint: real-time scan ───────────────────────────────
   if (pathname === '/api/apps') {

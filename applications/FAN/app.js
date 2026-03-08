@@ -408,6 +408,12 @@ window.addEventListener('beforeinstallprompt', e => {
   const btn = document.getElementById('pwaInstallBtn');
   if (btn) { btn.textContent = 'ติดตั้ง'; btn.onclick = installPWA; }
   _showPWABanner();
+
+  // ถ้าเปิดมาจาก Store ด้วย ?pwaInstall=1 → auto-trigger install prompt ทันที
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('pwaInstall') === '1') {
+    setTimeout(() => installPWA(), 500);
+  }
 });
 
 window.addEventListener('appinstalled', () => {
@@ -470,23 +476,47 @@ function _showIOSGuide() {
 function _showDesktopGuide() {
   alert('วิธีติดตั้งบนคอมพิวเตอร์:\n\nChrome: กดจุดสามจุดแล้วเลือก ติดตั้ง FAN\nEdge: กดจุดสามจุดแล้วเลือก แอป > ติดตั้งเว็บไซต์นี้');
 }
-// ═══════ Service Worker ═══════
+// ═══════ Service Worker — Auto-Update ═══════
 function registerSW() {
   if (!('serviceWorker' in navigator)) return;
+
   navigator.serviceWorker.register('./sw.js').then(reg => {
-    setInterval(() => reg.update(), 60000);
+    // เช็คอัพเดททุก 30 วินาที (ตรวจจับการเปลี่ยนแปลงโค้ดเร็ว)
+    setInterval(() => reg.update(), 30000);
+
     reg.addEventListener('updatefound', () => {
       const sw = reg.installing;
       sw.addEventListener('statechange', () => {
         if (sw.state === 'installed' && navigator.serviceWorker.controller) {
+          // แสดง toast อัพเดท
           const t = document.getElementById('updateToast');
-          t.classList.add('show');
-          t.onclick = () => { sw.postMessage('skipWaiting'); t.classList.remove('show'); };
+          if (t) {
+            t.classList.add('show');
+            t.textContent = '🔄 กำลังอัพเดทอัตโนมัติ...';
+          }
+          // สั่ง skipWaiting ทันที → จะ trigger controllerchange → reload
+          sw.postMessage('skipWaiting');
         }
       });
     });
   });
-  navigator.serviceWorker.addEventListener('controllerchange', () => location.reload());
+
+  // เมื่อ SW ใหม่เข้าควบคุม → reload ทันที
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    location.reload();
+  });
+
+  // รับ message จาก SW เมื่ออัพเดทเสร็จ
+  navigator.serviceWorker.addEventListener('message', e => {
+    if (e.data && e.data.type === 'SW_UPDATED') {
+      const t = document.getElementById('updateToast');
+      if (t) {
+        t.textContent = '✅ อัพเดทเรียบร้อย!';
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 3000);
+      }
+    }
+  });
 }
 
 // ═══════ ระบบอวยพรวันสำคัญ ═══════

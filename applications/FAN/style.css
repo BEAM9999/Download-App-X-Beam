@@ -30,7 +30,7 @@ body{font-family:var(--font);background:linear-gradient(135deg,var(--bg1),var(--
 
 /* ══ Topbar ══ */
 .topbar{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:10px;padding:14px 16px;background:var(--fan-topbar-bg,rgba(15,12,41,.88));backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
-.topbar-icon{width:34px;height:34px;border-radius:9px;background:var(--fan-topbar-icon-bg,rgba(255,255,255,.92));padding:3px;object-fit:contain}
+.topbar-icon{width:34px;height:34px;border-radius:9px;background:#fff;padding:3px;object-fit:contain;box-shadow:0 1px 4px rgba(0,0,0,.18)}
 .topbar-title{flex:1;min-width:0;font-size:1.1rem;font-weight:700;background:linear-gradient(90deg,var(--pink),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .topbar-actions{display:flex;align-items:center;gap:8px}
 .topbar-icon-btn{width:38px;height:38px;border:none;border-radius:14px;background:var(--fan-control-bg,var(--card));border:1px solid var(--border);color:var(--text);font-size:1rem;cursor:pointer;transition:transform .18s ease,background .18s ease,border-color .18s ease}
@@ -257,7 +257,7 @@ body{font-family:var(--font);background:linear-gradient(135deg,var(--bg1),var(--
 /* ══ PWA Install Banner ══ */
 .pwa-banner{position:fixed;bottom:0;left:0;right:0;z-index:300;display:flex;align-items:center;gap:12px;padding:14px 16px;background:rgba(15,12,41,.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-top:1px solid rgba(255,107,157,.25);animation:pwaBannerIn .35s cubic-bezier(.4,0,.2,1)}
 @keyframes pwaBannerIn{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.pwa-banner-icon{width:44px;height:44px;border-radius:10px;flex-shrink:0}
+.pwa-banner-icon{width:44px;height:44px;border-radius:10px;flex-shrink:0;background:#fff;padding:3px;object-fit:contain;box-shadow:0 1px 4px rgba(0,0,0,.18)}
 .pwa-banner-text{flex:1;min-width:0}
 .pwa-banner-text strong{display:block;font-size:.85rem;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pwa-banner-text span{display:block;font-size:.7rem;color:var(--text2);margin-top:1px}

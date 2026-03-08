@@ -136,10 +136,13 @@ function cardHTML(app) {
     ? `<img src="${escapeAttr(app.icon)}" alt="${escapeAttr(app.name)}" loading="lazy" onerror="this.parentElement.textContent='${fallback}'">`
     : fallback;
   const catLabel   = app.category === 'games' ? 'เกม' : (isWeb ? 'เว็บภายนอก' : (isLocalWeb ? 'เว็บภายใน' : 'แอป'));
-  const btnText    = isWeb ? 'เยี่ยมชม' : 'เปิด';
+
+  // ปุ่ม: PWA installable → "ดาวน์โหลด", เว็บ → "เยี่ยมชม", อื่น → "เปิด"
+  const btnText = app.installable ? '📥 ดาวน์โหลด' : (isWeb ? 'เยี่ยมชม' : 'เปิด');
   const badge      = isWeb
     ? '<span class="ext-badge">🔗 ภายนอก</span>'
-    : (isLocalWeb ? '<span class="local-badge">🏠 ภายใน</span>' : '');
+    : (isLocalWeb ? '<span class="local-badge">🏠 ภายใน</span>'
+    : (app.installable ? '<span class="pwa-badge">📥 PWA</span>' : ''));
   const cardClass  = isWeb ? 'web-card' : (isLocalWeb ? 'local-web-card' : '');
   return `
     <div class="app-card ${cardClass}" data-id="${escapeAttr(app.id)}" onclick="openDetail('${escapeAttr(app.id)}')">
@@ -152,7 +155,7 @@ function cardHTML(app) {
           <span class="app-version">${escape(app.version || '')}</span>
         </div>
       </div>
-      <button class="app-get" onclick="event.stopPropagation(); openApp('${escapeAttr(app.id)}')">${btnText}</button>
+      <button class="app-get" onclick="event.stopPropagation(); installOrOpen('${escapeAttr(app.id)}')">${btnText}</button>
     </div>`;
 }
 
@@ -233,7 +236,7 @@ function renderFeatured() {
     ? `<img src="${escapeAttr(app.icon)}" alt="">`
     : '📱';
   const isWebApp = app.category === 'websites' || app.category === 'local-websites';
-  const btnLabel = isWebApp ? 'เยี่ยมชม' : 'ติดตั้ง';
+  const btnLabel = app.installable ? '📥 ติดตั้ง' : (isWebApp ? 'เยี่ยมชม' : 'เปิด');
   const installGuide = isWebApp ? '' : `
     <details class="install-guide">
       <summary>📖 วิธีติดตั้งแอปลงเครื่อง</summary>
@@ -251,18 +254,62 @@ function renderFeatured() {
         <div class="feat-name">${escape(app.name)}</div>
         <div class="feat-desc">${escape(app.description || '')}</div>
       </div>
-      <button class="feat-install" onclick="event.stopPropagation(); openApp('${escapeAttr(app.id)}')">${btnLabel}</button>
+      <button class="feat-install" onclick="event.stopPropagation(); installOrOpen('${escapeAttr(app.id)}')">${btnLabel}</button>
     </div>
     ${installGuide}`;
 }
 
-// ═══════ เปิดแอป ═══════
+// ═══════ เปิดแอป / ติดตั้ง PWA ═══════
 function openApp(id) {
   const app = catalog.apps.find(a => a.id === id);
   if (app && app.url) {
     playClick();
     window.open(app.url, '_blank');
   }
+}
+
+// ═══════ ติดตั้ง PWA หรือเปิดแอป ═══════
+function installOrOpen(id) {
+  const app = catalog.apps.find(a => a.id === id);
+  if (!app || !app.url) return;
+  playClick();
+
+  if (app.installable) {
+    // เปิดแอปพร้อม parameter ให้ auto-trigger install prompt
+    const separator = app.url.includes('?') ? '&' : '?';
+    const installUrl = app.url + separator + 'pwaInstall=1';
+    window.open(installUrl, '_blank');
+  } else {
+    window.open(app.url, '_blank');
+  }
+}
+
+// ═══════ Auto-Update: ตรวจ version hash จาก server ═══════
+let _lastVersionHash = '';
+function startVersionCheck() {
+  if (!_apiAvailable) return;
+  setInterval(async () => {
+    if (document.visibilityState !== 'visible') return;
+    try {
+      const res = await fetch('/api/version?t=' + Date.now());
+      if (!res.ok) return;
+      const data = await res.json();
+      if (_lastVersionHash && data.hash !== _lastVersionHash) {
+        // โค้ดเปลี่ยนแปลง! → reload อัตโนมัติ
+        console.log('🔄 ตรวจพบการเปลี่ยนแปลงโค้ด → กำลังอัพเดท...');
+        const t = document.getElementById('updateToast');
+        if (t) { t.style.display = ''; t.textContent = '🔄 ตรวจพบอัพเดทใหม่ กำลังรีโหลด...'; }
+        // รอ 1 วินาทีให้ toast แสดง แล้ว reload
+        setTimeout(() => location.reload(), 1000);
+      }
+      _lastVersionHash = data.hash;
+    } catch (_) {}
+  }, 5000); // เช็คทุก 5 วินาที
+
+  // ดึง hash ครั้งแรก
+  fetch('/api/version?t=' + Date.now()).then(r => r.json()).then(d => {
+    _lastVersionHash = d.hash;
+  }).catch(() => {});
 }
 
 // ═══════ Modal detail ═══════
@@ -279,7 +326,7 @@ function openDetail(id) {
     ? `<img src="${escapeAttr(app.icon)}" alt="" onerror="this.parentElement.textContent='${fallback}'">`
     : fallback;
 
-  const btnLabel = isWeb ? 'เยี่ยมชมเว็บไซต์' : 'เปิดแอป / ติดตั้ง';
+  const btnLabel = app.installable ? '📥 ดาวน์โหลด / ติดตั้ง' : (isWeb ? 'เยี่ยมชมเว็บไซต์' : 'เปิดแอป');
 
   document.getElementById('modalHeader').innerHTML = `
     <div class="m-icon">${iconHTML}</div>
@@ -287,7 +334,8 @@ function openDetail(id) {
       <div class="m-name">${escape(app.name)}</div>
       <div class="m-author">โดย ${escape(app.author || 'BEAM')}</div>
       ${isWeb ? `<div class="m-url" style="font-size:.7rem;color:var(--text2);word-break:break-all;margin-top:2px">🔗 ${escape(app.url)}</div>` : ''}
-      <button class="m-install" onclick="openApp('${escapeAttr(app.id)}')">${btnLabel}</button>
+      ${app.installable ? '<div style="font-size:.75rem;color:#3ddc84;margin-top:2px">✅ รองรับการติดตั้งลงเครื่อง (PWA)</div>' : ''}
+      <button class="m-install" onclick="installOrOpen('${escapeAttr(app.id)}')">${btnLabel}</button>
     </div>`;
 
   // Preview: iframe สำหรับ external หรือ local
@@ -420,6 +468,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initParticles();
   loadCatalog();
   startPolling();  // เริ่ม auto-detect real-time
+  startVersionCheck(); // ตรวจอัพเดทอัตโนมัติ
 
   // Show iOS install banner after a short delay (if on iOS Safari and not installed)
   if (_isIOS() && !_isInStandaloneMode()) {

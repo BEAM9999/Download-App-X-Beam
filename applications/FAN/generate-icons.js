@@ -30,7 +30,8 @@ $pngEncoder.Save($memory)
 $memory.Position = 0
 $source = [System.Drawing.Image]::FromStream($memory)
 
-function Save-ResizedPng($bitmap, $size, $outPath) {
+# ── บันทึก PNG พร้อมพื้นหลังสีขาว (ไม่โปร่งใส) ──────────────────────
+function Save-ResizedPng($bitmap, $size, $outPath, $bgR=255, $bgG=255, $bgB=255) {
   $target = New-Object System.Drawing.Bitmap($size, $size)
   $target.SetResolution(96, 96)
   $graphics = [System.Drawing.Graphics]::FromImage($target)
@@ -38,7 +39,8 @@ function Save-ResizedPng($bitmap, $size, $outPath) {
   $graphics.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::HighQuality
   $graphics.PixelOffsetMode = [System.Drawing.Drawing2D.PixelOffsetMode]::HighQuality
   $graphics.CompositingQuality = [System.Drawing.Drawing2D.CompositingQuality]::HighQuality
-  $graphics.Clear([System.Drawing.Color]::Transparent)
+  # พื้นขาว — ทำให้ไอคอนมองเห็นได้บนพื้นหลังมืด
+  $graphics.Clear([System.Drawing.Color]::FromArgb(255, $bgR, $bgG, $bgB))
   $graphics.DrawImage($bitmap, 0, 0, $size, $size)
   $graphics.Dispose()
   $target.Save($outPath, [System.Drawing.Imaging.ImageFormat]::Png)
@@ -47,9 +49,34 @@ function Save-ResizedPng($bitmap, $size, $outPath) {
   Write-Output ('OK ' + $item.Name + ' ' + $size + 'x' + $size + ' ' + $item.Length + ' bytes')
 }
 
+# ── บันทึก PNG แบบ Maskable (ไอคอนย่อ 70% + พื้นหลังชมพู) ─────────────
+function Save-MaskablePng($bitmap, $size, $outPath) {
+  $target = New-Object System.Drawing.Bitmap($size, $size)
+  $target.SetResolution(96, 96)
+  $graphics = [System.Drawing.Graphics]::FromImage($target)
+  $graphics.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic
+  $graphics.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::HighQuality
+  $graphics.PixelOffsetMode = [System.Drawing.Drawing2D.PixelOffsetMode]::HighQuality
+  $graphics.CompositingQuality = [System.Drawing.Drawing2D.CompositingQuality]::HighQuality
+  # พื้นชมพู (safe zone สำหรับ maskable icon)
+  $graphics.Clear([System.Drawing.Color]::FromArgb(255, 255, 240, 245))
+  # วาดไอคอนขนาด 70% ตรงกลาง (padding 15%)
+  $pad = [int]($size * 0.15)
+  $inner = $size - $pad * 2
+  $graphics.DrawImage($bitmap, $pad, $pad, $inner, $inner)
+  $graphics.Dispose()
+  $target.Save($outPath, [System.Drawing.Imaging.ImageFormat]::Png)
+  $target.Dispose()
+  $item = Get-Item $outPath
+  Write-Output ('OK (maskable) ' + $item.Name + ' ' + $size + 'x' + $size + ' ' + $item.Length + ' bytes')
+}
+
+# พื้นขาว สำหรับไอคอนทั่วไป
 Save-ResizedPng $source 192 (Join-Path $iconsDir 'favicon-192.png')
 Save-ResizedPng $source 512 (Join-Path $iconsDir 'favicon-512.png')
 Save-ResizedPng $source 180 (Join-Path $iconsDir 'favicon-touch.png')
+# Maskable (ชมพู+padding) สำหรับ Android home screen
+Save-MaskablePng $source 512 (Join-Path $iconsDir 'favicon-maskable.png')
 
 $source.Dispose()
 $memory.Dispose()
@@ -62,4 +89,4 @@ const result = spawnSync('powershell.exe', ['-NoProfile', '-ExecutionPolicy', 'B
 
 if (result.status !== 0) process.exit(result.status || 1);
 
-console.log('\nFAN icons now use favicon.ico as the source.');
+console.log('\nFAN icons now use favicon.ico as the source (white background + maskable).');
