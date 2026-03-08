@@ -468,6 +468,19 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);height:100%;
 .applink-open-btn:hover{opacity:1;transform:scale(1.02)}
 .applink-open-btn:active{transform:scale(0.97)}
 
+/* ── App-link icon images (2 icons per widget) ── */
+.widget-header-icon{width:20px;height:20px;border-radius:5px;object-fit:cover;vertical-align:middle}
+.applink-logo-img{overflow:hidden;padding:0;display:flex;align-items:center;justify-content:center}
+.applink-icon-img{width:100%;height:100%;object-fit:cover;border-radius:14px}
+.applink-icon-badge{
+  width:40px;height:40px;border-radius:12px;flex-shrink:0;
+  overflow:hidden;margin-left:auto;
+  box-shadow:0 2px 8px rgba(0,0,0,.18);
+  opacity:.85;transition:opacity .2s;
+}
+.applink-icon-badge:hover{opacity:1}
+.applink-icon-img-sm{width:100%;height:100%;object-fit:cover;border-radius:12px}
+
 /* ── Widget active/inactive states ── */
 .fan-widget.widget-active{border-color:rgba(61,220,132,.3)}
 .fan-widget.widget-inactive{opacity:.7}

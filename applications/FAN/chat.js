@@ -3235,6 +3235,101 @@ const _appMeta = {
   url:       { label:'เว็บไซต์',       icon:'🌐',  color:'#4285F4', dark:'#001240' },
 };
 
+// ── Icon mapping: app type/name → icon files in "icon App and website/" folder ──
+const _iconBasePath = 'icon App and website/';
+const _iconMap = {
+  youtube:    ['Youtube.webp', 'Youtube 1.webp', 'Youtube 2.webp'],
+  ytmusic:    ['YouTube Music 1.webp', 'YouTube Music 2.png', 'YouTube Music 3.png', 'YouTube Music 4.png'],
+  google:     ['Google.webp', 'Google 1.webp', 'Google 2.webp', 'Google 3.webp', 'Google 4.webp', 'Google 6.webp'],
+  facebook:   ['Facebook.webp', 'Facebook 1.webp', 'Facebook 2.webp'],
+  instagram:  ['Instagram.webp', 'Instagram 1.webp', 'Instagram 2.webp'],
+  messenger:  ['Messenger.webp', 'Messenger 1.webp', 'Messenger 2.webp'],
+  discord:    ['Discord.webp', 'Discord 1.webp', 'Discord 2.webp'],
+  spotify:    ['Spotify.webp', 'Spotify 1.webp', 'Spotify 2.webp'],
+  twitter:    ['Twitter.webp', 'Twitter 1.webp', 'Twitter 2.webp'],
+  telegram:   ['Telegram.webp', 'Telegram 1.webp', 'Telegram 2.webp'],
+  whatsapp:   ['Whatsapp.webp', 'Whatsapp 1.webp', 'Whatsapp 2.webp'],
+  line:       ['Line.png'],
+  snapchat:   ['Snapchat.webp', 'Snapchat 1.webp', 'Snapchat 2.webp'],
+  pinterest:  ['Pinterest.webp', 'Pinterest 1.webp', 'Pinterest 2.webp'],
+  notion:     ['Notion.webp', 'Notion 1.webp', 'Notion 2.webp'],
+  figma:      ['Figma.webp', 'Figma 1.webp', 'Figma 2.webp'],
+  linkedin:   ['Linkedin.webp', 'Linkedin 1.webp', 'Linkedin 2.webp'],
+  medium:     ['Medium.webp', 'Medium 1.webp', 'Medium 2.webp'],
+  paypal:     ['Paypal.webp', 'Paypal 1.webp', 'Paypal 2.webp', 'Paypal 3.webp', 'Paypal 4.webp'],
+  dropbox:    ['Dropbox 1.webp', 'Dropbox 2.webp', 'Dropbox 3.webp'],
+  github:     ['github.png', 'github 1.webp', 'Github 2.webp', 'github 3.webp', 'Github 4.webp', 'Github 5.webp', 'Github 6.webp', 'Github 7.webp', 'Github 8.webp', 'Github 9.webp'],
+  steam:      [],
+  game:       ['Xbox.webp', 'Xbox 1.webp', 'Xbox 2.webp', 'Xbox 3.webp', 'Nintendo 1.webp', 'Nintendo 2.webp', 'Nintendo 3.webp'],
+  playstore:  ['Google Play Store.png'],
+  appstore:   ['appstore.png'],
+  maps:       ['Google.webp'],
+  netflix:    [],
+  tiktok:     [],
+  shopee:     [],
+  lazada:     [],
+  grab:       [],
+  foodpanda:  [],
+  robinhood:  [],
+
+  // Extended matching for catch-all 'app' type by name
+  firefox:    ['Firefox.webp', 'Firefox 1.webp', 'Firefox 2.webp'],
+  chrome:     ['chrome.png'],
+  safari:     ['Safari.webp', 'Safari 1.webp', 'Safari 2.webp'],
+  edge:       ['Microsoft Edge.webp', 'Microsoft Edge 1.webp', 'Microsoft Edge 2.webp'],
+  openai:     ['Openai.webp', 'Openai 1.webp', 'Openai 2.webp'],
+  chatgpt:    ['Openai.webp', 'Openai 1.webp', 'Openai 2.webp'],
+  xbox:       ['Xbox.webp', 'Xbox 1.webp', 'Xbox 2.webp', 'Xbox 3.webp', 'Xbox 4.webp', 'Xbox 5.webp', 'Xbox 6.webp'],
+  windows:    ['Windows.webp', 'Windows 1.webp', 'Windows 2.webp', 'Windows 3.webp'],
+  linux:      ['Linux.webp', 'Linux 1.webp', 'Linux 2.webp'],
+  vscode:     ['Vscode.webp', 'Vscode 1.webp', 'Vscode 2.webp'],
+  react:      ['React .webp', 'React 1.webp', 'React 2.webp'],
+  'google drive': ['Google Drive.webp', 'Google Drive 1.webp', 'Google Drive 2.webp', 'Google Drive 3.webp', 'Google Drive 4.webp', 'Google Drive 5.webp', 'Google Drive 6.webp'],
+  dribbble:   ['Dribbble.webp', 'Dribbble 1.webp', 'Dribbble 2.webp', 'Dribbble 3.webp'],
+  wechat:     ['Wechat.webp', 'Wechat 1.webp', 'Wechat 2.webp', 'Wechat 3.png', 'Wechat 4.png'],
+  kakao:      ['Kakao.png', 'Kakao 1.webp', 'Kakao 2.webp', 'Kakao 3.webp', 'Kakao 5.webp'],
+  grok:       ['Grok.webp', 'Grok 1.webp', 'Grok 2.webp'],
+  airbnb:     ['airbnb.png'],
+  siri:       ['Siri .webp', 'Siri 1.webp', 'Siri 2.webp'],
+  meta:       ['Meta Logo.webp', 'Meta Logo 1.webp', 'Meta Logo 2.webp'],
+};
+
+// Pick N random unique icons for a given app type key.
+// Returns array of full paths (relative to app root).
+function _pickIcons(appType, query, count) {
+  count = count || 2;
+  // Try exact type first
+  let files = _iconMap[appType];
+  // For 'app' catch-all, try matching query name to icon keys
+  if ((!files || files.length === 0) && query) {
+    const qLow = query.toLowerCase().trim();
+    // Try matching icon map keys by query name
+    for (const [key, val] of Object.entries(_iconMap)) {
+      if (val.length > 0 && qLow.includes(key)) { files = val; break; }
+    }
+    // Also try matching key inside query
+    if (!files || files.length === 0) {
+      for (const [key, val] of Object.entries(_iconMap)) {
+        if (val.length > 0 && key.includes(qLow)) { files = val; break; }
+      }
+    }
+  }
+  if (!files || files.length === 0) return null; // No local icons found
+  // Shuffle and pick
+  const shuffled = files.slice().sort(() => Math.random() - 0.5);
+  const picked = shuffled.slice(0, Math.min(count, shuffled.length));
+  return picked.map(f => _iconBasePath + f);
+}
+
+// Generate favicon URL from a website URL (fallback when no local icon)
+function _getFaviconUrl(webUrl) {
+  if (!webUrl) return null;
+  try {
+    const domain = new URL(webUrl).hostname;
+    return `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
+  } catch { return null; }
+}
+
 // Build Android intent URI that tries to launch installed app first.
 // 'browser_fallback_url' sends user to Play Store if the app is not installed.
 function _androidIntent(pkg, fallbackUrl) {
@@ -3326,7 +3421,6 @@ function renderWidgetHtml(widget) {
     }
     case 'youtube': {
       const d = widget.data;
-      const ytMeta = { label:'YouTube', icon:'▶️', color:'#FF0000', dark:'#1a0000' };
       let ytUrl, ytLabel;
       if (d.videoId) {
         ytUrl = 'https://www.youtube.com/watch?v=' + encodeURIComponent(d.videoId);
@@ -3336,18 +3430,22 @@ function renderWidgetHtml(widget) {
         ytLabel = d.query || 'ค้นหาใน YouTube';
       }
       const ytThumb = d.videoId ? `<img class="yt-thumb" src="https://img.youtube.com/vi/${encodeURIComponent(d.videoId)}/mqdefault.jpg" alt="" loading="lazy" onerror="this.style.display='none'">` : '';
+      const ytIcons = _pickIcons('youtube', null, 2);
+      const ytIcon1 = ytIcons ? `<img class="applink-icon-img" src="${esc(ytIcons[0])}" alt="" loading="lazy" onerror="this.textContent='▶️';this.style.fontSize='1.7rem'">` : '▶️';
+      const ytIcon2 = ytIcons && ytIcons[1] ? `<img class="applink-icon-img-sm" src="${esc(ytIcons[1])}" alt="" loading="lazy" onerror="this.style.display='none'">` : '';
       return `<div class="fan-widget fan-widget-applink widget-wiggle" data-widget-id="${id}" style="--app-color:#FF0000;--app-dark:#1a0000">
         <div class="widget-header" style="background:#FF000022;border-bottom:2px solid #FF000044">
-          <span class="widget-icon">▶️</span>
+          <span class="widget-icon">${ytIcons ? `<img class="widget-header-icon" src="${esc(ytIcons[0])}" alt="">` : '▶️'}</span>
           <span class="widget-title">YouTube${ytLabel ? ' — ' + esc(ytLabel) : ''}</span>
         </div>
         ${ytThumb ? `<div style="padding:0 0 0 0;line-height:0">${ytThumb}</div>` : ''}
         <div class="applink-body">
-          <div class="applink-logo" style="background:#FF0000">▶️</div>
+          <div class="applink-logo applink-logo-img" style="background:#FF0000">${ytIcon1}</div>
           <div class="applink-info">
             <div class="applink-name">YouTube</div>
             <div class="applink-query">${esc(ytLabel)}</div>
           </div>
+          ${ytIcon2 ? `<div class="applink-icon-badge">${ytIcon2}</div>` : ''}
         </div>
         <a class="widget-btn applink-open-btn" style="background:#FF0000" href="${ytUrl}" target="_blank" rel="noopener noreferrer">▶️ เปิดใน YouTube</a>
       </div>`;
@@ -3357,18 +3455,35 @@ function renderWidgetHtml(widget) {
       const m = d.meta || _appMeta[d.appType] || { label: d.appType, icon: '🌐', color: '#555', dark: '#111' };
       const label = d.query ? `${esc(d.query)}` : '';
       const btnLabel = d.query ? `${m.icon} เปิดใน ${m.label}` : `${m.icon} เปิด ${m.label}`;
+      // Pick 2 random icons from local folder; fallback to favicon
+      const icons = _pickIcons(d.appType, d.query, 2);
+      const favicon = !icons ? _getFaviconUrl(d.url) : null;
+      const icon1Html = icons
+        ? `<img class="applink-icon-img" src="${esc(icons[0])}" alt="" loading="lazy" onerror="this.replaceWith(document.createTextNode('${m.icon}'))">`
+        : favicon
+        ? `<img class="applink-icon-img" src="${esc(favicon)}" alt="" loading="lazy" onerror="this.replaceWith(document.createTextNode('${m.icon}'))">`
+        : m.icon;
+      const icon2Html = icons && icons[1]
+        ? `<img class="applink-icon-img-sm" src="${esc(icons[1])}" alt="" loading="lazy" onerror="this.style.display='none'">`
+        : '';
+      const headerIconHtml = icons
+        ? `<img class="widget-header-icon" src="${esc(icons[0])}" alt="">`
+        : favicon
+        ? `<img class="widget-header-icon" src="${esc(favicon)}" alt="">`
+        : m.icon;
       return `<div class="fan-widget fan-widget-applink widget-wiggle" data-widget-id="${id}" style="--app-color:${m.color};--app-dark:${m.dark}">
         <div class="widget-header" style="background:${m.color}22;border-bottom:2px solid ${m.color}44">
-          <span class="widget-icon">${m.icon}</span>
+          <span class="widget-icon">${headerIconHtml}</span>
           <span class="widget-title">${m.label}${label ? ' — ' + label : ''}</span>
           <button class="widget-close" onclick="deleteAppLinkWidget('${id}')">✕</button>
         </div>
         <div class="applink-body">
-          <div class="applink-logo" style="background:${m.color}">${m.icon}</div>
+          <div class="applink-logo applink-logo-img" style="background:${m.color}">${icon1Html}</div>
           <div class="applink-info">
             <div class="applink-name">${m.label}</div>
             ${label ? `<div class="applink-query">${label}</div>` : ''}
           </div>
+          ${icon2Html ? `<div class="applink-icon-badge">${icon2Html}</div>` : ''}
         </div>
         <a class="widget-btn applink-open-btn" style="background:${m.color}" href="${d.url}" target="_blank" rel="noopener noreferrer">${btnLabel}</a>
       </div>`;
@@ -3433,28 +3548,36 @@ function _showOpenToast(label) {
   setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 400); }, 2200);
 }
 
-// Try a deep link on mobile without navigating the current page away.
-// Uses a hidden <a> click. If the app is not installed the OS won't intercept it
-// and after 2.5 s we open the web fallback in a new tab instead.
+// Try a deep link on mobile to open native app.
+// Android intents use window.location (most reliable for intent:// URIs).
+// iOS/other URI schemes use an iframe fallback approach.
+// If the app isn't installed, falls back to webUrl after a timeout.
 function _deepLinkWithFallback(deepLink, webUrl) {
-  // Create invisible anchor – clicking it triggers the URI scheme without
-  // changing window.location of the current page.
-  const a = document.createElement('a');
-  a.href = deepLink;
-  a.style.display = 'none';
-  document.body.appendChild(a);
-  try { a.click(); } catch(e) {/* ignore */}
-  document.body.removeChild(a);
-
-  // Fallback: if OS didn't hand off to the app (no blur/hide), open web URL
-  const t = setTimeout(() => {
-    if (webUrl) window.open(webUrl, '_blank', 'noopener,noreferrer');
-  }, 2500);
-  const cancel = () => clearTimeout(t);
+  let launched = false;
+  const cancel = () => { launched = true; };
   window.addEventListener('blur', cancel, { once: true });
   document.addEventListener('visibilitychange', function onVC() {
     if (document.hidden) { cancel(); document.removeEventListener('visibilitychange', onVC); }
   });
+
+  const isIntent = deepLink.startsWith('intent://');
+
+  if (isIntent) {
+    // Android intent:// URIs – must use window.location for the OS to intercept
+    window.location.href = deepLink;
+  } else {
+    // iOS / custom URI schemes – use iframe to avoid navigating away
+    const iframe = document.createElement('iframe');
+    iframe.style.cssText = 'display:none;width:0;height:0;border:none';
+    iframe.src = deepLink;
+    document.body.appendChild(iframe);
+    setTimeout(() => iframe.remove(), 3000);
+  }
+
+  // Fallback: if OS didn't hand off to the app, open web URL
+  setTimeout(() => {
+    if (!launched && webUrl) window.open(webUrl, '_blank', 'noopener,noreferrer');
+  }, isIntent ? 1500 : 2500);
 }
 
 // Build the URLs (deep link + web fallback) for each action type.
@@ -3465,33 +3588,37 @@ function _getOpenTarget(type, query) {
   const appStore  = (id) => isIOS    ? `itms-apps://itunes.apple.com/app/id${id}` : `https://apps.apple.com/app/id${id}`;
 
   const map = {
-    youtube:    { dl: isAndroid ? `intent://search?q=${q}#Intent;scheme=vnd.youtube;package=com.google.android.youtube;end`
+    youtube:    { dl: isAndroid ? `intent://www.youtube.com/results?search_query=${q}#Intent;scheme=https;package=com.google.android.youtube;S.browser_fallback_url=${encodeURIComponent('https://www.youtube.com/results?search_query=' + q)};end`
                                 : `youtube://search?q=${q}`,
                   web: `https://www.youtube.com/results?search_query=${q}` },
-    ytmusic:    { dl: isAndroid ? `intent://www.youtubemusic.com/search?q=${q}#Intent;scheme=https;package=com.google.android.apps.youtube.music;end`
+    ytmusic:    { dl: isAndroid ? `intent://music.youtube.com/search?q=${q}#Intent;scheme=https;package=com.google.android.apps.youtube.music;S.browser_fallback_url=${encodeURIComponent('https://music.youtube.com/search?q=' + q)};end`
                                 : `youtubemusic://search?q=${q}`,
                   web: `https://music.youtube.com/search?q=${q}` },
     maps:       { dl: isAndroid ? `geo:0,0?q=${q}` : `maps://?q=${q}`,
                   web: `https://www.google.com/maps/search/${q}` },
     google:     { dl: null,  web: `https://www.google.com/search?q=${q}` },
-    facebook:   { dl: isAndroid ? `fb://search?q=${q}` : `fb://search?q=${q}`,
+    facebook:   { dl: isAndroid ? `intent://facebook.com/#Intent;scheme=https;package=com.facebook.katana;S.browser_fallback_url=${encodeURIComponent('https://www.facebook.com/')};end`
+                                : `fb://search?q=${q}`,
                   web: query ? `https://www.facebook.com/search/top?q=${q}` : 'https://www.facebook.com/' },
-    instagram:  { dl: isAndroid ? `intent://instagram.com/#Intent;scheme=https;package=com.instagram.android;end`
+    instagram:  { dl: isAndroid ? `intent://instagram.com/#Intent;scheme=https;package=com.instagram.android;S.browser_fallback_url=${encodeURIComponent('https://www.instagram.com/')};end`
                                 : `instagram://`,
                   web: query ? `https://www.instagram.com/explore/search/keyword/?q=${q}` : 'https://www.instagram.com/' },
-    tiktok:     { dl: isAndroid ? `snssdk1233://search?keyword=${q}` : `tiktok://search?keyword=${q}`,
+    tiktok:     { dl: isAndroid ? `intent://www.tiktok.com/#Intent;scheme=https;package=com.zhiliaoapp.musically;S.browser_fallback_url=${encodeURIComponent('https://www.tiktok.com/')};end`
+                                : `tiktok://`,
                   web: query ? `https://www.tiktok.com/search?q=${q}` : 'https://www.tiktok.com/' },
     twitter:    { dl: `twitter://search?query=${q}`,
                   web: query ? `https://x.com/search?q=${q}` : 'https://x.com/' },
-    shopee:     { dl: isAndroid ? `intent://shopee.co.th/search?keyword=${q}#Intent;scheme=https;package=com.shopee.th;end`
+    shopee:     { dl: isAndroid ? `intent://shopee.co.th/search?keyword=${q}#Intent;scheme=https;package=com.shopee.th;S.browser_fallback_url=${encodeURIComponent('https://shopee.co.th/')};end`
                                 : `shopee://search?keyword=${q}`,
                   web: query ? `https://shopee.co.th/search?keyword=${q}` : 'https://shopee.co.th/' },
-    lazada:     { dl: isAndroid ? `intent://www.lazada.co.th/catalog/?q=${q}#Intent;scheme=https;package=com.lazada.android;end`
+    lazada:     { dl: isAndroid ? `intent://www.lazada.co.th/catalog/?q=${q}#Intent;scheme=https;package=com.lazada.android;S.browser_fallback_url=${encodeURIComponent('https://www.lazada.co.th/')};end`
                                 : `lazada://`,
                   web: query ? `https://www.lazada.co.th/catalog/?q=${q}` : 'https://www.lazada.co.th/' },
-    spotify:    { dl: `spotify://search/${q}`,
+    spotify:    { dl: isAndroid ? `intent://open.spotify.com/search/${q}#Intent;scheme=https;package=com.spotify.music;S.browser_fallback_url=${encodeURIComponent('https://open.spotify.com/')};end`
+                                : `spotify://search/${q}`,
                   web: query ? `https://open.spotify.com/search/${q}` : 'https://open.spotify.com/' },
-    netflix:    { dl: isAndroid ? `nflx://open.netflix.com/search?q=${q}` : `nflx://search?q=${q}`,
+    netflix:    { dl: isAndroid ? `intent://www.netflix.com/#Intent;scheme=https;package=com.netflix.mediaclient;S.browser_fallback_url=${encodeURIComponent('https://www.netflix.com/')};end`
+                                : `nflx://search?q=${q}`,
                   web: query ? `https://www.netflix.com/search?q=${q}` : 'https://www.netflix.com/' },
     line:       { dl: isAndroid ? _androidIntent('jp.naver.line.android') : `line://`, web: 'https://line.me/th/' },
     messenger:  { dl: isAndroid ? _androidIntent('com.facebook.orca') : `fb-messenger://`, web: 'https://www.messenger.com/' },
