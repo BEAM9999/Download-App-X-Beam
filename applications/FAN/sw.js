@@ -1,10 +1,16 @@
 /* ══════════════════════════════════════════════════════════
    FAN Service Worker — Auto-Update + Offline Support
    Strategy: Network-first (online → cache), Cache-fallback (offline)
+   ─────────────────────────────────────────────────────────
+   ⚡ cache: 'no-cache' → ทุก request จะ revalidate กับ server เสมอ
+     ถ้าไฟล์ไม่เปลี่ยน server ตอบ 304 (เร็ว, ไม่เปลือง bandwidth)
+     ถ้าไฟล์เปลี่ยน server ส่งไฟล์ใหม่ → อัพเดททันที
    ══════════════════════════════════════════════════════════ */
 'use strict';
 
-const CACHE_NAME = 'fan-auto-v1';
+/* ── เปลี่ยน VERSION ทุกครั้งที่ต้องการ force ล้าง cache ทั้งหมด ── */
+const VERSION = 2;
+const CACHE_NAME = 'fan-v' + VERSION;
 
 // ไฟล์หลักที่ต้อง cache สำหรับ offline
 const CORE_ASSETS = [
@@ -26,7 +32,7 @@ self.addEventListener('install', e => {
   );
 });
 
-// ─── Activate: ลบ cache เก่า แล้ว claim clients ทันที ───
+// ─── Activate: ลบ cache เวอร์ชันเก่าทั้งหมด แล้ว claim clients ───
 self.addEventListener('activate', e => {
   e.waitUntil(
     caches.keys()
@@ -35,7 +41,6 @@ self.addEventListener('activate', e => {
       ))
       .then(() => self.clients.claim())
       .then(() => {
-        // แจ้งทุก client ว่ามีอัพเดท
         self.clients.matchAll({ type: 'window' }).then(clients => {
           clients.forEach(c => c.postMessage({ type: 'SW_UPDATED' }));
         });
@@ -43,14 +48,16 @@ self.addEventListener('activate', e => {
   );
 });
 
-// ─── Fetch: Network-first → Cache-fallback (ใช้ออฟไลน์ได้ 100%) ───
+// ─── Fetch: Network-first + no-cache → ได้ไฟล์ใหม่เสมอ ───
+// cache: 'no-cache' = ข้าม HTTP cache ของเบราว์เซอร์
+// → รูปภาพ, ไอคอน, JS, CSS จะอัพเดททันทีเมื่อเปลี่ยนบน server
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
   const url = new URL(e.request.url);
   if (url.origin !== self.location.origin) return;
 
   e.respondWith(
-    fetch(e.request)
+    fetch(e.request, { cache: 'no-cache' })
       .then(res => {
         // ได้จาก network → cache ไว้สำหรับ offline
         if (res && res.status === 200) {
