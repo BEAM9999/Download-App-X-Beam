@@ -52,14 +52,16 @@
   function setStopState(stopped) {
     duoStopped = stopped;
     const btn = $('duoBtnStop');
+    const svgPlay = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="14" viewBox="0 0 12 14" fill="currentColor"><polygon points="1,0 12,7 1,14"/></svg>';
+    const svgPause = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="14" viewBox="0 0 12 14" fill="currentColor"><rect x="1" y="0" width="4" height="14" rx="1"/><rect x="7" y="0" width="4" height="14" rx="1"/></svg>';
     if (stopped) {
-      btn.textContent = '▶️';
+      btn.innerHTML = svgPlay;
       btn.title = 'เริ่มคุยต่อ';
       btn.classList.add('stopped');
       btn.classList.remove('playing');
       clearTimeout(duoAutoTimer);
     } else {
-      btn.textContent = '⏸️';
+      btn.innerHTML = svgPause;
       btn.title = 'หยุดคุย';
       btn.classList.remove('stopped');
       btn.classList.add('playing');
@@ -363,18 +365,20 @@
           <button class="msg-act" onclick="copyMsg(this)" data-text="${escaped}">📋 คัดลอก</button>
           <button class="msg-act" onclick="regenMsg(${idx})">🔄 ตอบใหม่</button>
           <button class="msg-act" onclick="restoreMsg(${idx})">↩️ ย้อน</button>
-          <button class="msg-act" onclick="speakMsg(this)" data-text="${escaped}">🔊 ฟัง</button>
+          <button class="msg-act" onclick="speakMsg(this)" data-text="${escaped}"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> ฟัง</button>
         </div>`;
 
       html += `
         <div class="msg ${cls}">
-          <div class="duo-msg-avatar">${pe.avatar}</div>
+          <div class="duo-avatar-col">
+            <div class="duo-msg-avatar">${pe.avatar}</div>
+            <div class="msg-time">${timeStr(m.ts)}</div>
+          </div>
           <div class="msg-content">
             <div class="msg-bubble">${bubble}</div>
             ${actions}
-            <div class="msg-time">${timeStr(m.ts)}</div>
           </div>
-        </div>`;  // escaped already declared above
+        </div>`;
     }
     el.innerHTML = html;
     requestAnimationFrame(() => el.scrollTop = el.scrollHeight);
@@ -412,9 +416,13 @@
           <button class="msg-act" onclick="copyMsg(this)" data-text="${escaped}">📋 คัดลอก</button>
           <button class="msg-act" onclick="regenMsg(${botIdx})">🔄 ตอบใหม่</button>
           <button class="msg-act" onclick="restoreMsg(${botIdx})">↩️ ย้อน</button>
-          <button class="msg-act" onclick="speakMsg(this)" data-text="${escaped}">🔊 ฟัง</button>
-        </div>
-        <div class="msg-time">${timeStr(ts)}</div>`);
+          <button class="msg-act" onclick="speakMsg(this)" data-text="${escaped}"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> ฟัง</button>
+        </div>`);
+      // Put time in avatar column
+      const avatarCol = lastMsg.querySelector('.duo-avatar-col');
+      if (avatarCol && !avatarCol.querySelector('.msg-time')) {
+        avatarCol.insertAdjacentHTML('beforeend', `<div class="msg-time">${timeStr(ts)}</div>`);
+      }
     }
 
     el.scrollTop = el.scrollHeight;

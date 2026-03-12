@@ -1039,7 +1039,7 @@ function updatePlatformUI() {
     btnPlatform.title = `แพลตฟอร์มปัจจุบัน: ${platform.name}`;
   }
   if (btnModel) btnModel.title = `เลือกโมเดล (${platform.name})`;
-  if (modelTitle) modelTitle.textContent = `🤖 เลือกโมเดล AI • ${platform.name}`;
+  if (modelTitle) modelTitle.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 2v6"/><circle cx="12" cy="2" r="1.5" fill="currentColor" stroke="none"/><circle cx="9" cy="14" r="1.5" fill="currentColor" stroke="none"/><circle cx="15" cy="14" r="1.5" fill="currentColor" stroke="none"/><path d="M9 18h6"/></svg> เลือกโมเดล AI • ${platform.name}`;
   if (platformConfigTitle) platformConfigTitle.textContent = meta.title;
   if (platformConfigHint) platformConfigHint.textContent = meta.hint;
   if (btnAddPlatformConfig) btnAddPlatformConfig.textContent = meta.addLabel;
@@ -1540,7 +1540,7 @@ function renderMessages() {
           <button class="msg-act" onclick="copyMsg(this)" data-text="${esc(m.content)}">📋 คัดลอก</button>
           <button class="msg-act" onclick="regenMsg(${idx})">🔄 ตอบใหม่</button>
           <button class="msg-act" onclick="restoreMsg(${idx})">↩️ ย้อน</button>
-          <button class="msg-act" onclick="speakMsg(this)" data-text="${esc(m.content)}">🔊 ฟัง</button>
+          <button class="msg-act" onclick="speakMsg(this)" data-text="${esc(m.content)}"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> ฟัง</button>
         </div>`;
     html += `
       <div class="msg ${cls}">
@@ -1629,7 +1629,7 @@ function finalizeBotMsg(text, ts = Date.now()) {
         <button class="msg-act" onclick="copyMsg(this)" data-text="${escaped}">📋 คัดลอก</button>
         <button class="msg-act" onclick="regenMsg(${botIdx})">🔄 ตอบใหม่</button>
         <button class="msg-act" onclick="restoreMsg(${botIdx})">↩️ ย้อน</button>
-        <button class="msg-act" onclick="speakMsg(this)" data-text="${escaped}">🔊 ฟัง</button>
+        <button class="msg-act" onclick="speakMsg(this)" data-text="${escaped}"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> ฟัง</button>
       </div>
       <div class="msg-time">${timeStr(ts)}</div>`);
   }
@@ -4181,7 +4181,7 @@ async function speakMsg(btn) {
     if (!window.speechSynthesis) { alert('เบราว์เซอร์นี้ไม่รองรับ Speech Synthesis — ลอง Edge หรือ Chrome'); return; }
     if (speechSynthesis.speaking) {
       speechSynthesis.cancel();
-      btn.textContent = '🔊 ฟัง';
+      btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> ฟัง';
       return;
     }
     const utter = new SpeechSynthesisUtterance(text);
@@ -4189,8 +4189,8 @@ async function speakMsg(btn) {
     const chosenVoice = allVoices.find(vx => vx.name === ttsBrowserVoiceName);
     if (chosenVoice) utter.voice = chosenVoice;
     else utter.lang = 'th-TH';
-    utter.onend = () => { btn.textContent = '🔊 ฟัง'; };
-    utter.onerror = () => { btn.textContent = '🔊 ฟัง'; };
+    utter.onend = () => { btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> ฟัง'; };
+    utter.onerror = () => { btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> ฟัง'; };
     btn.textContent = '⏸️ หยุด';
     speechSynthesis.speak(utter);
     return;
@@ -4201,7 +4201,7 @@ async function speakMsg(btn) {
   if (_ttsAudio && !_ttsAudio.paused) {
     _ttsAudio.pause();
     _ttsAudio = null;
-    btn.textContent = '🔊 ฟัง';
+    btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> ฟัง';
     return;
   }
 
@@ -4244,12 +4244,12 @@ async function speakMsg(btn) {
       _ttsAudio = new Audio(audioUrl);
       _ttsAudio.onerror = () => {
         console.warn('[TTS] Audio playback error');
-        btn.textContent = '🔊 ฟัง';
+        btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> ฟัง';
         URL.revokeObjectURL(audioUrl);
         _ttsAudio = null;
       };
       _ttsAudio.onended = () => {
-        btn.textContent = '🔊 ฟัง';
+        btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> ฟัง';
         URL.revokeObjectURL(audioUrl);
         _ttsAudio = null;
       };
@@ -4262,7 +4262,7 @@ async function speakMsg(btn) {
       continue;
     }
   }
-  btn.textContent = '🔊 ฟัง';
+  btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> ฟัง';
   alert('ไม่สามารถสร้างเสียงได้ — ลองตรวจสอบ API Key หรือลองใหม่ภายหลัง');
 }
 
@@ -4357,7 +4357,7 @@ function buildVoiceChatModal() {
           <span class="vc-bar"></span>
         </div>
         <div class="vc-controls">
-          <button class="vc-mic-btn" id="vcMicBtn" type="button">🎤</button>
+          <button class="vc-mic-btn" id="vcMicBtn" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="15" viewBox="0 0 13 15" fill="currentColor"><rect x="4" y="0" width="5" height="9" rx="2.5"/><path d="M1.5 7a5 5 0 0 0 10 0" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round"/><line x1="6.5" y1="12" x2="6.5" y2="14.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><line x1="4" y1="14.5" x2="9" y2="14.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></button>
           <button class="vc-end-btn" id="vcEndBtn" type="button">วางสาย</button>
         </div>
       </div>
@@ -4409,7 +4409,7 @@ async function toggleVoiceChatMic() {
 
     recorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
     recorder.onstop = async () => {
-      micBtn.textContent = '🎤';
+      micBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="15" viewBox="0 0 13 15" fill="currentColor"><rect x="4" y="0" width="5" height="9" rx="2.5"/><path d="M1.5 7a5 5 0 0 0 10 0" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round"/><line x1="6.5" y1="12" x2="6.5" y2="14.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><line x1="4" y1="14.5" x2="9" y2="14.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>';
       micBtn.classList.remove('recording');
       if (vcWave) vcWave.classList.remove('active');
       if (vcStatus) vcStatus.textContent = 'กำลังคิด...';
