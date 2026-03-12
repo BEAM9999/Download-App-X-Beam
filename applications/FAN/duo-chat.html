@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#1a1030">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="FAN">
+  <title>FAN Duo Chat</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/favicon.ico">
+  <link rel="apple-touch-icon" href="icons/favicon-touch.png">
+  <link rel="stylesheet" href="chat.css">
+  <link rel="stylesheet" href="theme-customizer.css">
+  <style>
+    /* ═══ Duo Chat Controls ═══ */
+    .duo-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 6px 12px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .duo-side-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 14px;
+      border: 2px solid var(--border2);
+      border-radius: 20px;
+      background: var(--bg2);
+      color: var(--text2);
+      font-size: .82rem;
+      font-family: var(--font);
+      cursor: pointer;
+      transition: all .2s;
+      user-select: none;
+    }
+    .duo-side-btn:hover { background: var(--surface2); }
+    .duo-side-btn.active {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 2px 12px rgba(255,107,157,.3);
+    }
+    .duo-side-btn .duo-avatar { font-size: 1.2rem; }
+    .duo-stop-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border: 2px solid var(--border2);
+      border-radius: 50%;
+      background: var(--bg2);
+      color: var(--text);
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .duo-stop-btn:hover { background: var(--surface2); }
+    .duo-stop-btn.stopped {
+      border-color: var(--danger);
+      background: var(--danger);
+      color: #fff;
+    }
+    .duo-stop-btn.playing {
+      border-color: var(--success);
+      background: var(--success);
+      color: #fff;
+    }
+    /* Duo message avatar badges */
+    .msg .duo-msg-avatar {
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--surface2);
+      align-self: flex-end;
+    }
+    .msg.duo-beam { flex-direction: row; }
+    .msg.duo-noey { flex-direction: row-reverse; }
+    .msg.duo-beam .msg-bubble {
+      background: var(--bot-bubble);
+      color: var(--bot-text);
+      border-bottom-left-radius: 4px;
+    }
+    .msg.duo-noey .msg-bubble {
+      background: var(--user-bubble);
+      color: var(--user-text);
+      border-bottom-right-radius: 4px;
+    }
+    .msg.duo-director {
+      justify-content: center;
+    }
+    .msg.duo-director .msg-bubble {
+      background: var(--surface2);
+      color: var(--text3);
+      font-size: .78rem;
+      font-style: italic;
+      border-radius: 12px;
+      padding: 6px 14px;
+    }
+    /* Typing label shows who is typing */
+    .typing-who {
+      font-size: .72rem;
+      color: var(--text3);
+      margin-left: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="fan-theme-backdrop" id="fanThemeBackdrop" aria-hidden="true"></div>
+
+  <!-- ═══ Sidebar (ประวัติแชท) ═══ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-head">
+      <span class="sb-title">👦💬👧 ประวัติแชทคู่</span>
+      <button class="sb-new" id="btnNewChat" title="แชทใหม่">＋</button>
+    </div>
+    <div class="sb-list" id="sessionList"></div>
+    <div class="sb-foot">
+      <button class="sb-settings-btn" id="btnOpenSettings">⚙️ ตั้งค่า</button>
+    </div>
+  </aside>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- ═══ Main Chat ═══ -->
+  <main class="chat-main">
+    <!-- Header -->
+    <header class="ch-header">
+      <button class="ch-back" id="btnBack" title="กลับ">←</button>
+      <div class="ch-persona">
+        <span class="ch-avatar" id="personaAvatar">💑</span>
+        <div class="ch-info">
+          <span class="ch-name" id="personaName">บีม เก๊ & เนย เก๊</span>
+          <span class="ch-status" id="personaStatus">คุยกัน</span>
+        </div>
+      </div>
+      <div class="ch-actions">
+        <button class="ch-btn" id="btnPlatform" title="เลือกแพลตฟอร์ม">🌐</button>
+        <button class="ch-btn" id="btnModel" title="เลือกโมเดล">🤖</button>
+        <button class="ch-btn" id="btnMenu" title="เมนู">⋮</button>
+      </div>
+    </header>
+
+    <!-- Duo Controls Bar -->
+    <div class="duo-bar" id="duoBar">
+      <button class="duo-side-btn" id="duoBtnBeam" title="สวมบทบีม เก๊">
+        <span class="duo-avatar">👦</span>
+        <span>บีม เก๊</span>
+      </button>
+      <button class="duo-stop-btn" id="duoBtnStop" title="หยุด/เริ่ม">⏸️</button>
+      <button class="duo-side-btn" id="duoBtnNoey" title="สวมบทเนย เก๊">
+        <span class="duo-avatar">👧</span>
+        <span>เนย เก๊</span>
+      </button>
+    </div>
+
+    <!-- Messages -->
+    <div class="ch-messages" id="messages">
+      <div class="ch-welcome" id="welcomeArea">
+        <div class="welcome-avatar" id="welcomeAvatar">💑</div>
+        <div class="welcome-name" id="welcomeName">บีม เก๊ & เนย เก๊</div>
+        <div class="welcome-sub">แชทคู่จำลอง – พิมพ์เพื่อเริ่มบทสนทนา!</div>
+      </div>
+    </div>
+
+    <!-- Typing indicator -->
+    <div class="typing-indicator" id="typingIndicator">
+      <span class="typing-dot"></span>
+      <span class="typing-dot"></span>
+      <span class="typing-dot"></span>
+      <span class="typing-label">กำลังพิมพ์...</span>
+      <span class="typing-who" id="typingWho"></span>
+    </div>
+
+    <!-- Input area -->
+    <div class="ch-input-area">
+      <div class="ch-input-wrap">
+        <textarea id="msgInput" placeholder="พิมพ์ข้อความ..." rows="1"></textarea>
+        <div class="voice-wave" id="voiceWave">
+          <span class="vw-bar"></span><span class="vw-bar"></span>
+          <span class="vw-bar"></span><span class="vw-bar"></span>
+        </div>
+      </div>
+      <button class="ch-voice-btn" id="btnVoice" title="พิมพ์ด้วยเสียง"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="15" viewBox="0 0 13 15" fill="currentColor"><rect x="4" y="0" width="5" height="9" rx="2.5"></rect><path d="M1.5 7a5 5 0 0 0 10 0" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round"></path><line x1="6.5" y1="12" x2="6.5" y2="14.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></line><line x1="4" y1="14.5" x2="9" y2="14.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></line></svg></button>
+      <button class="ch-send-btn" id="btnSend" title="ส่ง" disabled>
+        <svg class="send-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+        <span class="send-spinner"></span>
+      </button>
+    </div>
+  </main>
+
+  <!-- ═══ Platform Selection Panel ═══ -->
+  <div class="panel-overlay" id="platformOverlay">
+    <div class="panel platform-panel" id="platformPanel">
+      <div class="panel-head">
+        <span>🌐 เลือกแพลตฟอร์ม AI</span>
+        <button class="panel-close" id="btnPlatformClose">✕</button>
+      </div>
+      <div class="platform-list" id="platformList"></div>
+      <div class="platform-config-wrap">
+        <div class="model-config" id="platformConfigBox">
+          <div class="model-config-head">
+            <div class="model-config-copy">
+              <div class="model-config-title" id="platformConfigTitle">ตั้งค่าแพลตฟอร์ม</div>
+              <div class="model-config-hint" id="platformConfigHint">เพิ่มคีย์หรือโมเดลของคุณได้จากตรงนี้</div>
+            </div>
+            <div class="model-config-tools">
+              <button class="model-tool-btn" id="btnOpenPastePlatformConfig" type="button">วางโค้ด</button>
+              <button class="model-tool-btn" id="btnImportPlatformConfig" type="button">นำเข้า .txt</button>
+              <button class="model-tool-btn primary" id="btnAddPlatformConfig" type="button">＋ เพิ่ม</button>
+            </div>
+          </div>
+          <div class="model-paste-box hidden" id="platformPasteBox">
+            <div class="model-paste-head">
+              <div class="model-paste-title" id="platformPasteTitle">วางโค้ดจากไฟล์ .txt</div>
+              <button class="model-paste-close" id="btnClosePlatformPaste" type="button">✕</button>
+            </div>
+            <div class="model-config-hint" id="platformPasteHint">คัดลอกข้อความข้างในไฟล์ .txt มาวางได้เลย ระบบจะอ่านรูปแบบเดียวกัน</div>
+            <textarea class="model-paste-input mono" id="platformPasteInput" rows="7" placeholder="key=AIza..."></textarea>
+            <div class="model-paste-actions">
+              <button class="model-tool-btn" id="btnClearPlatformPaste" type="button">ล้าง</button>
+              <button class="model-tool-btn primary" id="btnApplyPlatformPaste" type="button">นำเข้าจากข้อความ</button>
+            </div>
+          </div>
+          <div class="model-config-list" id="platformConfigRows"></div>
+        </div>
+        <div class="model-note" id="platformNote">เลือกแพลตฟอร์มแล้วจัดการ API key/โมเดลได้ที่นี่</div>
+        <div class="model-actions" id="platformActionBox">
+          <a class="model-link-btn" id="platformHelpLink" href="https://aistudio.google.com/api-keys" target="_blank" rel="noopener noreferrer">เปิดหน้าช่วยเหลือ</a>
+        </div>
+        <input id="platformConfigFile" type="file" accept=".txt,text/plain" hidden>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel-overlay" id="modelOverlay">
+    <div class="panel model-panel" id="modelPanel">
+      <div class="panel-head">
+        <span id="modelPanelTitle">🤖 เลือกโมเดล AI</span>
+        <button class="panel-close" id="btnModelClose">✕</button>
+      </div>
+      <div class="model-list" id="modelList"></div>
+      <div class="model-note" id="modelNote">🔴 = โควต้าหมด &nbsp; 🟢 = ใช้ได้</div>
+    </div>
+  </div>
+
+  <!-- ═══ Settings Panel ═══ -->
+  <div class="panel-overlay" id="settingsOverlay">
+    <div class="panel settings-panel" id="settingsPanel">
+      <div class="panel-head">
+        <span>⚙️ ตั้งค่า</span>
+        <button class="panel-close" id="btnSettingsClose">✕</button>
+      </div>
+      <div class="settings-body">
+        <div id="voiceSettingsSection" class="voice-settings-section">
+          <h3 class="settings-section-title">🔊 เสียง TTS / Voice Chat</h3>
+          <div class="tts-platform-row">
+            <button class="tts-platform-btn" id="btnTtsFree">🆓 Browser TTS<br><small>ฟรี ∞ ไม่ต้อง API Key</small></button>
+            <button class="tts-platform-btn" id="btnTtsGemini">💎 Gemini TTS<br><small>gemini-2.5-flash-tts</small></button>
+          </div>
+          <label class="voice-select-label" for="voiceSelect">เสียงของ AI:</label>
+          <select id="voiceSelect" class="voice-select"></select>
+          <button class="voice-preview-btn" id="btnVoicePreview">▶ ทดสอบเสียง</button>
+        </div>
+        <div id="chatThemeCustomizer"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ Image Preview ═══ -->
+  <div class="img-preview-overlay" id="imgPreview">
+    <div class="img-preview-wrap">
+      <img id="imgPreviewSrc" src="" alt="">
+      <div class="img-preview-actions">
+        <button class="img-dl-btn" id="btnImgDownload">⬇️ ดาวน์โหลด</button>
+        <button class="img-close-btn" id="btnImgClose">✕ ปิด</button>
+      </div>
+    </div>
+  </div>
+  <script>window.__DUO_MODE__ = true;</script>
+  <script src="AI/api-key/key.js"></script>
+  <script src="AI/api-key/gemini-key.js"></script>
+  <script src="theme-customizer.js"></script>
+  <script src="chat.js"></script>
+  <script src="duo-chat.js"></script>
+</body>
+</html>

@@ -9,7 +9,7 @@
 'use strict';
 
 /* ── เปลี่ยน VERSION ทุกครั้งที่ต้องการ force ล้าง cache ทั้งหมด ── */
-const VERSION = 2;
+const VERSION = 3;
 const CACHE_NAME = 'fan-v' + VERSION;
 
 // ไฟล์หลักที่ต้อง cache สำหรับ offline
@@ -17,6 +17,7 @@ const CORE_ASSETS = [
   './', './index.html', './app.js', './style.css',
   './theme-customizer.css', './theme-customizer.js',
   './chat.html', './chat.css', './chat.js',
+  './duo-chat.html', './duo-chat.js',
   './AI/api-key/key.js', './AI/api-key/gemini-key.js',
   './manifest.json',
   './icons/favicon.ico', './icons/favicon-192.png', './icons/favicon-512.png',

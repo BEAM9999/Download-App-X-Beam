@@ -303,3 +303,5 @@ html[data-init-persona] #screenStats{opacity:1!important;transform:translateX(0)
 }
 @keyframes fabBounce { 0%{transform:scale(0)rotate(-30deg)} 60%{transform:scale(1.15)rotate(5deg)} 100%{transform:scale(1)rotate(0)} }
 @keyframes fabPulse { 0%{opacity:.6;transform:scale(1)} 100%{opacity:0;transform:scale(1.6)} }
+.duo-fab { bottom: 38px; right: 24px; width: auto; border-radius: 28px; padding: 0 16px; gap: 2px; }
+.duo-fab .fab-icon { font-size: 1.3rem; }

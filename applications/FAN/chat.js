@@ -4748,7 +4748,7 @@ function init() {
   $('imgPreview').addEventListener('click', e => { if (e.target === e.currentTarget) { sfxBtn(); closeImgPreview(); } });
 }
 
-document.addEventListener('DOMContentLoaded', init);
+document.addEventListener('DOMContentLoaded', () => init());
 // Expose needed functions to global scope for onclick handlers
 window.switchSession = switchSession;
 window.toggleSessionMenu = toggleSessionMenu;

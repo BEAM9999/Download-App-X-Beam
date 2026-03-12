@@ -390,11 +390,16 @@ function goTo(view) {
   }
   // Show/hide FAB chat button
   const fab = document.getElementById('chatFab');
+  const duoFab = document.getElementById('duoChatFab');
   if (view === 'beam' || view === 'noey') {
     fab.classList.remove('hidden');
     fab.onclick = () => { switchSound(); window.location.href = 'chat.html?persona=' + view; };
+    duoFab.classList.add('hidden');
   } else {
     fab.classList.add('hidden');
+    // Show duo-chat FAB on anniversary page
+    duoFab.classList.remove('hidden');
+    duoFab.onclick = () => { switchSound(); window.location.href = 'duo-chat.html'; };
   }
 }
 
@@ -403,6 +408,7 @@ function goBack() {
   prevValues = {};
   showScreen('screenLanding');
   document.getElementById('chatFab').classList.add('hidden');
+  document.getElementById('duoChatFab').classList.add('hidden');
   // Clear URL so refresh shows landing screen
   history.replaceState({}, '', location.pathname);
 }
