@@ -358,9 +358,12 @@
       const cls = side === 'beam' ? 'duo-beam' : 'duo-noey';
       const bubble = renderMd(m.content);
 
+      const escaped = esc(m.content);
       const actions = `<div class="msg-actions">
-          <button class="msg-act" onclick="copyMsg(this)" data-text="${esc(m.content)}">📋 คัดลอก</button>
-          <button class="msg-act" onclick="speakMsg(this)" data-text="${esc(m.content)}">🔊 ฟัง</button>
+          <button class="msg-act" onclick="copyMsg(this)" data-text="${escaped}">📋 คัดลอก</button>
+          <button class="msg-act" onclick="regenMsg(${idx})">🔄 ตอบใหม่</button>
+          <button class="msg-act" onclick="restoreMsg(${idx})">↩️ ย้อน</button>
+          <button class="msg-act" onclick="speakMsg(this)" data-text="${escaped}">🔊 ฟัง</button>
         </div>`;
 
       html += `
@@ -369,9 +372,9 @@
           <div class="msg-content">
             <div class="msg-bubble">${bubble}</div>
             ${actions}
-            <div class="msg-time">${pe.avatar} ${timeStr(m.ts)}</div>
+            <div class="msg-time">${timeStr(m.ts)}</div>
           </div>
-        </div>`;
+        </div>`;  // escaped already declared above
     }
     el.innerHTML = html;
     requestAnimationFrame(() => el.scrollTop = el.scrollHeight);
@@ -402,12 +405,16 @@
     const content = lastMsg.querySelector('.msg-content');
     const escaped = esc(text);
     if (content && !content.querySelector('.msg-actions')) {
+      const session = activeSession();
+      const botIdx = session ? Math.max(session.messages.length - 1, 0) : 0;
       content.insertAdjacentHTML('beforeend', `
         <div class="msg-actions">
           <button class="msg-act" onclick="copyMsg(this)" data-text="${escaped}">📋 คัดลอก</button>
+          <button class="msg-act" onclick="regenMsg(${botIdx})">🔄 ตอบใหม่</button>
+          <button class="msg-act" onclick="restoreMsg(${botIdx})">↩️ ย้อน</button>
           <button class="msg-act" onclick="speakMsg(this)" data-text="${escaped}">🔊 ฟัง</button>
         </div>
-        <div class="msg-time">${pe.avatar} ${timeStr(ts)}</div>`);
+        <div class="msg-time">${timeStr(ts)}</div>`);
     }
 
     el.scrollTop = el.scrollHeight;
