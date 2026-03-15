@@ -803,15 +803,6 @@ async function goToGames() {
     document.getElementById('ghStatTotal').textContent = games.length;
     document.getElementById('ghStatReady').textContent = readyCount;
     document.getElementById('ghStatDev').textContent = devCount;
-
-    // Preload ready games into iframe so launch is instant (no reload if src already set)
-    const frame = document.getElementById('gamePlayerFrame');
-    const readyGames = games.filter(g => g.status === 'ready' && g.entry);
-    if (readyGames.length > 0 && !frame._preloaded) {
-      const g = readyGames[0];
-      frame.src = GAME_BASE_PATH + encodeURIComponent(g._folder) + '/' + g.entry;
-      frame._preloaded = g._folder;
-    }
   }
 }
 
@@ -823,20 +814,15 @@ function goBackFromGames() {
 function launchGame(game) {
   switchSound();
   const frame = document.getElementById('gamePlayerFrame');
-  const newSrc = GAME_BASE_PATH + encodeURIComponent(game._folder) + '/' + game.entry;
-  // Only set src if not already preloaded (avoids reload)
-  if (frame._preloaded !== game._folder) {
-    frame.src = newSrc;
-    frame._preloaded = game._folder;
-  }
+  frame.src = GAME_BASE_PATH + encodeURIComponent(game._folder) + '/' + game.entry;
   showScreen('screenGamePlayer');
   history.pushState({ fanView: 'gamePlay', game: game._folder }, '', '?persona=games&play=' + encodeURIComponent(game._folder));
 }
 
 function closeGamePlayer() {
   clickSound();
-  // Keep iframe src alive (preloaded) — don't reset to ''
-  // Game stays in memory; next launch is instant
+  // หยุดเกมทันที — เคลียร์ src เพื่อไม่ให้รันเบื้องหลัง
+  document.getElementById('gamePlayerFrame').src = '';
   showScreen('screenGames');
   history.replaceState({ fanView: 'games' }, '', '?persona=games');
 }

@@ -181,32 +181,24 @@ html, body {
 }
 
 /* ══════════════════════════════════════════════
-   PORTRAIT ROTATION PROMPT — Mobile only
+   PORTRAIT — Auto-rotate game 90deg (no prompt needed)
    ═════════════════════════════════════════════ */
-#rotatePrompt {
-  display: none;
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: #000;
-  z-index: 9999;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  gap: 16px;
-}
-.rotate-icon { font-size: 64px; animation: rotateAnim 2s ease-in-out infinite; }
-.rotate-text { font-size: 18px; text-align: center; line-height: 1.6; }
-.rotate-text small { color: #888; font-size: 13px; }
+#rotatePrompt { display: none !important; }
 
-@keyframes rotateAnim {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(90deg); }
-}
-
-/* Show rotation prompt only on touch+portrait */
+/* On portrait touch devices: CSS-rotate entire game to landscape */
 @media (pointer: coarse) and (orientation: portrait) {
-  #rotatePrompt { display: flex; }
+  #gameWrapper {
+    position: fixed;
+    /* Swap viewport dims so rotated content fills screen */
+    width: 100vh;
+    height: 100vw;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    transform: translate(-50%, -50%) rotate(90deg);
+    transform-origin: center center;
+  }
 }
 
 /* ══════════════════════════════════════════════
@@ -227,6 +219,5 @@ html, body {
 @media (pointer: fine) and (hover: hover) {
   #touchControls { display: none !important; }
   #btnPause { display: none !important; }
-  #rotatePrompt { display: none !important; }
   #gameCanvas { cursor: pointer; }
 }

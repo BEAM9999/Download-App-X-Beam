@@ -70,9 +70,17 @@ SB.Renderer = {
     } catch (e) {}
   },
 
+  // Helper: get effective viewport size (swapped on portrait mobile)
+  _getViewport() {
+    const isPortraitMobile = window.innerHeight > window.innerWidth &&
+                             ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    return isPortraitMobile
+      ? { w: window.innerHeight, h: window.innerWidth }
+      : { w: window.innerWidth,  h: window.innerHeight };
+  },
+
   _updateDimensions() {
-    const pw = window.innerWidth;
-    const ph = window.innerHeight;
+    const { w: pw, h: ph } = this._getViewport();
     const viewAspect = pw / ph;
     // Keep height fixed at 500, scale width to fill viewport
     SB.W = Math.max(800, Math.round(SB.H * viewAspect));
@@ -81,8 +89,7 @@ SB.Renderer = {
   resize() {
     const canvas = this.canvas;
     this._updateDimensions();
-    const pw = window.innerWidth;
-    const ph = window.innerHeight;
+    const { w: pw, h: ph } = this._getViewport();
     // Canvas internal size matches game dimensions
     const r = (SB.Save && SB.Save.data) ? (SB.Save.data.settings.resolution || 1) : 1;
     canvas.width = Math.round(SB.W * r);
