@@ -39,7 +39,7 @@ html, body {
 }
 
 /* ══════════════════════════════════════════════
-   TOUCH CONTROLS — Hidden on desktop/mouse devices
+   TOUCH CONTROLS — Modern mobile-friendly
    ═════════════════════════════════════════════ */
 #touchControls {
   display: none;
@@ -54,131 +54,95 @@ html, body {
   #touchControls { display: block; }
 }
 
-/* ── D-pad: bottom-left ── */
-#dpad {
+/* ── Movement area: bottom-left ── */
+#moveArea {
   position: absolute;
-  bottom: 12px; left: 12px;
+  bottom: 16px; left: 16px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
+  gap: 10px;
   pointer-events: auto;
-}
-.dpad-row {
-  display: flex;
-  gap: 4px;
 }
 
 /* ── Action buttons: bottom-right ── */
 #actionBtns {
   position: absolute;
-  bottom: 12px; right: 12px;
+  bottom: 16px; right: 16px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
+  gap: 10px;
+  align-items: flex-end;
   pointer-events: auto;
 }
 
-/* ── Button base ── */
-.dpad-btn, .action-btn {
-  width: 56px; height: 56px;
-  border: 2px solid rgba(255,255,255,.25);
-  border-radius: 14px;
-  background: rgba(0,0,0,.45);
-  color: rgba(255,255,255,.55);
-  font-size: 20px; font-weight: bold;
+/* ── Movement buttons ── */
+.mv-btn {
+  width: 62px; height: 62px;
+  border: none;
+  border-radius: 16px;
+  background: rgba(255,255,255,.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: rgba(255,255,255,.5);
+  font-size: 28px; font-weight: 300;
   display: flex; align-items: center; justify-content: center;
   -webkit-tap-highlight-color: transparent;
   outline: none;
   cursor: pointer;
-  transition: background .06s, border-color .06s;
+  transition: background .08s, transform .08s;
+  box-shadow: 0 2px 12px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.06);
 }
-.dpad-btn:active {
-  background: rgba(255,255,255,.3);
-  border-color: rgba(255,255,255,.6);
+.mv-btn:active {
+  background: rgba(255,255,255,.22);
+  transform: scale(0.92);
   color: #fff;
 }
 
-/* ── A button (Jump/Confirm) — large green ── */
-.action-btn#btnA {
-  width: 72px; height: 72px;
+/* ── Action buttons ── */
+.act-btn {
+  border: none;
   border-radius: 50%;
-  background: rgba(76,175,80,.2);
-  border-color: rgba(76,175,80,.45);
-  color: rgba(76,175,80,.7);
-  font-size: 24px;
-}
-.action-btn#btnA:active {
-  background: rgba(76,175,80,.5);
-  border-color: rgba(76,175,80,.8);
-}
-
-/* ── B button (Attack/Back) — red ── */
-.action-btn#btnB {
-  width: 56px; height: 56px;
-  border-radius: 50%;
-  background: rgba(244,67,54,.15);
-  border-color: rgba(244,67,54,.35);
-  color: rgba(244,67,54,.55);
-  font-size: 18px;
-}
-.action-btn#btnB:active {
-  background: rgba(244,67,54,.45);
-  border-color: rgba(244,67,54,.7);
-}
-
-/* ── Pause button (top-right, mobile only) ── */
-#btnPause {
-  display: none;
-  position: fixed;
-  top: 8px; right: 8px;
-  width: 38px; height: 38px;
-  border-radius: 50%;
-  border: 2px solid rgba(255,255,255,.2);
-  background: rgba(0,0,0,.4);
-  color: rgba(255,255,255,.5);
-  font-size: 14px;
-  z-index: 101;
-  cursor: pointer;
-  pointer-events: auto;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   -webkit-tap-highlight-color: transparent;
   outline: none;
+  cursor: pointer;
+  transition: background .08s, transform .08s;
+  font-weight: 600;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
-@media (pointer: coarse), (hover: none) {
-  #btnPause { display: flex; }
-}
-#btnPause:active {
-  background: rgba(255,255,255,.3);
+.act-btn:active {
+  transform: scale(0.9);
 }
 
-/* ── Fullscreen button (top-right, beside pause, mobile only) ── */
-#btnFullscreen {
-  display: none;
-  position: fixed;
-  top: 8px; right: 50px;
-  width: 38px; height: 38px;
-  border-radius: 50%;
-  border: 2px solid rgba(255,255,255,.2);
-  background: rgba(0,0,0,.4);
-  color: rgba(255,255,255,.5);
+/* Jump button — large, green accent */
+.act-jump {
+  width: 68px; height: 68px;
+  background: rgba(76,175,80,.12);
+  box-shadow: 0 2px 16px rgba(76,175,80,.15), inset 0 1px 0 rgba(255,255,255,.05);
+  color: rgba(76,175,80,.6);
+  font-size: 22px;
+}
+.act-jump:active {
+  background: rgba(76,175,80,.35);
+  color: rgba(76,175,80,.95);
+  box-shadow: 0 0 20px rgba(76,175,80,.3);
+}
+
+/* Attack button — smaller, red accent */
+.act-attack {
+  width: 52px; height: 52px;
+  background: rgba(244,67,54,.1);
+  box-shadow: 0 2px 12px rgba(244,67,54,.12), inset 0 1px 0 rgba(255,255,255,.05);
+  color: rgba(244,67,54,.5);
   font-size: 16px;
-  z-index: 101;
-  cursor: pointer;
-  pointer-events: auto;
-  align-items: center;
-  justify-content: center;
-  -webkit-tap-highlight-color: transparent;
-  outline: none;
 }
-@media (pointer: coarse), (hover: none) {
-  #btnFullscreen { display: flex; }
+.act-attack:active {
+  background: rgba(244,67,54,.35);
+  color: rgba(244,67,54,.9);
+  box-shadow: 0 0 16px rgba(244,67,54,.25);
 }
-#btnFullscreen:active {
-  background: rgba(255,255,255,.3);
-}
+
+/* Hidden aux buttons (up/down for menus) */
+.mov-aux { display: none !important; }
 
 /* ══════════════════════════════════════════════
    PORTRAIT — Auto-rotate game 90deg (no prompt needed)
@@ -206,18 +170,15 @@ html, body {
    ═════════════════════════════════════════════ */
 /* Smaller touch buttons on very small screens */
 @media (max-height: 400px) {
-  .dpad-btn { width: 44px; height: 44px; font-size: 16px; border-radius: 10px; }
-  .action-btn#btnA { width: 56px; height: 56px; font-size: 20px; }
-  .action-btn#btnB { width: 44px; height: 44px; font-size: 14px; }
-  #btnPause { width: 30px; height: 30px; font-size: 11px; }
-  #dpad { bottom: 6px; left: 6px; gap: 2px; }
-  .dpad-row { gap: 2px; }
-  #actionBtns { bottom: 6px; right: 6px; gap: 4px; }
+  .mv-btn { width: 48px; height: 48px; font-size: 22px; border-radius: 12px; }
+  .act-jump { width: 54px; height: 54px; font-size: 18px; }
+  .act-attack { width: 42px; height: 42px; font-size: 13px; }
+  #moveArea { bottom: 8px; left: 8px; gap: 6px; }
+  #actionBtns { bottom: 8px; right: 8px; gap: 6px; }
 }
 
 /* Desktop: hide touch elements, show cursor */
 @media (pointer: fine) and (hover: hover) {
   #touchControls { display: none !important; }
-  #btnPause { display: none !important; }
   #gameCanvas { cursor: pointer; }
 }

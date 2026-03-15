@@ -48,21 +48,6 @@ SB.Input = {
     this._initTouch('btnDown', 'down');
     this._initTouch('btnA', 'a');
     this._initTouch('btnB', 'b');
-    this._initTouch('btnPause', 'pause');
-
-    // Fullscreen button
-    const fsBtn = document.getElementById('btnFullscreen');
-    if (fsBtn) {
-      fsBtn.addEventListener('click', e => {
-        e.preventDefault();
-        const el = document.documentElement;
-        if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-          (el.requestFullscreen || el.webkitRequestFullscreen).call(el).catch(() => {});
-        } else {
-          (document.exitFullscreen || document.webkitExitFullscreen).call(document).catch(() => {});
-        }
-      });
-    }
 
     // Mouse click on canvas
     this._initMouse();

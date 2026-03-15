@@ -15,25 +15,20 @@
 
     <!-- Mobile Touch Controls (overlaid on canvas) -->
     <div id="touchControls">
-      <!-- D-pad: left side -->
-      <div id="dpad">
-        <button class="dpad-btn" id="btnUp">▲</button>
-        <div class="dpad-row">
-          <button class="dpad-btn" id="btnLeft">◀</button>
-          <button class="dpad-btn" id="btnRight">▶</button>
-        </div>
-        <button class="dpad-btn" id="btnDown">▼</button>
+      <!-- Movement: left side -->
+      <div id="moveArea">
+        <button class="mv-btn" id="btnLeft">‹</button>
+        <button class="mv-btn" id="btnRight">›</button>
       </div>
       <!-- Action buttons: right side -->
       <div id="actionBtns">
-        <button class="action-btn" id="btnB">B</button>
-        <button class="action-btn" id="btnA">A</button>
+        <button class="act-btn act-jump" id="btnA">↑</button>
+        <button class="act-btn act-attack" id="btnB">⚔</button>
       </div>
+      <!-- Top row: up/down for menus -->
+      <button class="mov-aux" id="btnUp" style="display:none">▲</button>
+      <button class="mov-aux" id="btnDown" style="display:none">▼</button>
     </div>
-    <!-- Pause button (top-right, mobile only) -->
-    <button id="btnPause">⏸</button>
-    <!-- Fullscreen button (top-right, mobile only) -->
-    <button id="btnFullscreen">⛶</button>
   </div>
 
   <!-- Portrait rotation prompt (mobile only) -->
