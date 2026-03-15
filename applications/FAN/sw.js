@@ -9,7 +9,7 @@
 'use strict';
 
 /* ── เปลี่ยน VERSION ทุกครั้งที่ต้องการ force ล้าง cache ทั้งหมด ── */
-const VERSION = 3;
+const VERSION = 5;
 const CACHE_NAME = 'fan-v' + VERSION;
 
 // ไฟล์หลักที่ต้อง cache สำหรับ offline

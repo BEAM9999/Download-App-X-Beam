@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="screen-orientation" content="landscape">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Slime Bouncer: ขุมทรัพย์เหรียญทอง</title>
+  <link rel="stylesheet" href="css/game.css">
+</head>
+<body>
+  <div id="gameWrapper">
+    <canvas id="gameCanvas" width="800" height="500"></canvas>
+
+    <!-- Mobile Touch Controls (overlaid on canvas) -->
+    <div id="touchControls">
+      <!-- D-pad: left side -->
+      <div id="dpad">
+        <button class="dpad-btn" id="btnUp">▲</button>
+        <div class="dpad-row">
+          <button class="dpad-btn" id="btnLeft">◀</button>
+          <button class="dpad-btn" id="btnRight">▶</button>
+        </div>
+        <button class="dpad-btn" id="btnDown">▼</button>
+      </div>
+      <!-- Action buttons: right side -->
+      <div id="actionBtns">
+        <button class="action-btn" id="btnB">B</button>
+        <button class="action-btn" id="btnA">A</button>
+      </div>
+    </div>
+    <!-- Pause button (top-right, mobile only) -->
+    <button id="btnPause">⏸</button>
+    <!-- Fullscreen button (top-right, mobile only) -->
+    <button id="btnFullscreen">⛶</button>
+  </div>
+
+  <!-- Portrait rotation prompt (mobile only) -->
+  <div id="rotatePrompt">
+    <div class="rotate-icon">📱↻</div>
+    <div class="rotate-text">กรุณาหมุนจอเป็นแนวนอน<br><small>Please rotate to landscape</small></div>
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/input.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/save.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/camera.js"></script>
+  <script src="js/items.js"></script>
+  <script src="js/enemy.js"></script>
+  <script src="js/boss.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/level.js"></script>
+  <script src="js/hud.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/renderer.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

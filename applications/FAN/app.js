@@ -690,6 +690,125 @@ function showGreetingIfNeeded() {
   setTimeout(() => showGreetingModal(event, idx), 700);
 }
 
+// ═══════ Game Hub ═══════
+
+/**
+ * Game Registry — ตรวจจับโฟลเดอร์เกมแบบ real-time ผ่าน /api/games
+ * Server สแกน Game/ ทุกครั้งที่เรียก → เพิ่ม/ลบโฟลเดอร์ก็อัปเดตทันที
+ *
+ * game-manifest.json (optional) ในแต่ละโฟลเดอร์เกม:
+ * { name, icon, iconType, description, status, entry }
+ * - status: "ready" | "dev"
+ * - entry: ไฟล์เริ่มเกม เช่น "index.html"
+ * - iconType: "emoji" | "svg" | "image"
+ * - icon: emoji string, SVG string, หรือ path รูปภาพ
+ *
+ * ถ้าไม่มี manifest:
+ *   - มี index.html → status "ready"
+ *   - ไม่มี → status "dev" (กำลังพัฒนา)
+ */
+const GAME_BASE_PATH = 'Game/';
+
+async function loadAllGames() {
+  // ลอง fetch จาก server ปัจจุบันก่อน, ถ้าไม่ได้ลอง port 3000 (Node server)
+  const urls = ['/api/games'];
+  if (location.port && location.port !== '3000') {
+    urls.push('http://localhost:3000/api/games');
+  }
+  for (const url of urls) {
+    try {
+      const resp = await fetch(url, { cache: 'no-store' });
+      if (!resp.ok) continue;
+      const data = await resp.json();
+      if (data.games && data.games.length) return data.games;
+    } catch { /* ลอง URL ถัดไป */ }
+  }
+  return [];
+}
+
+function renderGameCard(game) {
+  const card = document.createElement('div');
+  const isReady = game.status === 'ready' && game.entry;
+  card.className = 'game-card' + (isReady ? '' : ' is-dev');
+
+  // Icon
+  let iconHTML = '';
+  if (game.iconType === 'emoji' && game.icon) {
+    iconHTML = '<span style="font-size:1.8rem">' + game.icon + '</span>';
+  } else if (game.iconType === 'image' && game.icon) {
+    const src = GAME_BASE_PATH + encodeURIComponent(game._folder) + '/' + game.icon;
+    iconHTML = '<img src="' + src + '" alt="' + (game.name || '') + '" loading="lazy">';
+  } else {
+    // Default SVG gamepad icon
+    iconHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/><circle cx="15" cy="11" r="1"/><circle cx="18" cy="14" r="1"/></svg>';
+  }
+
+  const statusLabel = isReady ? 'เล่นได้' : 'กำลังพัฒนา';
+  const statusClass = isReady ? 'ready' : 'dev';
+  const descHTML = game.description ? '<div class="game-card-desc">' + game.description + '</div>' : '';
+  const playBtn = isReady ? '<button class="game-card-play" aria-label="เล่น"><svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><polygon points="2,0 12,6 2,12"/></svg></button>' : '';
+
+  card.innerHTML =
+    '<div class="game-card-icon">' + iconHTML + '</div>' +
+    '<div class="game-card-name">' + (game.name || game._folder) + '</div>' +
+    descHTML +
+    '<div class="game-card-status ' + statusClass + '">' + statusLabel + '</div>' +
+    playBtn;
+
+  if (isReady) {
+    card.addEventListener('click', () => launchGame(game));
+  }
+  return card;
+}
+
+async function goToGames() {
+  showScreen('screenGames');
+  history.pushState({ fanView: 'games' }, '', '?persona=games');
+
+  // สแกนใหม่ทุกครั้งที่เปิดหน้า (real-time detection)
+  const grid = document.getElementById('gameHubGrid');
+  const empty = document.getElementById('gameHubEmpty');
+  grid.innerHTML = '';
+
+  const games = await loadAllGames();
+  if (games.length === 0) {
+    empty.style.display = '';
+    document.getElementById('ghStatTotal').textContent = '0';
+    document.getElementById('ghStatReady').textContent = '0';
+    document.getElementById('ghStatDev').textContent = '0';
+  } else {
+    empty.style.display = 'none';
+    let readyCount = 0, devCount = 0;
+    games.forEach(g => {
+      grid.appendChild(renderGameCard(g));
+      if (g.status === 'ready' && g.entry) readyCount++; else devCount++;
+    });
+    document.getElementById('ghStatTotal').textContent = games.length;
+    document.getElementById('ghStatReady').textContent = readyCount;
+    document.getElementById('ghStatDev').textContent = devCount;
+  }
+}
+
+function goBackFromGames() {
+  showScreen('screenLanding');
+  history.replaceState({}, '', location.pathname);
+}
+
+function launchGame(game) {
+  switchSound();
+  const frame = document.getElementById('gamePlayerFrame');
+  frame.src = GAME_BASE_PATH + encodeURIComponent(game._folder) + '/' + game.entry;
+  showScreen('screenGamePlayer');
+  history.pushState({ fanView: 'gamePlay', game: game._folder }, '', '?persona=games&play=' + encodeURIComponent(game._folder));
+}
+
+function closeGamePlayer() {
+  clickSound();
+  document.getElementById('gamePlayerFrame').src = '';
+  showScreen('screenGames');
+  history.replaceState({ fanView: 'games' }, '', '?persona=games');
+}
+
 // ═══════ Init ═══════
 document.addEventListener('DOMContentLoaded', () => {
   createParticles();
@@ -701,6 +820,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('pickBeam').addEventListener('click', e => { ripple(e, e.currentTarget); switchSound(); goTo('beam'); });
   document.getElementById('pickNoey').addEventListener('click', e => { ripple(e, e.currentTarget); switchSound(); goTo('noey'); });
   document.getElementById('pickAnniv').addEventListener('click', e => { ripple(e, e.currentTarget); switchSound(); goTo('anniv'); });
+  document.getElementById('openGameHub').addEventListener('click', e => { ripple(e, e.currentTarget); switchSound(); goToGames(); });
   document.getElementById('btnBack').addEventListener('click', e => { clickSound(); goBack(); });
   document.querySelectorAll('.js-open-theme-settings').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -722,6 +842,11 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.target === e.currentTarget) closeThemeSettings();
     });
   }
+  // Game Center back
+  document.getElementById('btnBackGames').addEventListener('click', e => { clickSound(); goBackFromGames(); });
+  // Game Player close
+  document.getElementById('btnCloseGamePlayer').addEventListener('click', closeGamePlayer);
+
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeThemeSettings();
   });
@@ -751,11 +876,28 @@ document.addEventListener('DOMContentLoaded', () => {
     goTo(_initPersona);
     // ลบ attribute ออกหลังจาก goTo เพื่อให้ animation ทำงานปกติต่อไป
     delete document.documentElement.dataset.initPersona;
+  } else if (_initPersona === 'games') {
+    const _playGame = _initParams.get('play');
+    if (_playGame) {
+      // เปิด URL ตรงมาที่เกม — โหลด Game Center ก่อนแล้วค่อย launch
+      goToGames().then(() => {
+        const frame = document.getElementById('gamePlayerFrame');
+        frame.src = GAME_BASE_PATH + encodeURIComponent(_playGame) + '/index.html';
+        showScreen('screenGamePlayer');
+      });
+    } else {
+      goToGames();
+    }
   }
 
   // Handle browser/hardware back button on index.html (push state for each screen change handled by goTo/goBack)
   window.addEventListener('popstate', () => {
-    if (document.getElementById('screenStats').classList.contains('active')) {
+    if (document.getElementById('screenGamePlayer').classList.contains('active')) {
+      document.getElementById('gamePlayerFrame').src = '';
+      showScreen('screenGames');
+    } else if (document.getElementById('screenGames').classList.contains('active')) {
+      goBackFromGames();
+    } else if (document.getElementById('screenStats').classList.contains('active')) {
       goBack();
     }
   });

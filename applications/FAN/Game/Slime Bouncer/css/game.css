@@ -1,0 +1,232 @@
+/* ══════════════════════════════════════════════
+   Slime Bouncer — Game Styles
+   Desktop + Mobile Responsive + Touch Controls
+   ═════════════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  background: #000;
+  font-family: 'Segoe UI', sans-serif;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* ── Game Wrapper: fills viewport ── */
+#gameWrapper {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  overflow: hidden;
+}
+
+/* ── Canvas: scales to fill while keeping 800:500 aspect ── */
+#gameCanvas {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  display: block;
+  background: #1a1a2e;
+  cursor: pointer;
+  /* Fill entire viewport — slight stretch acceptable for pixel art */
+  width: 100vw;
+  height: 100vh;
+}
+
+/* ══════════════════════════════════════════════
+   TOUCH CONTROLS — Hidden on desktop/mouse devices
+   ═════════════════════════════════════════════ */
+#touchControls {
+  display: none;
+  position: fixed;
+  bottom: 0; left: 0; right: 0; top: 0;
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* Show on touch devices */
+@media (pointer: coarse), (hover: none) {
+  #touchControls { display: block; }
+}
+
+/* ── D-pad: bottom-left ── */
+#dpad {
+  position: absolute;
+  bottom: 12px; left: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  pointer-events: auto;
+}
+.dpad-row {
+  display: flex;
+  gap: 4px;
+}
+
+/* ── Action buttons: bottom-right ── */
+#actionBtns {
+  position: absolute;
+  bottom: 12px; right: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  pointer-events: auto;
+}
+
+/* ── Button base ── */
+.dpad-btn, .action-btn {
+  width: 56px; height: 56px;
+  border: 2px solid rgba(255,255,255,.25);
+  border-radius: 14px;
+  background: rgba(0,0,0,.45);
+  color: rgba(255,255,255,.55);
+  font-size: 20px; font-weight: bold;
+  display: flex; align-items: center; justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  cursor: pointer;
+  transition: background .06s, border-color .06s;
+}
+.dpad-btn:active {
+  background: rgba(255,255,255,.3);
+  border-color: rgba(255,255,255,.6);
+  color: #fff;
+}
+
+/* ── A button (Jump/Confirm) — large green ── */
+.action-btn#btnA {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: rgba(76,175,80,.2);
+  border-color: rgba(76,175,80,.45);
+  color: rgba(76,175,80,.7);
+  font-size: 24px;
+}
+.action-btn#btnA:active {
+  background: rgba(76,175,80,.5);
+  border-color: rgba(76,175,80,.8);
+}
+
+/* ── B button (Attack/Back) — red ── */
+.action-btn#btnB {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: rgba(244,67,54,.15);
+  border-color: rgba(244,67,54,.35);
+  color: rgba(244,67,54,.55);
+  font-size: 18px;
+}
+.action-btn#btnB:active {
+  background: rgba(244,67,54,.45);
+  border-color: rgba(244,67,54,.7);
+}
+
+/* ── Pause button (top-right, mobile only) ── */
+#btnPause {
+  display: none;
+  position: fixed;
+  top: 8px; right: 8px;
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,.2);
+  background: rgba(0,0,0,.4);
+  color: rgba(255,255,255,.5);
+  font-size: 14px;
+  z-index: 101;
+  cursor: pointer;
+  pointer-events: auto;
+  align-items: center;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+@media (pointer: coarse), (hover: none) {
+  #btnPause { display: flex; }
+}
+#btnPause:active {
+  background: rgba(255,255,255,.3);
+}
+
+/* ── Fullscreen button (top-right, beside pause, mobile only) ── */
+#btnFullscreen {
+  display: none;
+  position: fixed;
+  top: 8px; right: 50px;
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,.2);
+  background: rgba(0,0,0,.4);
+  color: rgba(255,255,255,.5);
+  font-size: 16px;
+  z-index: 101;
+  cursor: pointer;
+  pointer-events: auto;
+  align-items: center;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+@media (pointer: coarse), (hover: none) {
+  #btnFullscreen { display: flex; }
+}
+#btnFullscreen:active {
+  background: rgba(255,255,255,.3);
+}
+
+/* ══════════════════════════════════════════════
+   PORTRAIT ROTATION PROMPT — Mobile only
+   ═════════════════════════════════════════════ */
+#rotatePrompt {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: #000;
+  z-index: 9999;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  gap: 16px;
+}
+.rotate-icon { font-size: 64px; animation: rotateAnim 2s ease-in-out infinite; }
+.rotate-text { font-size: 18px; text-align: center; line-height: 1.6; }
+.rotate-text small { color: #888; font-size: 13px; }
+
+@keyframes rotateAnim {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(90deg); }
+}
+
+/* Show rotation prompt only on touch+portrait */
+@media (pointer: coarse) and (orientation: portrait) {
+  #rotatePrompt { display: flex; }
+}
+
+/* ══════════════════════════════════════════════
+   RESPONSIVE SIZE ADJUSTMENTS
+   ═════════════════════════════════════════════ */
+/* Smaller touch buttons on very small screens */
+@media (max-height: 400px) {
+  .dpad-btn { width: 44px; height: 44px; font-size: 16px; border-radius: 10px; }
+  .action-btn#btnA { width: 56px; height: 56px; font-size: 20px; }
+  .action-btn#btnB { width: 44px; height: 44px; font-size: 14px; }
+  #btnPause { width: 30px; height: 30px; font-size: 11px; }
+  #dpad { bottom: 6px; left: 6px; gap: 2px; }
+  .dpad-row { gap: 2px; }
+  #actionBtns { bottom: 6px; right: 6px; gap: 4px; }
+}
+
+/* Desktop: hide touch elements, show cursor */
+@media (pointer: fine) and (hover: hover) {
+  #touchControls { display: none !important; }
+  #btnPause { display: none !important; }
+  #rotatePrompt { display: none !important; }
+  #gameCanvas { cursor: pointer; }
+}
