@@ -814,7 +814,7 @@ function goBackFromGames() {
 function launchGame(game) {
   switchSound();
   const frame = document.getElementById('gamePlayerFrame');
-  frame.src = GAME_BASE_PATH + encodeURIComponent(game._folder) + '/' + game.entry;
+  frame.src = GAME_BASE_PATH + encodeURIComponent(game._folder) + '/' + game.entry + '?startFresh=1';
   showScreen('screenGamePlayer');
   history.pushState({ fanView: 'gamePlay', game: game._folder }, '', '?persona=games&play=' + encodeURIComponent(game._folder));
 }

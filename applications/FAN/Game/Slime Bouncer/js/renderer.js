@@ -81,12 +81,11 @@ SB.Renderer = {
 
   _updateDimensions() {
     const { w: pw, h: ph } = this._getViewport();
-    const isMobile = ('ontouchstart' in window || navigator.maxTouchPoints > 0);
-    // Mobile: use smaller game height so everything appears larger
-    SB.H = isMobile ? 340 : 500;
+    // Keep height fixed at 500 (levels designed for this)
+    SB.H = 500;
     const viewAspect = pw / ph;
     // Scale width to fill viewport
-    SB.W = Math.max(isMobile ? 600 : 800, Math.round(SB.H * viewAspect));
+    SB.W = Math.max(800, Math.round(SB.H * viewAspect));
   },
 
   resize() {

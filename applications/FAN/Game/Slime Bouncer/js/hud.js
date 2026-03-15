@@ -302,11 +302,10 @@ SB.HUD = {
 
     // ── Gear/Pause button (all platforms) ──
     if (SB.gameState === 'PLAYING') {
-      const isMobile = ('ontouchstart' in window || navigator.maxTouchPoints > 0);
-      const gx = isMobile ? 30 : SB.W - 30;
-      const gy = isMobile ? 24 : 50;
+      const gx = SB.W - 30;
+      const gy = 50;
       ctx.fillStyle = 'rgba(255,255,255,0.35)';
-      ctx.font = isMobile ? '22px monospace' : '18px monospace';
+      ctx.font = '18px monospace';
       ctx.textAlign = 'center';
       ctx.fillText('⚙', gx, gy);
       this._gearBtn = { x: gx - 16, y: gy - 18, w: 32, h: 32 };

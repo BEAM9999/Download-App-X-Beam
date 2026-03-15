@@ -49,27 +49,34 @@ html, body {
   z-index: 100;
 }
 
-/* Show on touch devices */
+/* Show on touch devices — BUT only visible during gameplay (JS toggles .in-game) */
 @media (pointer: coarse), (hover: none) {
   #touchControls { display: block; }
+  #touchControls:not(.in-game) #moveArea,
+  #touchControls:not(.in-game) #actionBtns { display: none; }
 }
 
-/* ── Movement area: bottom-left ── */
+/* ── Movement area: left side, vertically centered ── */
 #moveArea {
   position: absolute;
-  bottom: 16px; left: 16px;
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
   display: flex;
   gap: 10px;
   pointer-events: auto;
 }
 
-/* ── Action buttons: bottom-right ── */
+/* ── Action buttons: right side, vertically centered ── */
 #actionBtns {
   position: absolute;
-  bottom: 16px; right: 16px;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
   display: flex;
-  gap: 10px;
-  align-items: flex-end;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
   pointer-events: auto;
 }
 
@@ -173,8 +180,8 @@ html, body {
   .mv-btn { width: 48px; height: 48px; font-size: 22px; border-radius: 12px; }
   .act-jump { width: 54px; height: 54px; font-size: 18px; }
   .act-attack { width: 42px; height: 42px; font-size: 13px; }
-  #moveArea { bottom: 8px; left: 8px; gap: 6px; }
-  #actionBtns { bottom: 8px; right: 8px; gap: 6px; }
+  #moveArea { left: 8px; gap: 6px; }
+  #actionBtns { right: 8px; gap: 6px; }
 }
 
 /* Desktop: hide touch elements, show cursor */

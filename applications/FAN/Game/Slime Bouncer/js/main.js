@@ -351,6 +351,16 @@ function gameLoop(timestamp) {
     // Input
     SB.Input.update();
 
+    // Toggle touch controls visibility based on game state
+    const tc = document.getElementById('touchControls');
+    if (tc) {
+      if (SB.gameState === 'PLAYING' || SB.gameState === 'PAUSED') {
+        tc.classList.add('in-game');
+      } else {
+        tc.classList.remove('in-game');
+      }
+    }
+
     // UI input handling (all states)
     SB.UI.handleInput();
     SB.UI.update(dt);
@@ -435,7 +445,8 @@ function init() {
   SB.Player.init();
 
   // Restore last screen or go to title
-  const lastScreen = SB.Save.data.lastScreen || 'TITLE';
+  const freshStart = new URLSearchParams(location.search).get('startFresh') === '1';
+  const lastScreen = freshStart ? 'TITLE' : (SB.Save.data.lastScreen || 'TITLE');
   if (lastScreen === 'WORLD_MAP') {
     SB.UI.initWorldMap();
   } else if (lastScreen === 'WORLD_SELECT') {
