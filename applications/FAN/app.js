@@ -709,6 +709,22 @@ function showGreetingIfNeeded() {
  */
 const GAME_BASE_PATH = 'Game/';
 
+// Fallback games — แสดงเสมอแม้เปิด file:// หรือ server ธรรมดา
+const FALLBACK_GAMES = [
+  {
+    _folder: 'Slime Bouncer',
+    name: 'Slime Bouncer',
+    icon: 'icon.png',
+    iconType: 'image',
+    description: 'ผจญภัยเก็บเหรียญทอง 4 โลก บอสลึกลับ',
+    status: 'ready',
+    entry: 'index.html'
+  },
+  { _folder: 'Crystal Guardian', name: 'Crystal Guardian', icon: null, iconType: 'svg', description: 'กำลังพัฒนา...', status: 'dev', entry: null },
+  { _folder: 'Neon Ninja',       name: 'Neon Ninja',       icon: null, iconType: 'svg', description: 'กำลังพัฒนา...', status: 'dev', entry: null },
+  { _folder: 'Tiny Blade',       name: 'Tiny Blade',       icon: null, iconType: 'svg', description: 'กำลังพัฒนา...', status: 'dev', entry: null }
+];
+
 async function loadAllGames() {
   // ลอง fetch จาก server ปัจจุบันก่อน, ถ้าไม่ได้ลอง port 3000 (Node server)
   const urls = ['/api/games'];
@@ -723,7 +739,8 @@ async function loadAllGames() {
       if (data.games && data.games.length) return data.games;
     } catch { /* ลอง URL ถัดไป */ }
   }
-  return [];
+  // ไม่มี server → ใช้รายการ hardcoded (file://, simple server, ฯลฯ)
+  return FALLBACK_GAMES;
 }
 
 function renderGameCard(game) {
@@ -737,7 +754,7 @@ function renderGameCard(game) {
     iconHTML = '<span style="font-size:1.8rem">' + game.icon + '</span>';
   } else if (game.iconType === 'image' && game.icon) {
     const src = GAME_BASE_PATH + encodeURIComponent(game._folder) + '/' + game.icon;
-    iconHTML = '<img src="' + src + '" alt="' + (game.name || '') + '" loading="lazy">';
+    iconHTML = '<img src="' + src + '" alt="' + (game.name || '') + '" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:inherit" onerror="this.outerHTML=\'<span style=\'font-size:1.8rem\'>🎮</span>\'">';
   } else {
     // Default SVG gamepad icon
     iconHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/><circle cx="15" cy="11" r="1"/><circle cx="18" cy="14" r="1"/></svg>';
@@ -786,6 +803,15 @@ async function goToGames() {
     document.getElementById('ghStatTotal').textContent = games.length;
     document.getElementById('ghStatReady').textContent = readyCount;
     document.getElementById('ghStatDev').textContent = devCount;
+
+    // Preload ready games into iframe so launch is instant (no reload if src already set)
+    const frame = document.getElementById('gamePlayerFrame');
+    const readyGames = games.filter(g => g.status === 'ready' && g.entry);
+    if (readyGames.length > 0 && !frame._preloaded) {
+      const g = readyGames[0];
+      frame.src = GAME_BASE_PATH + encodeURIComponent(g._folder) + '/' + g.entry;
+      frame._preloaded = g._folder;
+    }
   }
 }
 
@@ -797,14 +823,20 @@ function goBackFromGames() {
 function launchGame(game) {
   switchSound();
   const frame = document.getElementById('gamePlayerFrame');
-  frame.src = GAME_BASE_PATH + encodeURIComponent(game._folder) + '/' + game.entry;
+  const newSrc = GAME_BASE_PATH + encodeURIComponent(game._folder) + '/' + game.entry;
+  // Only set src if not already preloaded (avoids reload)
+  if (frame._preloaded !== game._folder) {
+    frame.src = newSrc;
+    frame._preloaded = game._folder;
+  }
   showScreen('screenGamePlayer');
   history.pushState({ fanView: 'gamePlay', game: game._folder }, '', '?persona=games&play=' + encodeURIComponent(game._folder));
 }
 
 function closeGamePlayer() {
   clickSound();
-  document.getElementById('gamePlayerFrame').src = '';
+  // Keep iframe src alive (preloaded) — don't reset to ''
+  // Game stays in memory; next launch is instant
   showScreen('screenGames');
   history.replaceState({ fanView: 'games' }, '', '?persona=games');
 }

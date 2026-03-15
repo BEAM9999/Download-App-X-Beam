@@ -1,0 +1,8 @@
+{
+  "name": "Slime Bouncer",
+  "icon": "icon.png",
+  "iconType": "image",
+  "description": "ผจญภัยเก็บเหรียญทอง 4 โลก บอสลึกลับ",
+  "status": "ready",
+  "entry": "index.html"
+}
